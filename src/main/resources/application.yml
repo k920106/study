@@ -2,14 +2,19 @@ spring:
   profiles:
     active: local # 기본 환경 선택
   datasource:
-    data: classpath:data-h2.sql # 시작할때 실행시킬 script
+    url: jdbc:mysql://disk.creamcookie.cc:3306/barun?autoReconnection=true&autoReconnectForPools=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=JST
+    username: barun
+    password: a123456A
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
-  h2:
-    console:
-      enabled: true
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  output:
+    ansi:
+      enabled: always
 
 pebble:
   suffix: .html

@@ -1,13 +1,15 @@
-package com.jojoldu.webservice.dto.posts;
+package com.jojoldu.webservice.board.dto;
 
-import com.jojoldu.webservice.domain.posts.Posts;
+import com.jojoldu.webservice.board.entity.Board;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Getter
+@NoArgsConstructor
 public class PostsMainResponseDto {
 
     private Long id;
@@ -15,7 +17,8 @@ public class PostsMainResponseDto {
     private String author;
     private String modifiedDate;
 
-    public PostsMainResponseDto(Posts entity) {
+
+    public PostsMainResponseDto(Board entity) {
         id = entity.getId();
         title = entity.getTitle();
         author = entity.getAuthor();
