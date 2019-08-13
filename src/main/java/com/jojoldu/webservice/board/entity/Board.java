@@ -1,15 +1,22 @@
 package com.jojoldu.webservice.board.entity;
 
 import com.jojoldu.webservice.BaseTimeEntity;
+import com.jojoldu.webservice.sign.entity.Sign;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
+import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Entity
 public class Board extends BaseTimeEntity {
 
@@ -17,21 +24,20 @@ public class Board extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 500, nullable = false)
+    @Column(length = 50, nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(length = 500, nullable = false)
     private String content;
 
-    @Column(length = 1000, nullable = false)
-    private String author;
+    @ManyToOne
+    private Sign sign;
 
     @Builder
-    public Board(Long id, String title, String content, String author) {
+    public Board(Long id, String title, String content) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.author = author;
     }
 }
 

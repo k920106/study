@@ -33,6 +33,7 @@
             <th>내용</th>
             <th>작성자</th>
             <th>최종수정일</th>
+            <th>기타</th>
         </tr>
         </thead>
         <tbody id="tbody">
@@ -40,9 +41,14 @@
         <tr>
             <td class="post-id" data-value="{{ postslist.id }}">{{ postslist.id }}</td>
             <td><a href="#" data-toggle="modal" data-target="#infoModal" class="abutton">{{ postslist.title }}</td>
-            <td>{{ postlist.content }}</td>
+            <td>{{ postslist.content }}</td>
             <td>{{ postslist.author }}</td>
             <td>{{ postslist.modifiedDate }}</td>
+            <td>
+                <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editPostsModal" class="userModify">수정</button>-->
+                <a href="#" data-toggle="modal" data-target="#editPostsModal" class="userModify">수정</a>
+                <a href="#" class="deleteModify">삭제</a>
+            </td>
         </tr>
         {% endfor %}
         </tbody>
@@ -51,30 +57,6 @@
         <span>게시글번호 : </span><input type="text" id="hide-text">
     </div>
 </div>
-
-<!--
-
-<div class="col-md-12">
-    <br/>
-    <br/>
-    &lt;!&ndash; 목록 출력 영역 &ndash;&gt;
-    <table class="table table-horizontal table-bordered" id="">
-        <thead class="thead-strong">
-        <tr>
-            <th>댓글</th>
-            <th>게시글번호</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>  </td>
-            <td>  </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
--->
-
 
 <!-- Modal 영역 - 등록 -->
 <div class="modal fade" id="savePostsModal" tabindex="-1" role="dialog" aria-labelledby="savePostsLabel" aria-hidden="true">
@@ -93,12 +75,12 @@
                         <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
                     </div>
                     <div class="form-group">
-                        <label for="author"> 작성자 </label>
-                        <input type="text" class="form-control" id="author" placeholder="작성자를 입력하세요">
-                    </div>
-                    <div class="form-group">
                         <label for="content"> 내용 </label>
                         <textarea class="form-control" id="content" placeholder="내용을 입력하세요"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="author"> 작성자 </label>
+                        <input type="text" class="form-control" id="author" placeholder="작성자를 입력하세요">
                     </div>
                 </form>
             </div>
@@ -150,8 +132,38 @@
                 </form>
             </div>
             <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="info-save">등록</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 영역 - 수정 -->
+<div class="modal fade" id="editPostsModal" tabindex="-1" role="dialog" aria-labelledby="editPostsLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="savePostsLabel">게시글 수정</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="title">제목</label>
+                        <input type="text" class="form-control" id="editTitle" placeholder="제목을 입력하세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="content"> 내용 </label>
+                        <textarea class="form-control" id="editContent" placeholder="내용을 입력하세요"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                <button type="button" class="btn btn-primary" id="info-save">등록</button>
+                <button type="button" class="btn btn-primary" id="editSave">등록</button>
             </div>
         </div>
     </div>

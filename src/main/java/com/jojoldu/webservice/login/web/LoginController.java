@@ -2,13 +2,13 @@ package com.jojoldu.webservice.login.web;
 
 import com.jojoldu.webservice.login.service.LoginService;
 import com.jojoldu.webservice.sign.dto.SignDto;
+import java.io.PrintWriter;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 
 @Controller
 @AllArgsConstructor
@@ -22,7 +22,7 @@ public class LoginController {
     }
 
     @PostMapping("/login-check")
-    public String loginSuccess(SignDto signDto, HttpServletResponse response) throws Exception {
+    public String loginSuccess(SignDto signDto, HttpSession session, HttpServletResponse response) throws Exception {
 
         SignDto loginid = loginService.findByUserid(signDto);
 
@@ -62,12 +62,22 @@ public class LoginController {
 
             }else{
 
+                session.setAttribute("userid", loginid.getUserid());
+
                 System.out.println("로그인 성공");
 
                 return "/main";
             }
         }
 
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+
+        session.invalidate();
+
+        return "main";
     }
 
 }

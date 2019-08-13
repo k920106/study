@@ -1,10 +1,13 @@
+server:
+  port: 9090
+
 spring:
   profiles:
     active: local # 기본 환경 선택
   datasource:
-    url: jdbc:mysql://disk.creamcookie.cc:3306/barun?autoReconnection=true&autoReconnectForPools=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=JST
-    username: barun
-    password: a123456A
+    url: jdbc:mysql://disk.creamcookie.cc:3306/barunlaw?autoReconnection=true&autoReconnectForPools=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=JST
+    username: barunlaw
+    password: barunlaw!@#
   jpa:
     show-sql: true
     hibernate:

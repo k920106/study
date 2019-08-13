@@ -11,12 +11,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BoardDto {
 
+    private Long id;
     private String title;
     private String content;
     private String author;
 
     @Builder
-    public BoardDto(String title, String content, String author) {
+    public BoardDto(Long id, String title, String content, String author) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.author = author;
@@ -24,9 +26,9 @@ public class BoardDto {
 
     public Board toEntity(){
         return Board.builder()
+                .id(id)
                 .title(title)
                 .content(content)
-                .author(author)
                 .build();
     }
 

@@ -9,27 +9,32 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class SignDto {
 
+    private Long id;
     private String userid;
     private String pw;
 
     @Builder
-    public SignDto(String userid, String pw) {
+    public SignDto(Long id, String userid, String pw) {
+        this.id = id;
         this.userid = userid;
         this.pw = pw;
     }
 
     public SignDto(Sign entity) {
+        id = entity.getId();
         userid = entity.getUserid();
         pw = entity.getPw();
     }
 
     public Sign toEntity() {
         return Sign.builder()
-                .userid(userid)
-                .pw(pw)
-                .build();
+                            .id(id)
+                            .userid(userid)
+                            .pw(pw)
+                            .build();
     }
 
 }

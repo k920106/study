@@ -10,8 +10,7 @@ public class WebController {
 
     // 홈
     @GetMapping("/")
-    public String main() {
+    public String main(){
         return "main";
     }
-
 }

@@ -1,5 +1,6 @@
 //package com.jojoldu.webservice.domain.posts;
 //
+//import com.jojoldu.webservice.board.repository.PostsRepository;
 //import com.jojoldu.webservice.domain.member.Member;
 //import org.junit.After;
 //import org.junit.Test;

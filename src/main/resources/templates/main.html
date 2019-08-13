@@ -16,9 +16,35 @@
 
 </style>
 <body>
-<a href="/"><h1>홈</h1></a>
-<a href="/sign-main">회원가입</a> <br>
-<a href="/login-main">로그인</a> <br>
+<a href="/" style="border: 0px solid silver;"> <span style="font-size: 30px; border: 1px solid silver">홈</span> </a> &nbsp &nbsp
+{% if userid is empty %}
+
+{% else %}
+<span>{{ userid }}님 접속중!</span>
+{% endif %}
+
+<br>
+
+{% if userid is empty %}
+
+<a href="/sign-main">회원가입</a>
+<br>
+<a href="/login-main">로그인</a>
+<br>
 <a href="/board-main">게시판</a>
+<br>
+<a href="/list-main">회원리스트</a>
+
+{% else %}
+
+<a href="/logout">로그아웃</a>
+<br>
+<a href="/board-main">게시판</a>
+<br>
+<a href="/list-main">회원리스트</a>
+
+{% endif %}
+
+
 </body>
 </html>

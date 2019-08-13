@@ -16,8 +16,6 @@ var main = {
 
 			$('#hide-text').val(text);
 
-			//$("#comment-list").remove();
-
 			_this.one();
 			_this.loadingComment();
 		});
@@ -28,8 +26,34 @@ var main = {
 			_this.loadingComment();
 		});
 
+		/*------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+		/*회원 리스트 - 수정창 클릭*/
+    $('#listall .userModify').on('click', function() {
+
+			var text = $(this).closest("tr").find("td:first").text();
+
+			$('#hide-text').val(text);
+
+		});
+
+    $('#editSave').on('click', function() {
+      console.log('click')
+      _this.userModifeid();
+    });
+
+		$('.deleteModify').on('click', function() {
+
+			var text = $(this).closest("tr").find("td:first").text();
+
+			$('#hide-text').val(text);
+
+			_this.userDeleted();
+		});
+
 	}
 	,
+
 	/*게시글 등록*/
 	save : function() {
 		var data = {
@@ -107,10 +131,6 @@ var main = {
 	/*댓글 조회*/
 	loadingComment : function() {
 
-		var data = {
-			listNum : $('#hide-text').val()
-		};
-
 		$.ajax({
 			type: 'GET',
 			url: '/infocomment/' + $('#hide-text').val(),
@@ -127,7 +147,46 @@ var main = {
 		}).fail(function () {
 			alert("에러")
 		});
-	}
+	},
+
+	/*회원리스트 - 수정창 클릭*/
+	userModifeid : function() {
+
+    var data = {
+      title: $('#editTitle').val(),
+      content: $('#editContent').val()
+    };
+
+
+		$.ajax({
+			type: 'POST',
+			url: '/list-edit/' + $("#hide-text").val(),
+			dataType: 'json',
+			contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify(data)
+		}).done(function(){
+		}).fail(function(err) {
+		});
+
+	},
+
+
+
+	/*회원리스트 - 수정창 클릭*/
+	userDeleted : function() {
+
+	$.ajax({
+		type: 'GET',
+		url: '/list-delete/' + $("#hide-text").val(),
+		dataType: 'json',
+		contentType: 'application/json; charset=utf-8'
+	}).done(function(){
+	}).fail(function(err) {
+	});
+
+}
+
+
 
 
 };

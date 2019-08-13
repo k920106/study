@@ -16,7 +16,7 @@ public class LoginService {
     // Controller - 로그인 체크
     @Transactional(readOnly = true)
     public SignDto findByUserid(SignDto signDto) throws Exception {
-        
+
         Sign loginid = signRepository.findByUserid(signDto.getUserid());
 
         // 만약 아이디를 잘못 입력하면?
