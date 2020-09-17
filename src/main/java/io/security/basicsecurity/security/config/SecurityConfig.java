@@ -1,5 +1,6 @@
 package io.security.basicsecurity.security.config;
 
+import io.security.basicsecurity.security.common.FormAuthenticationDetailsSource;
 import io.security.basicsecurity.security.handler.CustomAccessDeniedHandler;
 import io.security.basicsecurity.security.provider.FormAuthenticationProvider;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +9,6 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private AuthenticationFailureHandler customAuthenticationFailureHandler;
 
   @Autowired
-  private AuthenticationDetailsSource authenticationDetailsSource;
+  private FormAuthenticationDetailsSource authenticationDetailsSource;
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -64,13 +64,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     return super.authenticationManagerBean();
   }
 
-//  @Bean
-//  public AjaxLoginProcessingFilter ajaxLoginProcessingFilter() throws Exception {
-//    AjaxLoginProcessingFilter ajaxLoginProcessingFilter = new AjaxLoginProcessingFilter();
-//    ajaxLoginProcessingFilter.setAuthenticationManager(authenticationManagerBean());
-//    return ajaxLoginProcessingFilter;
-//  }
-
   @Bean
   public PasswordEncoder passwordEncoder() {
     return PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -93,17 +86,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticationDetailsSource(authenticationDetailsSource)
             .successHandler(customAuthenticationSuccessHandler)
             .failureHandler(customAuthenticationFailureHandler)
-            .permitAll();
-//            .and()
-//            .exceptionHandling()
-//            .accessDeniedHandler(accessDeniedHandler());
-    http
+            .permitAll()
+            .and()
+            .exceptionHandling()
+            .accessDeniedHandler(accessDeniedHandler())
+            .and()
             .exceptionHandling()
             .accessDeniedHandler(accessDeniedHandler());
-//            .and()
-//            .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
-//    http
-//            .csrf().disable();
   }
 
 }
