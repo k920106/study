@@ -1,6 +1,6 @@
 package io.security.basicsecurity.security.service;
 
-import io.security.basicsecurity.domain.Account;
+import io.security.basicsecurity.domain.entity.Account;
 import io.security.basicsecurity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service("userDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
@@ -27,10 +29,17 @@ public class CustomUserDetailsService implements UserDetailsService {
       throw new UsernameNotFoundException("UsernameNotFoundException");
     }
 
-    List<GrantedAuthority> roles = new ArrayList<>();
-    roles.add(new SimpleGrantedAuthority(account.getRole()));
+    Set<String> userRoles = account.getUserRoles()
+            .stream()
+            .map(userRole -> userRole.getRoleName())
+            .collect(Collectors.toSet());
+//    List<GrantedAuthority> roles = new ArrayList<>();
+//    roles.add(new SimpleGrantedAuthority(account.getRole()));
 
-    AccountContext accountContext = new AccountContext(account, roles);
+    List<GrantedAuthority> collect = userRoles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+
+    AccountContext accountContext = new AccountContext(account, collect);
+//    AccountContext accountContext = new AccountContext(account, roles);
 
     return accountContext;
   }
