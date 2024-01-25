@@ -1,5 +1,6 @@
 package kr.co.kangminsung.myrestfulservice.controller;
 
+import jakarta.validation.Valid;
 import kr.co.kangminsung.myrestfulservice.dao.User;
 import kr.co.kangminsung.myrestfulservice.dao.UserDaoService;
 import kr.co.kangminsung.myrestfulservice.exception.UserNotFoundException;
@@ -35,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = service.save(user);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
