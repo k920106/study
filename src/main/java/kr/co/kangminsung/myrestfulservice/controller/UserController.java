@@ -1,7 +1,6 @@
 package kr.co.kangminsung.myrestfulservice.controller;
 
-//import jakarta.validation.Valid;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import kr.co.kangminsung.myrestfulservice.dao.User;
 import kr.co.kangminsung.myrestfulservice.dao.UserDaoService;
 import kr.co.kangminsung.myrestfulservice.exception.UserNotFoundException;

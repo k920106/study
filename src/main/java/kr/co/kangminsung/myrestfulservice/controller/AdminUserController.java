@@ -3,7 +3,6 @@ package kr.co.kangminsung.myrestfulservice.controller;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import kr.co.kangminsung.myrestfulservice.dao.AdminUser;
 import kr.co.kangminsung.myrestfulservice.dao.AdminUserV2;
 import kr.co.kangminsung.myrestfulservice.dao.User;
