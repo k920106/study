@@ -1,13 +1,13 @@
 package kr.co.kangminsung.myrestfulservice.dao;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
+//import jakarta.validation.constraints.Past;
+//import jakarta.validation.constraints.Size;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
