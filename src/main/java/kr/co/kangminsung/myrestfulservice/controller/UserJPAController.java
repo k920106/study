@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import kr.co.kangminsung.myrestfulservice.dao.Post;
 import kr.co.kangminsung.myrestfulservice.dao.User;
 import kr.co.kangminsung.myrestfulservice.exception.UserNotFoundException;
+import kr.co.kangminsung.myrestfulservice.repository.PostRepository;
 import kr.co.kangminsung.myrestfulservice.repository.UserRepository;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -22,9 +23,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequestMapping("/jpa")
 public class UserJPAController {
     private UserRepository userRepository;
+    private PostRepository postRepository;
 
-    public UserJPAController(UserRepository userRepository) {
+    public UserJPAController(UserRepository userRepository, PostRepository postRepository) {
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
     }
 
     @GetMapping("/users")
@@ -72,5 +75,26 @@ public class UserJPAController {
         }
 
         return user.get().getPosts();
+    }
+
+    @PostMapping("/users/{id}/posts")
+    public ResponseEntity<Post> createPost(@PathVariable int id, @RequestBody Post post) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (!userOptional.isPresent()) {
+            throw new UserNotFoundException("id-" + id);
+        }
+
+        User user = userOptional.get();
+
+        post.setUser(user);
+
+        postRepository.save(post);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                                                  .path("/{id}")
+                                                  .buildAndExpand(post.getId())
+                                                  .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 }
