@@ -21,7 +21,7 @@ class MemberServiceIntegrationTest {
     @Autowired MemberRepository memberRepository;
 
     @Test
-    @Commit
+//    @Commit
     public void 회원가입() throws Exception {
         //Given
         Member member = new Member();
