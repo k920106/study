@@ -3,6 +3,7 @@ package com.example.stock.service;
 import com.example.stock.domain.Stock;
 import com.example.stock.facade.LettuceLockStockFacade;
 import com.example.stock.facade.NamedLockStockFacade;
+import com.example.stock.facade.RedissonLockStockFacade;
 import com.example.stock.repository.StockRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +24,8 @@ class StockServiceTest {
 //    private PessimisticLockStockService stockService;
 //    private OptimisticLockStockFacade stockService;
 //    private NamedLockStockFacade stockService;
-    private LettuceLockStockFacade stockService;
+//    private LettuceLockStockFacade stockService;
+    private RedissonLockStockFacade stockService;
 
     @Autowired
     private StockRepository stockRepository;
@@ -58,8 +60,8 @@ class StockServiceTest {
             executorService.submit(() -> {
                 try {
                     stockService.decrease(1L, 1L);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
                 } finally {
                     latch.countDown();
                 }
