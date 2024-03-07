@@ -3,6 +3,9 @@ package com.bank.www.service;
 import com.bank.www.domain.user.User;
 import com.bank.www.domain.user.UserEnum;
 import com.bank.www.domain.user.UserRepository;
+import com.bank.www.dto.user.UserReqDto;
+import com.bank.www.dto.user.UserRespDto;
+import com.bank.www.dto.user.UserRespDto.JoinRespDto;
 import com.bank.www.handler.ex.CustomApiException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +27,7 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional // 트랜잭션이 메서드 시작할 때, 시작되고, 종료될 때 함께 종료
-    public JoinRespDto 회원가입(JoinReqDto joinReqDto) {
+    public JoinRespDto 회원가입(UserReqDto.JoinReqDto joinReqDto) {
         // 1. 동일 유저네임 존재 검사
         Optional<User> userOP = userRepository.findByUsername(joinReqDto.getUsername());
         if (userOP.isPresent()) {
@@ -38,38 +41,38 @@ public class UserService {
         return new JoinRespDto(userPS);
     }
 
-    @Setter
-    @Getter
-    @ToString
-    public static class JoinRespDto {
-        private Long id;
-        private String username;
-        private String fullname;
+//    @Setter
+//    @Getter
+//    @ToString
+//    public static class JoinRespDto {
+//        private Long id;
+//        private String username;
+//        private String fullname;
+//
+//        public JoinRespDto(User user) {
+//            this.id = user.getId();
+//            this.username = user.getUsername();
+//            this.fullname = user.getFullname();
+//        }
+//    }
 
-        public JoinRespDto(User user) {
-            this.id = user.getId();
-            this.username = user.getUsername();
-            this.fullname = user.getFullname();
-        }
-    }
-
-    @Setter
-    @Getter
-    public static class JoinReqDto {
-        // 유효성 검사
-        private String username;
-        private String password;
-        private String email;
-        private String fullname;
-
-        public User toEntity(BCryptPasswordEncoder passwordEncoder) {
-            return User.builder()
-                       .username(username)
-                       .password(passwordEncoder.encode(password))
-                       .email(email)
-                       .fullname(fullname)
-                       .role(UserEnum.CUSTOMER)
-                       .build();
-        }
-    }
+//    @Setter
+//    @Getter
+//    public static class JoinReqDto {
+//        // 유효성 검사
+//        private String username;
+//        private String password;
+//        private String email;
+//        private String fullname;
+//
+//        public User toEntity(BCryptPasswordEncoder passwordEncoder) {
+//            return User.builder()
+//                       .username(username)
+//                       .password(passwordEncoder.encode(password))
+//                       .email(email)
+//                       .fullname(fullname)
+//                       .role(UserEnum.CUSTOMER)
+//                       .build();
+//        }
+//    }
 }
