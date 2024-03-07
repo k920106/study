@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @AutoConfigureMockMvc
@@ -26,6 +27,8 @@ class SecurityConfigTest {
         System.out.println("테스트 : " + httpStatusCode);
 
         // then
+        assertThat(httpStatusCode).isEqualTo(401);
+//        assertThat(httpStatusCode).isEqualTo(403); // 오류
     }
 
     @Test
@@ -33,7 +36,13 @@ class SecurityConfigTest {
         // given
 
         // when
+        ResultActions resultActions = mvc.perform(get("/api/admin/hello"));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        int httpStatusCode = resultActions.andReturn().getResponse().getStatus();
+        System.out.println("테스트 : " + responseBody);
+        System.out.println("테스트 : " + httpStatusCode);
 
         // then
+        assertThat(httpStatusCode).isEqualTo(401);
     }
 }
