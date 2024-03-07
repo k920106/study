@@ -19,11 +19,15 @@ public class SecurityConfig {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
+        log.debug("디버그 : BCryptPasswordEncoder 빈 등록됨");
+
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        log.debug("디버그 : filterChain 빈 등록됨");
+
         http.headers().frameOptions().sameOrigin(); // iframe 허용안함
         http.csrf().disable(); // enable이면 post맨 작동안함 (메타코딩 유튜브에 시큐리티 강의)
         http.cors().configurationSource(configurationSource());
@@ -40,6 +44,8 @@ public class SecurityConfig {
     }
 
     public CorsConfigurationSource configurationSource() {
+        log.debug("디버그 : configurationSource cors 설정이 SecurityFilterChain에 등록됨");
+
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedHeader("*"); // 모든 Header 요청 허용
         configuration.addAllowedMethod("*"); // GET, POST, PUT, DELETE (Javascript 요청 허용)
