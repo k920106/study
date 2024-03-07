@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,6 +40,12 @@ public class SecurityConfig {
             .antMatchers("/api/s/**").authenticated()
             .antMatchers("/api/admin/**").hasRole("" + UserEnum.ADMIN)
             .anyRequest().permitAll();
+
+        // 인증 실패
+        http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
+            response.setStatus(403);
+            response.getWriter().println("error");
+        });
 
         return http.build();
     }
