@@ -2,6 +2,7 @@ package com.bank.www.handler;
 
 import com.bank.www.dto.ResponseDto;
 import com.bank.www.handler.ex.CustomApiException;
+import com.bank.www.handler.ex.CustomValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,5 +18,11 @@ public class CustomExceptionHandler {
     public ResponseEntity<?> apiException(CustomApiException e) {
         log.error(e.getMessage());
         return new ResponseEntity<>(new ResponseDto<>(-1, e.getMessage(), null), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CustomValidationException.class)
+    public ResponseEntity<?> validationApiException(CustomValidationException e) {
+        log.error(e.getMessage());
+        return new ResponseEntity<>(new ResponseDto<>(-1, e.getMessage(), e.getErroMap()), HttpStatus.BAD_REQUEST);
     }
 }
