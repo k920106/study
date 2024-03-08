@@ -1,9 +1,7 @@
 package com.bank.www.config;
 
 import com.bank.www.domain.user.UserEnum;
-import com.bank.www.dto.ResponseDto;
 import com.bank.www.util.CustomResponseUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.nio.charset.StandardCharsets;
 
 @Configuration
 public class SecurityConfig {
@@ -48,15 +44,8 @@ public class SecurityConfig {
 
         // 인증 실패
         http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
-            CustomResponseUtil.unAuthentication(response, "로그인을 진행해 주세요");
-//            String uri = request.getRequestURI();
-//            log.debug("디버그: " + uri);
-//            if (uri.contains("admin")) {
-//                CustomResponseUtil.unAuthorization(response, "관리자로 로그인을 진행해 주세요");
-//            }
-//            else {
-//                CustomResponseUtil.unAuthentication(response, "로그인을 진행해 주세요");
-//            }
+//            CustomResponseUtil.unAuthentication(response, "로그인을 진행해 주세요");
+            CustomResponseUtil.fail(response, "로그인을 진행해 주세요", HttpStatus.UNAUTHORIZED);
         });
 
         return http.build();
