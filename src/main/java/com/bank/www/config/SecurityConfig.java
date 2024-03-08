@@ -1,5 +1,6 @@
 package com.bank.www.config;
 
+import com.bank.www.config.jwt.JwtAuthenticationFilter;
 import com.bank.www.domain.user.UserEnum;
 import com.bank.www.util.CustomResponseUtil;
 import org.slf4j.Logger;
@@ -7,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -26,6 +29,16 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // JWT 필터 등록
+    public class CustomSecurityFilterManager extends AbstractHttpConfigurer<CustomSecurityFilterManager, HttpSecurity> {
+        @Override
+        public void configure(HttpSecurity builder) throws Exception {
+            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+            builder.addFilter(new JwtAuthenticationFilter(authenticationManager));
+            super.configure(builder);
+        }
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         log.debug("디버그 : filterChain 빈 등록됨");
@@ -36,17 +49,17 @@ public class SecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // jSessionId를 서버쪽에서 관리안하겠다는 뜻
         http.formLogin().disable(); // react, 앱으로 요청할 예정
         http.httpBasic().disable(); // httpBasic은 브라우저가 팝업창을 이용해서 사용자 인증을 진행한다
+        http.apply(new CustomSecurityFilterManager()); // 필터 적용
+
+        // 인증 실패
+        http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
+            CustomResponseUtil.fail(response, "로그인을 진행해 주세요", HttpStatus.UNAUTHORIZED);
+        });
 
         http.authorizeRequests()
             .antMatchers("/api/s/**").authenticated()
             .antMatchers("/api/admin/**").hasRole("" + UserEnum.ADMIN)
             .anyRequest().permitAll();
-
-        // 인증 실패
-        http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
-//            CustomResponseUtil.unAuthentication(response, "로그인을 진행해 주세요");
-            CustomResponseUtil.fail(response, "로그인을 진행해 주세요", HttpStatus.UNAUTHORIZED);
-        });
 
         return http.build();
     }

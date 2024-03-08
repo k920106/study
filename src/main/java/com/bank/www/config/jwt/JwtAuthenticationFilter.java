@@ -41,8 +41,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             LoginReqDto loginReqDto = om.readValue(request.getInputStream(), LoginReqDto.class);
 
             // 강제 로그인
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                    loginReqDto.getUsername(), loginReqDto.getPassword());
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginReqDto.getUsername(), loginReqDto.getPassword());
 
             // UserDetailsService의 loadUserByUsername 호출
             // JWT를 쓴다 하더라도, 컨트롤러 진입을 하면 시큐리티의 권한체크, 인증체크의 도움을 받을 수 있게 세션을 만든다.
@@ -54,12 +53,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             // unsuccessfulAuthentication 호출함
             throw new InternalAuthenticationServiceException(e.getMessage());
         }
-    }
-
-    // 로그인 실패
-    @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        CustomResponseUtil.fail(response, "로그인실패", HttpStatus.UNAUTHORIZED);
     }
 
     // return authentication 잘 작동하면 successfulAuthentication 메서드 호출됩니다.
