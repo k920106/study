@@ -1,6 +1,7 @@
 package com.bank.www.config;
 
 import com.bank.www.config.jwt.JwtAuthenticationFilter;
+import com.bank.www.config.jwt.JwtAuthorizationFilter;
 import com.bank.www.domain.user.UserEnum;
 import com.bank.www.util.CustomResponseUtil;
 import org.slf4j.Logger;
@@ -35,6 +36,7 @@ public class SecurityConfig {
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
             builder.addFilter(new JwtAuthenticationFilter(authenticationManager));
+            builder.addFilter(new JwtAuthorizationFilter(authenticationManager));
             super.configure(builder);
         }
     }
@@ -54,6 +56,11 @@ public class SecurityConfig {
         // 인증 실패
         http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
             CustomResponseUtil.fail(response, "로그인을 진행해 주세요", HttpStatus.UNAUTHORIZED);
+        });
+
+        // 권한 실패
+        http.exceptionHandling().accessDeniedHandler((request, response, e) -> {
+            CustomResponseUtil.fail(response, "권한이 없습니다", HttpStatus.FORBIDDEN);
         });
 
         http.authorizeRequests()
