@@ -4,15 +4,13 @@ import com.bank.www.domain.account.Account;
 import com.bank.www.domain.account.AccountRepository;
 import com.bank.www.domain.user.User;
 import com.bank.www.domain.user.UserRepository;
+import com.bank.www.dto.account.AccountReqDto.AccountSaveReqDto;
+import com.bank.www.dto.account.AccountRespDto.AccountSaveRespDto;
 import com.bank.www.handler.ex.CustomApiException;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -40,37 +38,37 @@ public class AccountService {
         return new AccountSaveRespDto(accountPS);
     }
 
-    @Setter
-    @Getter
-    public static class AccountSaveReqDto {
-        @NotNull
-        @Digits(integer = 4, fraction = 4)
-        private Long number;
-        @NotNull
-        @Digits(integer = 4, fraction = 4)
-        private Long password;
+//    @Setter
+//    @Getter
+//    public static class AccountSaveReqDto {
+//        @NotNull
+//        @Digits(integer = 4, fraction = 4)
+//        private Long number;
+//        @NotNull
+//        @Digits(integer = 4, fraction = 4)
+//        private Long password;
+//
+//        public Account toEntity(User user) {
+//            return Account.builder()
+//                          .number(number)
+//                          .password(password)
+//                          .balance(1000L)
+//                          .user(user)
+//                          .build();
+//        }
+//    }
 
-        public Account toEntity(User user) {
-            return Account.builder()
-                          .number(number)
-                          .password(password)
-                          .balance(1000L)
-                          .user(user)
-                          .build();
-        }
-    }
-
-    @Setter
-    @Getter
-    public static class AccountSaveRespDto {
-        private Long id;
-        private Long number;
-        private Long balance;
-
-        public AccountSaveRespDto(Account account) {
-            this.id = account.getId();
-            this.number = account.getNumber();
-            this.balance = account.getBalance();
-        }
-    }
+//    @Setter
+//    @Getter
+//    public static class AccountSaveRespDto {
+//        private Long id;
+//        private Long number;
+//        private Long balance;
+//
+//        public AccountSaveRespDto(Account account) {
+//            this.id = account.getId();
+//            this.number = account.getNumber();
+//            this.balance = account.getBalance();
+//        }
+//    }
 }
