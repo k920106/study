@@ -3,9 +3,9 @@ package com.bank.www.web;
 import com.bank.www.config.auth.LoginUser;
 import com.bank.www.dto.ResponseDto;
 import com.bank.www.dto.account.AccountReqDto.AccountSaveReqDto;
+import com.bank.www.dto.account.AccountRespDto.AccountListRespDto;
 import com.bank.www.dto.account.AccountRespDto.AccountSaveRespDto;
 import com.bank.www.service.AccountService;
-import com.bank.www.service.AccountService.AccountListRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +31,11 @@ public class AccountController {
     public ResponseEntity<?> findUserAccount(@AuthenticationPrincipal LoginUser loginUser) {
         AccountListRespDto accountListRespDto = accountService.계좌목록보기_유저별(loginUser.getUser().getId());
         return new ResponseEntity<>(new ResponseDto<>(1, "계좍목록보기_유저별 성공", accountListRespDto), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/s/account/{number}")
+    public ResponseEntity<?> deleteAccount(@PathVariable Long number, @AuthenticationPrincipal LoginUser loginUser) {
+        accountService.계좌삭제(number, loginUser.getUser().getId());
+        return new ResponseEntity<>(new ResponseDto<>(1, "계좌 삭제 완료", null), HttpStatus.OK);
     }
 }
