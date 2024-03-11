@@ -2,9 +2,14 @@ package com.bank.www.service;
 
 import com.bank.www.domain.account.Account;
 import com.bank.www.domain.account.AccountRepository;
+import com.bank.www.domain.transaction.Transaction;
+import com.bank.www.domain.transaction.TransactionEnum;
+import com.bank.www.domain.transaction.TransactionRepository;
 import com.bank.www.domain.user.User;
 import com.bank.www.domain.user.UserRepository;
+import com.bank.www.dto.account.AccountReqDto.AccountDepositReqDto;
 import com.bank.www.dto.account.AccountReqDto.AccountSaveReqDto;
+import com.bank.www.dto.account.AccountRespDto.AccountDepositRespDto;
 import com.bank.www.dto.account.AccountRespDto.AccountListRespDto;
 import com.bank.www.dto.account.AccountRespDto.AccountSaveRespDto;
 import com.bank.www.handler.ex.CustomApiException;
@@ -21,6 +26,7 @@ import java.util.Optional;
 public class AccountService {
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
+    private final TransactionRepository transactionRepository;
 
     public AccountListRespDto 계좌목록보기_유저별(Long userId) {
         User userPS = userRepository.findById(userId).orElseThrow(() -> new CustomApiException("유저를 찾을 수 없습니다"));
@@ -58,5 +64,37 @@ public class AccountService {
 
         // 3. 계좌 삭제
         accountRepository.deleteById(accountPS.getId());
+    }
+
+    // ATM -> 누군가의 계좌
+    // 인증이 필요 없다.
+    @Transactional
+    public AccountDepositRespDto 계좌입금(AccountDepositReqDto accountDepositReqDto) {
+        // 0원 체크
+        if (accountDepositReqDto.getAmount() <= 0L) {
+            throw new CustomApiException("0원 이하의 금액을 입금할 수 없습니다");
+        }
+
+        // 입금계좌 확인
+        Account depositAccountPS = accountRepository.findByNumber(accountDepositReqDto.getNumber()).orElseThrow(() -> new CustomApiException("계좌를 찾을 수 없습니다"));
+
+        // 입금 (해당 계좌 balance 조정 - update문 - 더티체킹)
+        depositAccountPS.deposit(accountDepositReqDto.getAmount());
+
+        // 거래내역 남기기
+        Transaction transaction = Transaction.builder()
+                                             .withdrawAccount(null)
+                                             .depositAccount(depositAccountPS)
+                                             .withdrawAccountBalance(null)
+                                             .depositAccountBalance(depositAccountPS.getBalance())
+                                             .amount(accountDepositReqDto.getAmount())
+                                             .gubun(TransactionEnum.DEPOSIT)
+                                             .sender("ATM")
+                                             .receiver(accountDepositReqDto.getNumber() + "")
+                                             .tel(accountDepositReqDto.getTel())
+                                             .build();
+
+        Transaction transactionPS = transactionRepository.save(transaction);
+        return new AccountDepositRespDto(depositAccountPS, transactionPS);
     }
 }
