@@ -9,9 +9,11 @@ import com.bank.www.domain.user.User;
 import com.bank.www.domain.user.UserRepository;
 import com.bank.www.dto.account.AccountReqDto.AccountDepositReqDto;
 import com.bank.www.dto.account.AccountReqDto.AccountSaveReqDto;
+import com.bank.www.dto.account.AccountReqDto.AccountWithdrawReqDto;
 import com.bank.www.dto.account.AccountRespDto.AccountDepositRespDto;
 import com.bank.www.dto.account.AccountRespDto.AccountListRespDto;
 import com.bank.www.dto.account.AccountRespDto.AccountSaveRespDto;
+import com.bank.www.dto.account.AccountRespDto.AccountWithdrawRespDto;
 import com.bank.www.handler.ex.CustomApiException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -96,5 +98,45 @@ public class AccountService {
 
         Transaction transactionPS = transactionRepository.save(transaction);
         return new AccountDepositRespDto(depositAccountPS, transactionPS);
+    }
+
+    @Transactional
+    public AccountWithdrawRespDto 계좌출금(AccountWithdrawReqDto accountWithdrawReqDto, Long userId) {
+        // 0원 체크
+        if (accountWithdrawReqDto.getAmount() <= 0L) {
+            throw new CustomApiException("0원 이하의 금액을 입금할 수 없습니다");
+        }
+
+        // 출금계좌 확인
+        Account withdrawAccountPS = accountRepository.findByNumber(accountWithdrawReqDto.getNumber()).orElseThrow(() -> new CustomApiException("계좌를 찾을 수 없습니다"));
+
+        // 출금 소유자 확인 (로그인한 사람과 동일한지)
+        withdrawAccountPS.checkOwner(userId);
+
+        // 출금계좌 비빌번호 확인
+        withdrawAccountPS.checkSamePassword(accountWithdrawReqDto.getPassword());
+
+        // 출금계좌 잔액 확인
+        withdrawAccountPS.checkBalance(accountWithdrawReqDto.getAmount());
+
+        // 출금하기
+        withdrawAccountPS.withdraw(accountWithdrawReqDto.getAmount());
+
+        // 거래내역 남기기 (내 계좌에서 ATM으로 출금)
+        Transaction transaction = Transaction.builder()
+                                             .withdrawAccount(withdrawAccountPS)
+                                             .depositAccount(null)
+                                             .withdrawAccountBalance(withdrawAccountPS.getBalance())
+                                             .depositAccountBalance(null)
+                                             .amount(accountWithdrawReqDto.getAmount())
+                                             .gubun(TransactionEnum.WITHDRAW)
+                                             .sender(accountWithdrawReqDto.getNumber() + "")
+                                             .receiver("ATM")
+                                             .build();
+
+        Transaction transactionPS = transactionRepository.save(transaction);
+
+        // DTO응답
+        return new AccountWithdrawRespDto(withdrawAccountPS, transactionPS);
     }
 }
