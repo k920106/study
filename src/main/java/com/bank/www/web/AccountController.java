@@ -4,9 +4,11 @@ import com.bank.www.config.auth.LoginUser;
 import com.bank.www.dto.ResponseDto;
 import com.bank.www.dto.account.AccountReqDto.AccountDepositReqDto;
 import com.bank.www.dto.account.AccountReqDto.AccountSaveReqDto;
+import com.bank.www.dto.account.AccountReqDto.AccountWithdrawReqDto;
 import com.bank.www.dto.account.AccountRespDto;
 import com.bank.www.dto.account.AccountRespDto.AccountListRespDto;
 import com.bank.www.dto.account.AccountRespDto.AccountSaveRespDto;
+import com.bank.www.dto.account.AccountRespDto.AccountWithdrawRespDto;
 import com.bank.www.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -45,5 +47,11 @@ public class AccountController {
     public ResponseEntity<?> depositAccount(@RequestBody @Valid AccountDepositReqDto accountDepositReqDto, BindingResult bindingResult) {
         AccountRespDto.AccountDepositRespDto accountDepositRespDto = accountService.계좌입금(accountDepositReqDto);
         return new ResponseEntity<>(new ResponseDto<>(1, "계좌 입금 완료", accountDepositRespDto), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/s/account/withdraw")
+    public ResponseEntity<?> withdrawAccount(@RequestBody @Valid AccountWithdrawReqDto accountWithdrawReqDto, BindingResult bindingResult, @AuthenticationPrincipal LoginUser loginUser) {
+        AccountWithdrawRespDto accountWithdrawRespDto = accountService.계좌출금(accountWithdrawReqDto, loginUser.getUser().getId());
+        return new ResponseEntity<>(new ResponseDto<>(1, "계좌 출금 완료", accountWithdrawRespDto), HttpStatus.CREATED);
     }
 }

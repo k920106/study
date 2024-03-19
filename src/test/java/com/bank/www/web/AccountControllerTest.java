@@ -4,7 +4,6 @@ import com.bank.www.config.dummy.DummyObject;
 import com.bank.www.domain.account.AccountRepository;
 import com.bank.www.domain.user.User;
 import com.bank.www.domain.user.UserRepository;
-import com.bank.www.dto.account.AccountReqDto;
 import com.bank.www.dto.account.AccountReqDto.AccountDepositReqDto;
 import com.bank.www.dto.account.AccountReqDto.AccountSaveReqDto;
 import com.bank.www.handler.ex.CustomApiException;
@@ -21,10 +20,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import static com.bank.www.dto.account.AccountReqDto.AccountWithdrawReqDto;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -112,6 +111,30 @@ class AccountControllerTest extends DummyObject {
                                          .contentType(MediaType.APPLICATION_JSON));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
+
+        // then
+        resultActions.andExpect(status().isCreated());
+    }
+
+    @WithUserDetails(value = "ssar", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void withdrawAccount_test() throws Exception {
+        // given
+        AccountWithdrawReqDto accountWithdrawReqDto = new AccountWithdrawReqDto();
+        accountWithdrawReqDto.setNumber(1111L);
+        accountWithdrawReqDto.setPassword(1234L);
+        accountWithdrawReqDto.setAmount(100L);
+        accountWithdrawReqDto.setGubun("WITHDRAW");
+
+        String requestBody = om.writeValueAsString(accountWithdrawReqDto);
+        System.out.println("테스트 : " + requestBody);
+
+        // when
+        ResultActions resultActions = mvc.perform(post("/api/s/account/withdraw")
+                                         .content(requestBody)
+                                         .contentType(MediaType.APPLICATION_JSON));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 체크 : " + responseBody);
 
         // then
         resultActions.andExpect(status().isCreated());
