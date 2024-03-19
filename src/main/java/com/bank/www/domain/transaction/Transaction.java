@@ -23,20 +23,20 @@ public class Transaction {
 
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     @ManyToOne(fetch = FetchType.LAZY)
-    private Account withdrawAccount;
+    private Account withdrawAccount; // 출금 계좌
 
     @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     @ManyToOne(fetch = FetchType.LAZY)
-    private Account depositAccount;
+    private Account depositAccount; // 입금 계좌
 
     @Column(nullable = false)
     private Long amount;
 
     @Column
-    private Long withdrawAccountBalance;
+    private Long withdrawAccountBalance; // 출금 잔액
 
     @Column
-    private Long depositAccountBalance;
+    private Long depositAccountBalance; // 입금 잔액
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

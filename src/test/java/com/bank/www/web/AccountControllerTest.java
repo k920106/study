@@ -4,7 +4,10 @@ import com.bank.www.config.dummy.DummyObject;
 import com.bank.www.domain.account.AccountRepository;
 import com.bank.www.domain.user.User;
 import com.bank.www.domain.user.UserRepository;
+import com.bank.www.dto.account.AccountReqDto;
+import com.bank.www.dto.account.AccountReqDto.AccountDepositReqDto;
 import com.bank.www.dto.account.AccountReqDto.AccountSaveReqDto;
+import com.bank.www.handler.ex.CustomApiException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -87,6 +91,30 @@ class AccountControllerTest extends DummyObject {
         System.out.println("테스트 : " + responseBody);
 
         // then
+        assertThrows(CustomApiException.class, () -> accountRepository.findByNumber(number).orElseThrow(() -> new CustomApiException("계좌를 찾을 수 없습니다")));
+    }
+
+    @Test
+    public void depositAccount_test() throws Exception {
+        // given
+        AccountDepositReqDto accountDepositReqDto = new AccountDepositReqDto();
+        accountDepositReqDto.setNumber(1111L);
+        accountDepositReqDto.setAmount(100L);
+        accountDepositReqDto.setGubun("DEPOSIT");
+        accountDepositReqDto.setTel("01088887777");
+
+        String requestBody = om.writeValueAsString(accountDepositReqDto);
+        System.out.println("테스트 : " + requestBody);
+
+        // when
+        ResultActions resultActions = mvc.perform(post("/api/account/deposit")
+                                         .content(requestBody)
+                                         .contentType(MediaType.APPLICATION_JSON));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // then
+        resultActions.andExpect(status().isCreated());
     }
 
     private void dataSetting() {

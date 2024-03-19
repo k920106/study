@@ -64,11 +64,11 @@ public class DummyObject {
         account.deposit(100L);
         Transaction transaction = Transaction.builder()
                                              .id(id)
-                                             .withdrawAccount(null)
-                                             .depositAccount(account)
-                                             .withdrawAccountBalance(null)
-                                             .depositAccountBalance(account.getBalance())
-                                             .amount(100L)
+                                             .withdrawAccount(null) // 출금 계좌
+                                             .depositAccount(account) // 입금 계좌
+                                             .withdrawAccountBalance(null) // 출금 잔액
+                                             .depositAccountBalance(account.getBalance()) // 입금 잔액
+                                             .amount(100L) // 금액
                                              .gubun(TransactionEnum.DEPOSIT)
                                              .sender("ATM")
                                              .receiver(account.getNumber() + "")
