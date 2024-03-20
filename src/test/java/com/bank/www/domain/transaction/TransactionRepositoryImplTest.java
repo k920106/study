@@ -14,6 +14,8 @@ import org.springframework.test.context.ActiveProfiles;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @ActiveProfiles("test")
 @DataJpaTest // DB 관련된 Bean이 다 올라온다.
 public class TransactionRepositoryImplTest extends DummyObject {
@@ -49,6 +51,7 @@ public class TransactionRepositoryImplTest extends DummyObject {
         });
 
         // then
+        assertThat(transactionListPS.get(3).getDepositAccountBalance()).isEqualTo(800L);
     }
 
     private void dataSetting() {
