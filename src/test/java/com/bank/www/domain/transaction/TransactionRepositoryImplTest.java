@@ -32,9 +32,12 @@ public class TransactionRepositoryImplTest extends DummyObject {
     public void findTransactionList_all_test() throws Exception {
         // given
         Long accountId = 1L;
+//        Long accountId = 2L;
 
         // when
         List<Transaction> transactionListPS = transactionRepository.findTransactionList(accountId, "ALL", 0);
+//        List<Transaction> transactionListPS = transactionRepository.findTransactionList(accountId, "WITHDRAW", 0);
+//        List<Transaction> transactionListPS = transactionRepository.findTransactionList(accountId, "DEPOSIT", 0);
         transactionListPS.forEach((t) -> {
             System.out.println("테스트 : id : " + t.getId());
             System.out.println("테스트 : amount : " + t.getAmount());
