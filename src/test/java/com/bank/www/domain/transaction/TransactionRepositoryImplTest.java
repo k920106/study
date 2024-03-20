@@ -29,27 +29,23 @@ public class TransactionRepositoryImplTest extends DummyObject {
     }
 
     @Test
-    public void dataJpa_test1() throws Exception {
-        List<Transaction> transactionListPS = transactionRepository.findAll();
-        transactionListPS.forEach((t) -> {
-            System.out.println("테스트 : id : " + t.getId());
-            System.out.println("테스트 : sender : " + t.getSender());
-            System.out.println("테스트 : reciver : " + t.getReceiver());
-            System.out.println("테스트 : gubun : " + t.getGubun());
-            System.out.println("테스트 : ======================================");
-        });
-    }
+    public void findTransactionList_all_test() throws Exception {
+        // given
+        Long accountId = 1L;
 
-    @Test
-    public void dataJpa_test2() throws Exception {
-        List<Transaction> transactionListPS = transactionRepository.findAll();
+        // when
+        List<Transaction> transactionListPS = transactionRepository.findTransactionList(accountId, "ALL", 0);
         transactionListPS.forEach((t) -> {
             System.out.println("테스트 : id : " + t.getId());
+            System.out.println("테스트 : amount : " + t.getAmount());
             System.out.println("테스트 : sender : " + t.getSender());
             System.out.println("테스트 : reciver : " + t.getReceiver());
-            System.out.println("테스트 : gubun : " + t.getGubun());
+            System.out.println("테스트 : withdrawAccount잔액 : " + t.getWithdrawAccountBalance());
+            System.out.println("테스트 : depositAccount잔액 : " + t.getDepositAccountBalance());
             System.out.println("테스트 : ======================================");
         });
+
+        // then
     }
 
     private void dataSetting() {
