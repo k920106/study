@@ -25,4 +25,12 @@ public class Member {
     public void setName(String anme) {
         this.name = anme;
     }
+
+    public Member() {
+    }
+
+    public Member(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
