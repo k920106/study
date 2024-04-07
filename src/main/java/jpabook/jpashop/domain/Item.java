@@ -1,13 +1,13 @@
 package jpabook.jpashop.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 //@NoArgsConstructor
@@ -25,4 +25,7 @@ public class Item {
     private int price;
 
     private int stockQuantity;
+
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categorys = new ArrayList<>();
 }
