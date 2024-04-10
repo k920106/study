@@ -1,10 +1,16 @@
 package hellojpa;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Setter
+@Getter
 @Entity
 public class Product {
     @Id
