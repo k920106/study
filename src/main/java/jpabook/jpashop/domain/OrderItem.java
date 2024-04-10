@@ -1,20 +1,15 @@
 package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import java.time.LocalDateTime;
-
-@RequiredArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Setter
 @Getter
 @Entity
-public class OrderItem {
+public class OrderItem extends BaseEntity {
     @Id @GeneratedValue
     @Column(name = "ORDER_ITEM_ID")
     private Long id;

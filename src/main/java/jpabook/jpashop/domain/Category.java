@@ -1,12 +1,18 @@
 package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Setter
+@Getter
 @Entity
-public class Category {
+public class Category extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;

@@ -1,21 +1,20 @@
 package jpabook.jpashop.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
-//@NoArgsConstructor
+@DiscriminatorColumn
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Setter
 @Getter
 @Entity
-public class Item {
+public abstract class Item {
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long id;

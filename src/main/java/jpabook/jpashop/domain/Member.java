@@ -6,13 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
 
-@RequiredArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Setter
 @Getter
 @Entity
-public class Member {
+public class Member extends BaseEntity {
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
