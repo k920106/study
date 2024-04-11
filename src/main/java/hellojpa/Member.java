@@ -3,9 +3,6 @@ package hellojpa;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -24,12 +21,4 @@ public class Member extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "TEAM_ID")
     private Team team;
-
-    @OneToOne
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
-
-    @ManyToMany
-    @JoinTable(name = "MEMBER_PRODUCT")
-    private List<Product> products = new ArrayList<>();
 }
