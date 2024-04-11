@@ -14,9 +14,6 @@ public class JpaMain {
         tx.begin();
 
         try {
-            em.flush();
-            em.clear();
-
             tx.commit();
         } catch (Exception e) {
             tx.rollback();

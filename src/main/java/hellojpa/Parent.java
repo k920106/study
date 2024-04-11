@@ -1,0 +1,29 @@
+package hellojpa;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Setter
+@Getter
+@Entity
+public class Parent {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String name;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private List<Child> childList = new ArrayList<>();
+
+    public void addChild(Child child) {
+        childList.add(child);
+        child.setParent(this);
+    }
+}
