@@ -1,11 +1,13 @@
 package hellojpa;
 
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@Setter
+@Getter
 @Embeddable
 public class Address {
     private String city;
