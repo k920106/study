@@ -3,13 +3,17 @@ package hellojpa;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Setter
 @Getter
 @Entity
-//public class Member extends BaseEntity {
 public class Member {
     @Id
     @GeneratedValue
@@ -20,20 +24,14 @@ public class Member {
     private String username;
 
     @Embedded
-    private Period workPeriod;
-
-    @AttributeOverrides({
-            @AttributeOverride(name="city", column=@Column(name="WORK_CITY")),
-            @AttributeOverride(name="street", column=@Column(name="WORK_STREET")),
-            @AttributeOverride(name="zipcode", column=@Column(name="WORK_ZIPCODE"))
-    })
-    @Embedded
     private Address homeAddress;
 
-    @Embedded
-    private Address workAddress;
+    @ElementCollection
+    @CollectionTable(name = "FAVORITE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    @Column(name = "FOOD_NAME")
+    private Set<String> favoriteFoods = new HashSet<>();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "TEAM_ID")
-//    private Team team;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "MEMBER_ID")
+    private List<AddressEntity> addressHistory = new ArrayList<>();
 }
