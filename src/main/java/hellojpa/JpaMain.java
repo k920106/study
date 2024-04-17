@@ -1,9 +1,11 @@
 package hellojpa;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
+
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -14,6 +16,23 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Member member = new Member();
+            member.setUsername("member1");
+
+            em.persist(member);
+
+            // flush -> commit, query
+
+//            em.createNativeQuery("SELECT MEMBER_ID, city, street, zipcode, USERNAME " +
+//                    "                FROM MEMBER").getResultList();
+            List<Member> resultList =
+                    em.createNativeQuery("SELECT MEMBER_ID, city, street, zipcode, USERNAME " +
+                            "                FROM MEMBER", Member.class).getResultList();
+
+            for (Member m : resultList) {
+                System.out.println("m = " + m.getClass());
+            }
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
