@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>스프링부트 웹서비스</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<style>
+
+    a {
+        color: black;
+        border : 1px solid silver;
+    }
+
+</style>
+<body>
+<a href="/" style="border: 0px solid silver;"> <span style="font-size: 30px; border: 1px solid silver">홈</span> </a> &nbsp &nbsp
+{% if userid is empty %}
+
+{% else %}
+<span>{{ userid }}님 접속중!</span>
+{% endif %}
+
+<br>
+
+{% if userid is empty %}
+
+<a href="/sign-main">회원가입</a>
+<br>
+<a href="/login-main">로그인</a>
+<br>
+<a href="/board-main">게시판</a>
+<br>
+<a href="/list-main">회원리스트</a>
+
+{% else %}
+
+<a href="/logout">로그아웃</a>
+<br>
+<a href="/board-main">게시판</a>
+<br>
+<a href="/list-main">회원리스트</a>
+
+{% endif %}
+
+
+</body>
+</html>

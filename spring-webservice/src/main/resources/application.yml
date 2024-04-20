@@ -1,0 +1,26 @@
+server:
+  port: 9090
+
+spring:
+  profiles:
+    active: local # 기본 환경 선택
+  datasource:
+    url: jdbc:mysql://disk.creamcookie.cc:3306/barunlaw?autoReconnection=true&autoReconnectForPools=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=JST
+    username: barunlaw
+    password: barunlaw!@#
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  output:
+    ansi:
+      enabled: always
+
+pebble:
+  suffix: .html
+  cache: false
+  exposeSessionAttributes: true
+  exposeRequestAttributes: true

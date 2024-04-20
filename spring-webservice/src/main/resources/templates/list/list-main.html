@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<style>
+  a{
+    color: black;
+    text-decoration: none;
+  }
+</style>
+<body>
+
+<a href="/">홈으로 가기</a>
+
+<h1>회원 리스트</h1>
+
+<div class="col-md-12">
+  <!-- 회원 리스트 -->
+  <table class="table table-horizontal table-bordered" id="">
+    <thead class="thead-strong">
+    <tr>
+      <th>번호</th>
+      <th>아이디</th>
+      <th>비밀번호</th>
+      <th>기타</th>
+    </tr>
+    </thead>
+    <tbody id="tbody">
+    {% for userlist in users %}
+    <tr>
+      <td>{{ userlist.id }}</td>
+      <td>{{ userlist.userid }}</td>
+      <td>{{ userlist.pw }}</td>
+      <td>
+        <button type="button" class="btn btn-primary userModify" data-toggle="modal" data-target="#userModify">수정</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#">삭제</button>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <div>
+    <span>id : </span><input type="text" id="dbid">
+  </div>
+</div>
+
+<!--Modal 영역 - 상세-->
+<div class="modal fade" id="userModify" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="savePostsLabel">회원정보 수정</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="">번호</label>
+            <input type="text" class="form-control" id="info-num">
+          </div>
+          <div class="form-group">
+            <label for="">아이디</label>
+            <input type="text" class="form-control" id="info-title">
+          </div>
+          <div class="form-group">
+            <label for="">비밀번호</label>
+            <input type="text" class="form-control" id="info-author">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="info-save">등록</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/app/main.js"></script>
+</body>
+</html>
