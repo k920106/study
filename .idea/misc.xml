@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/jpql/pom.xml" />
         <option value="$PROJECT_DIR$/kimyounghan/jpashop0/jpql/pom.xml" />
+        <option value="$PROJECT_DIR$/kimyounghan/jpashop0/jpashop/pom.xml" />
       </list>
     </option>
   </component>
