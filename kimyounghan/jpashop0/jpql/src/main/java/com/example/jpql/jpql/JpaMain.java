@@ -1,7 +1,11 @@
 package com.example.jpql.jpql;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 
+import java.util.Collection;
 import java.util.List;
 
 public class JpaMain {
@@ -14,35 +18,28 @@ public class JpaMain {
 
         try {
             Team team = new Team();
-            team.setName("team1");
 
             em.persist(team);
 
-            Member member = new Member();
-            member.setUsername("member1");
-            member.setAge(10);
-            member.setType(MemberType.ADMIN);
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            member1.changeTeam(team);
 
-            member.changeTeam(team);
-
-            em.persist(member);
+            em.persist(member1);
 
             Member member2 = new Member();
             member2.setUsername("member2");
-            member2.setAge(10);
-            member2.setType(MemberType.ADMIN);
+            member2.changeTeam(team);
 
             em.persist(member2);
 
             em.flush();
             em.clear();
 
-//            String query = "SELECT FUNCTION('GROUP_CONCAT', m.username) FROM Member m";
-            String query = "SELECT GROUP_CONCAT(m.username) FROM Member m";
-            List<String> result = em.createQuery(query, String.class).getResultList();
-            for (String s : result) {
-                System.out.println(s);
-            }
+//            String query = "SELECT t.members FROM Team t";
+            String query = "SELECT m.username FROM Team t join t.members m";
+            Collection result = em.createQuery(query, Collection.class).getResultList();
+            System.out.println("result = " + result);
 
             tx.commit();
         } catch (Exception e) {
