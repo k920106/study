@@ -22,9 +22,9 @@ public class JpaMain {
 
             em.persist(team1);
 
-            em.persist(team);
             Team team2 = new Team();
             team2.setName("팀2");
+
             em.persist(team2);
 
             Member member1 = new Member();
@@ -48,9 +48,16 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-//            String query = "SELECT DISTINCT t FROM Team t JOIN FETCH t.members";
-            String query = "SELECT DISTINCT t FROM Team t JOIN t.members m";
-            List<Team> result = em.createQuery(query, Team.class).getResultList();
+//            String query = "SELECT t FROM Team t JOIN FETCH t.members m";
+            String query = "SELECT t FROM Team t";
+            List<Team> result = em.createQuery(query, Team.class)
+                                  .setFirstResult(0)
+//                                  .setMaxResults(1)
+                                  .setMaxResults(2)
+                                  .getResultList();
+
+            System.out.println("result.size = " + result.size());
+
             for (Team team : result) {
                 System.out.println("team.name = " + team.getName() + " | " + "member.size = " + team.getMembers().size());
                 for (Member member : team.getMembers()) {
