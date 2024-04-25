@@ -48,21 +48,12 @@ public class JpaMain {
             em.flush();
             em.clear();
 
-//            String query = "SELECT t FROM Team t JOIN FETCH t.members m";
-            String query = "SELECT t FROM Team t";
-            List<Team> result = em.createQuery(query, Team.class)
-                                  .setFirstResult(0)
-//                                  .setMaxResults(1)
-                                  .setMaxResults(2)
-                                  .getResultList();
-
-            System.out.println("result.size = " + result.size());
-
-            for (Team team : result) {
-                System.out.println("team.name = " + team.getName() + " | " + "member.size = " + team.getMembers().size());
-                for (Member member : team.getMembers()) {
-                    System.out.println("member = " + member);
-                }
+            String query = "SELECT m FROM Member m WHERE m.team = :team";
+            List<Member> findMember = em.createQuery(query, Member.class)
+                                        .setParameter("team", team1)
+                                        .getResultList();
+            for (Member member : findMember) {
+                System.out.println("member = " + member);
             }
 
             tx.commit();
