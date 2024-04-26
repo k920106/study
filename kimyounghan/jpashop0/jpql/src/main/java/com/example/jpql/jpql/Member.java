@@ -3,8 +3,11 @@ package com.example.jpql.jpql;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
+//@NamedQuery(
+//        name = "Member.findByUsername",
+//        query = "SELECT m FROM Member m WHERE m.username = :username"
+//)
 //@ToString
 @Setter
 @Getter
