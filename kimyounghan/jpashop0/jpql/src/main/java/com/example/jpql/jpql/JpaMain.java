@@ -45,15 +45,23 @@ public class JpaMain {
 
             em.persist(member3);
 
-            em.flush();
+            // FLUSH 자동 호출 -> commit, query 실행 시점
+//            em.flush();
+//            em.clear();
+
+            int resultCount = em.createQuery("UPDATE Member m SET m.age = 20")
+                                .executeUpdate();
+
             em.clear();
 
-//            List<Member> resultList = em.createNamedQuery("Member.findByUsername", Member.class)
-//                                        .setParameter("username", "회원1")
-//                                        .getResultList();
-//            for (Member member : resultList) {
-//                System.out.println("member = " + member);
-//            }
+            Member findMember = em.find(Member.class, member1.getId());
+            System.out.println("findMember.getAge() = " + findMember.getAge());
+
+            System.out.println("resultCount = " + resultCount);
+
+            System.out.println("member1.getAge() = " + member1.getAge());
+            System.out.println("member2.getAge() = " + member2.getAge());
+            System.out.println("member3.getAge() = " + member3.getAge());
 
             tx.commit();
         } catch (Exception e) {
