@@ -39,9 +39,13 @@ class R2DBCPaymentDatabaseHelper(
     }
 
     override fun clean(): Mono<Void> {
-        return deletePaymentOrders().flatMap { deletePaymentEvents() }
-                                    .`as`(transactionalOperator::transactional)
-                                    .then()
+        return deletePaymentOrderHistories()
+            .flatMap { deletePaymentOrders() }
+            .flatMap { deletePaymentEvents() }
+            .flatMap { deletePaymentOrders() }
+            .flatMap { deletePaymentEvents() }
+            .`as`(transactionalOperator::transactional)
+            .then()
     }
 
     private fun deletePaymentOrders(): Mono<Long> {
@@ -52,6 +56,12 @@ class R2DBCPaymentDatabaseHelper(
 
     private fun deletePaymentEvents(): Mono<Long> {
         return databaseClient.sql(DELETE_PAYMENT_EVENT_QUERY)
+                             .fetch()
+                             .rowsUpdated()
+    }
+
+    private fun deletePaymentOrderHistories(): Mono<Long> {
+        return databaseClient.sql(DELETE_PAYMENT_ORDER_HISTORY_QUERY)
                              .fetch()
                              .rowsUpdated()
     }
@@ -71,5 +81,9 @@ class R2DBCPaymentDatabaseHelper(
         val DELETE_PAYMENT_EVENT_QUERY = """
                                          DELETE FROM payment_events
                                          """.trimIndent()
+
+        val DELETE_PAYMENT_ORDER_HISTORY_QUERY = """
+                                                 DELETE FROM payment_order_histories
+                                                 """.trimIndent()
     }
 }
