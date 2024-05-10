@@ -8,6 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Mono
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 
 @Component
 class TossPaymentExecutor(
@@ -39,13 +40,15 @@ class TossPaymentExecutor(
         }
       """.trimIndent()
         ).retrieve().bodyToMono(TossPaymentConfirmationResponse::class.java).map {
+            val objectMapper = jacksonObjectMapper()
+            val jsonString = objectMapper.writeValueAsString(it)
+
             PaymentExecutionResult(
                 paymentKey = command.paymentKey, orderId = command.orderId, extraDetails = PaymentExtraDetails(
                     type = PaymentType.get(it.type),
                     method = PaymentMethod.get(it.method),
                     approvedAt = LocalDateTime.parse(it.approvedAt, DateTimeFormatter.ISO_OFFSET_DATE_TIME),
-//                    pspRawData = it.toString(),
-                    pspRawData = "{}",
+                    pspRawData = jsonString,
                     orderName = it.orderName,
                     pspConfirmationStatus = PSPConfirmationStatus.get(it.status),
                     totalAmount = it.totalAmount.toLong()
