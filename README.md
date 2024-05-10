@@ -1,2 +1,498 @@
-# lecture
-정리병이 또 돋아버린..헤헿
+## 견고한 결제 시스템 구축
+- Payment System 설계
+- Toss Payments 결제 연동
+- Payment Service 데이터 모델링
+- 가상의 Checkout 기능 구현
+- 결제 승인 기능 구현
+- 결제 승인 에러 핸들링 (feat: Retry, Timeout)
+- 결제 복구 서비스 (feat: Bulk Head, Parallel Processing)
+- Confluent Kafka 연동
+- 결제 승인 메시지 발행 (feat: Transactional Outbox Pattern, Apache Kafka)
+- 신뢰성 있게 카프카를 사용하는 방법
+- Wallet Service 구축
+- Wallet Service 동시성 제어 (feat: Optimistic Locking)
+- Wallet Service 메시지 처리와 전달 보장 (feat: Kafka Transaction)
+- Wallet Service 신뢰성 향상 (feat: Dead Letter Queue)
+- Ledger Service 구축 (feat: Double-Entry Ledger, Trigger)
+- 결제 완료 기능 구축
+
+<br>
+
+## 재고시스템으로 알아보는 동시성이슈 해결방법
+- 재고 감소 로직 작성
+- Synchronized 이용해보기
+- Pessimistic Lock 활용해보기
+- Optimistic Lock 활용해보기
+- Named Lock 활용해보기
+- Redis 라이브러리 알아보기
+- Lettuce를 작성하여 재고 감소 로직 작성하기
+- Redisson 을 활용하여 재고 로직 작성하기
+- 라이브러리 장단점
+- Mysql과 Redis 비교하기
+
+<br>
+
+## 실습으로 배우는 선착순 이벤트 시스템
+- 쿠폰 발급 로직 작성
+- Redis를 활용하여 문제 해결하기
+- Kafka를 활용하여 문제 해결하기
+- Producer 사용하기
+- Consumer 모듈 추가하기
+- Consumer 사용하기
+- 발급 가능한 쿠폰 개수를 1인당 1개로 제한하기
+- 쿠폰을 발급하다가 에러가 발생하면 어떻게 하나요?
+
+<br>
+
+## 현직 대기업 개발자 푸와 함께하는 진짜 백엔드 시스템 실무!
+- JDK, IntelliJ, Visual Studio Code 설치
+- Google Cloud Platform(GCP) 계정 생성, 인스턴스 만들기
+- Docker Desktop 설치
+- CPU를 극단적으로 사용하는 애플리케이션 만들기
+- 스트레스 테스트 툴로 성능 측정하기
+- Dockerized 애플리케이션 GCP에 배포하기
+- jenkins를 이용해서 배포하기
+- 무중단 배포를 위한 환경 이해하기
+- nginx를 통한 로드밸런싱 구성
+- 서버를 늘려서 성능 측정하기
+- 쉬는 시간 - 후배들에게 받았던 질문 (1)
+- Git, Sourcetree 설치
+- Sourcetree로 쉽게 Git 배워보기
+- GitHub Webhook과 jenkins로 배포 자동화하기
+- 머지할 때 발생하는 충돌(conflict) 해결하기
+- 실무에서 유용한 Git 꿀팁
+- I/O bound 애플리케이션도 서버를 늘리면 성능을 올릴 수 있을까?
+- DB를 이용한 한줄 게시판 만들기
+- 페이징과 글번호/글내용으로 검색 기능 만들기
+- 스트레스 테스트 툴로 성능 측정하기
+- 서버가 죽는 이유와 Message Queue를 도입하여 얻을 수 있는 장점
+- RabbitMQ 도입과 글 목록 캐싱
+- 스트레스 테스트 - 글 작성 요청은 실패하지 않을까?
+- 검색 요청은 여전히 느리다
+- 쉬는 시간 - 후배들에게 받았던 질문 (2)
+- ES 클러스터 구성
+- ES에 데이터 적재 후 검색하기
+- 검색 성능 테스트와 샤드, 레플리카
+- I/O bound 애플리케이션에서의 기술적 선택 요소
+- Kubernetes
+- GCP 같은 클라우드 서비스에서 제공해주는 다양한 기능
+
+<br>
+
+## 스프링부트 JUnit 테스트 - 시큐리티를 활용한 Bank 애플리케이션
+- Bank 프로젝트 생성
+- yml 설정
+- 화면설계
+- 테이블설계
+- User 엔티티 생성
+- Account 엔티티 생성
+- Transaction 엔티티 생성
+- SecurityConfig 기본 설정
+- SecurityConfig 직접 테스트
+- SecurityConfig Junit 테스트
+- 공통DTO 만들기
+- 회원가입 서비스 만들기
+- 회원가입 서비스 테스트
+- 회원가입 서비스 코드 리팩토링
+- 회원가입 컨트롤러 만들기
+- 회원가입 컨트롤러 유효성검사 AOP 적용
+- 회원가입 컨트롤러 정규표현식 실습1
+- 회원가입 컨트롤러 정규표현식 실습2
+- 회원가입 컨트롤러 정규표현식 DTO 적용
+- 회원가입 컨트롤러 테스트
+- Jwt 토큰 생성을 위한 세팅
+- Jwt 토큰 필터 구현 완료
+- Jwt 필터 등록하기
+- Jwt 토큰 로그인 실패 로직 처리
+- Jwt 인가필터 구현 및 등록완료
+- 시큐리티 JWT 코드 리뷰 및 개념잡기
+- JwtProcess 테스트
+- successfulAuthentication 테스트
+- unsuccessfulAuthentication 테스트
+- authorization 테스트
+- 회원가입 테스트 오류 잡기
+- SecurityConfig에 ROLE_ prefix 관련 공식 문서 변경 확인하기
+- 계좌등록 서비스 만들기
+- 계좌등록 컨트롤러 만들기
+- 계좌등록 서비스 테스트
+- 계좌등록 컨트롤러 테스트
+- 본인계좌목록보기 서비스 만들기
+- 본인계좌목록보기 컨트롤러 만들기
+- 계좌삭제 서비스 생성 및 테스트
+- 계좌삭제 컨트롤러 생성 및 테스트
+- @Sql teadown.sql 적용하기
+- Jwt토큰 만료시간 버그 잡기
+- 계좌입금 서비스 만들기
+- 계좌입금 컨트롤러 만들기
+- 계좌입금 서비스 테스트
+- 서비스 테스트에 관하여 생각해보기
+- 계좌입금 컨트롤러 테스트
+- 계좌출금 서비스 만들기
+- 계좌출금 서비스 테스트
+- 계좌출금 컨트롤러 생성 및 테스트
+- 계좌이체 서비스 생성
+- 계좌이체 서비스 테스트
+- 계좌이체 컨트롤러 생성 및 테스트
+- Long 타입 테스트
+- cors 테스트
+- 입출금내역 동적 쿼리 작성
+- outer join 하는 이유
+- @DataJpaTest 더미데이터 만들기
+- @DataJpaTest autoincrement 초기화
+- @DataJpaTest 더티체킹
+- 동적쿼리 테스트
+- fetch join 테스트
+- 입출금내역조회 서비스 만들기
+- 입출금내역조회 컨트롤러 생성 및 테스트
+- 계좌상세보기 서비스, 컨트롤러 생성 및 테스트
+- 전체테스트 및 PostMan 확인
+
+<br>
+
+## Spring Boot 3.x 를 이용한 RESTful Web Services 개발
+- Web Service와 Web Application의 개요
+- Web Service 개발 방법 SOAP과 REST의 이해
+- OpenAPI 소개
+- Spring Boot 개요
+- RESTful API 설계 - 사용자 관리 API
+- Spring Boot Project 생성
+- Spring Boot Project 구조 확인과 실행 방법
+- HelloWorld Controller 추가
+- HelloWorld Bean 추가
+- DispatcherServlet과 프로젝트 동작의 이해
+- Path Variable 이용 - 가변 URI 사용
+- User 도메인 클래스 생성
+- 사용자 목록 조회를 위한 API 구현 - HTTP GET method
+- 사용자 등록을 위한 API 구현 - HTTP POST method
+- HTTP Status Code 제어
+- HTTP Status Code 제어를 위한 Exception Handling
+- Spring AOP를 이용한 Exception Handling
+- 사용자 삭제를 위한 API 구현 - HTTP DELETE method
+- 유효성 체크를 위한 Validation API 사용
+- 다국어 처리를 위한 Internationalization 구현 방법
+- Response 데이터 형식 변환 - XML format
+- Response 데이터 제어를 위한 Filtering
+- 프로그래밍으로 제어하는 Filtering - 개별 사용자 조회
+- 프로그래밍으로 제어하는 Filtering - 전체 사용자 조회
+- Version 관리 - URI를 이용한 버전관리
+- Version 관리 - Paramter와 Header를 이용한 버전관리
+- Level3 단계의 REST API 구현을 위한 HATEOAS 적용
+- Swagger Documentation 구현 - Spring Boot 2.7 사용 ①
+- Swagger Documentation 구현 - Spring Boot 2.7 사용 ②
+- Swagger Documentation 구현 - Spring Boot 3.1 사용 ①
+- Swagger Documentation 구현 - Spring Boot 3.1 사용 ②
+- Spring Boot Actuator를 이용한 모니터링 및 Metrics 수집
+- HAL Explorer를 이용한 API 테스트
+- Spring Security를 이용한 인증 처리
+- API 사용을 위한 사용자 인증 처리 구현
+- Java Persistence API의 개요
+- JPA 사용을 위한 Dependency 추가와 Entity 설정
+- Spring Data JPA를 이용한 초기 데이터 생성
+- JPA Service 구현을 위한 Controller, Repository 생성
+- JPA를 이용한 개별 사용자 상세 조회 - HTTP Get method
+- JPA를 이용한 사용자 추가와 삭제 - HTTP POST/DELETE method
+- 게시물 관리를 위한 Post Entity 추가와 초기 데이터 생성
+- 게시물 조회를 위한 Post Entity와 User Entity와의 관계 설정
+- JPA를 이용한 새 게시물 추가 - HTTP POST Method
+- Richardson Maturity Model 소개
+- RESTful API 설계 시 고려해야 할 사항
+
+<br>
+
+## 스프링 시큐리티
+- 프로젝트 구성 및 의존성 추가
+- 사용자 정의 보안 기능 구현
+- Form Login 인증
+- Form Login 인증 필터 : UsernamePasswordAuthenticationFilter
+- Logout 처리, LogoutFilter
+- Remember Me 인증
+- Remember Me 인증 필터 : RememberMeAuthenticationFilter
+- 익명사용자 인증 필터 : AnonymousAuthenticationFilter
+- 동시 세션 제어, 세션 고정 보호, 세션 정책
+- 세션 제어 필터 : SessionManagementFilter, ConcurrentSessionFilter
+- 권한설정과 표현식
+- 예외 처리 및 요청 캐시 필터 : ExceptionTranslationFilter, RequestCacheAwareFilter
+- 사이트 간 요청 위조 - CSRF, CsrfFilter
+- 위임 필터 및 필터 빈 초기화 - DelegatingProxyChain, FilterChainProxy
+- 필터 초기화와 다중 보안 설정
+- 인증 개념 이해 - Authentication
+- 인증 저장소 - SecurityContextHolder, SecurityContext
+- 인증 저장소 필터 - SecurityContextPersistenceFilter
+- 인증 흐름 이해 - Authentication Flow
+- 인증 관리자 : AuthenticationManager
+- 인증 처리자 - AuthenticationProvider
+- 인가 개념 및 필터 이해 : Authorization, FilterSecurityInterceptor
+- 인가 결정 심의자 - AccessDecisionManager, AccessDecisionVoter
+- 스프링 시큐리티 필터 및 아키텍처 정리
+- 정적 자원 관리 - WebIgnore 설정
+- 사용자 DB 등록 및 PasswordEncoder
+- DB 연동 인증 처리(1) : CustomUserDetailsService
+- DB 연동 인증 처리(2) : CustomAuthenticationProvider
+- 커스텀 로그인 페이지 생성하기
+- 로그아웃 및 인증에 따른 화면 보안 처리
+- 인증 부가 기능 - WebAuthenticationDetails, AuthenticationDetailsSource
+- 인증 성공 핸들러 : CustomAuthenticationSuccessHandler
+- 인증 실패 핸들러 : CustomAuthenticationFailureHandler
+- 인증 거부 처리 - Access Denied
+- 인증 필터 - AjaxAuthenticationFilter
+- 인증 처리자 - AjaxAuthenticationProvider
+- 인증 핸들러 - AjaxAuthenticationSuccessHandler, AjaxAuthenticationFailureHandler
+- 인증 및 인가 예외 처리 - AjaxLoginUrlAuthenticationEntryPoint, AjaxAccessDeniedHandler
+- Ajax Custom DSLs 구현하기
+- Ajax 로그인 구현 & CSRF 설정
+- 스프링 시큐리티 인가 개요
+- 관리자 시스템 - 권한 도메인, 서비스, 리포지토리 구성
+- 웹 기반 인가처리 DB 연동 - 주요 아키텍처 이해
+- 웹 기반 인가처리 DB 연동 - FilterInvocationSecurityMetadataSource (1)
+- 웹 기반 인가처리 DB 연동 - FilterInvocationSecurityMetadataSource (2)
+- 웹 기반 인가처리 실시간 반영하기
+- 인가처리 허용 필터 - PermitAllFilter 구현
+- 계층 권한 적용하기- RoleHierarchy
+- 아이피 접속 제한하기 - CustomIpAddressVoter
+- Method 방식 개요
+- 어노테이션 권한 설정 - @PreAuthorize, @PostAuthorize, @Secured, @RolesAllowed
+- AOP Method 기반 DB 연동 - 주요 아키텍처 이해
+- AOP Method 기반 DB 연동 - MapBasedSecurityMetadataSource (1)
+- AOP Method 기반 DB 연동 - MapBasedSecurityMetadataSource (2)
+- AOP Method 기반 DB 연동 - MapBasedSecurityMetadataSource (3)
+- AOP Method 기반 DB 연동 - ProtectPointcutPostProcessor
+
+<br>
+
+## 실전! Querydsl
+- Querydsl 설정과 검증
+- 라이브러리 살펴보기
+- H2 데이터베이스 설치
+- 스프링 부트 설정 - JPA, DB
+- 예제 도메인 모델과 동작확인
+- 시작 - JPQL vs Querydsl
+- 기본 Q-Type 활용
+- 검색 조건 쿼리
+- 결과 조회
+- 정렬
+- 페이징
+- 집합
+- 조인 - 기본 조인
+- 조인 - on절
+- 조인 - 페치 조인
+- 서브 쿼리
+- Case 문
+- 상수, 문자 더하기
+- 프로젝션과 결과 반환 - 기본
+- 프로젝션과 결과 반환 - DTO 조회
+- 프로젝션과 결과 반환 - @QueryProjection
+- 동적 쿼리 - BooleanBuilder 사용
+- 동적 쿼리 - Where 다중 파라미터 사용
+- 수정, 삭제 벌크 연산
+- SQL function 호출하기
+- 순수 JPA 리포지토리와 Querydsl
+- 동적 쿼리와 성능 최적화 조회 - Builder 사용
+- 동적 쿼리와 성능 최적화 조회 - Where절 파라미터 사용
+- 조회 API 컨트롤러 개발
+- 스프링 데이터 JPA 리포지토리로 변경
+- 사용자 정의 리포지토리
+- 스프링 데이터 페이징 활용1 - Querydsl 페이징 연동
+- 스프링 데이터 페이징 활용2 - CountQuery 최적화
+- 스프링 데이터 페이징 활용3 - 컨트롤러 개발
+- 인터페이스 지원 - QuerydslPredicateExecutor
+- Querydsl Web 지원
+- 리포지토리 지원 - QuerydslRepositorySupport
+- Querydsl 지원 클래스 직접 만들기
+
+<br>
+
+## 실전! 스프링 데이터 JPA
+- H2 데이터베이스 설치
+- 스프링 데이터 JPA와 DB 설정, 동작확인
+- 예제 도메인 모델과 동작확인
+- 순수 JPA 기반 리포지토리 만들기
+- 공통 인터페이스 설정
+- 공통 인터페이스 적용
+- 공통 인터페이스 분석
+- 메소드 이름으로 쿼리 생성
+- JPA NamedQuery
+- @Query, 리포지토리 메소드에 쿼리 정의하기
+- @Query, 값, DTO 조회하기
+- 파라미터 바인딩
+- 반환 타입
+- 순수 JPA 페이징과 정렬
+- 스프링 데이터 JPA 페이징과 정렬
+- 벌크성 수정 쿼리
+- @EntityGraph
+- JPA Hint & Lock
+- 사용자 정의 리포지토리 구현
+- Auditing
+- Web 확장 - 도메인 클래스 컨버터
+- Web 확장 - 페이징과 정렬
+- 스프링 데이터 JPA 구현체 분석
+- 새로운 엔티티를 구별하는 방법
+- Specifications (명세)
+- Query By Example
+- Projections
+- 네이티브 쿼리
+
+<br>
+
+## 자바 ORM 표준 JPA 프로그래밍 - 기본편
+- SQL 중심적인 개발의 문제점
+- JPA 소개
+- 영속성 컨텍스트 1
+- 영속성 컨텍스트 2
+- 플러시
+- 준영속 상태
+- 객체와 테이블 매핑
+- 데이터베이스 스키마 자동 생성
+- 필드와 컬럼 매핑
+- 기본 키 매핑
+- 단방향 연관관계
+- 양방향 연관관계와 연관관계의 주인 1- 기본
+- 양방향 연관관계와 연관관계의 주인 2 - 주의점, 정리
+- 다대일 [N:1]
+- 일대다 [1:N]
+- 일대일 [1:1]
+- 다대다 [N:M]
+- 상속관계 매핑
+- Mapped Superclass - 매핑 정보 상속
+- 프록시
+- 즉시 로딩과 지연 로딩
+- 영속성 전이(CASCADE)와 고아 객체
+- 기본값 타입
+- 임베디드 타입
+- 값 타입과 불변 객체
+- 값 타입의 비교
+- 값 타입 컬렉션
+- 기본 문법과 쿼리 API
+- 프로젝션(SELECT)
+- 페이징
+- 조인
+- 서브 쿼리
+- JPQL 타입 표현과 기타식
+- 조건식(CASE 등등)
+- JPQL 함수
+- 경로 표현식
+- 페치 조인 1 - 기본
+- 페치 조인 2 - 한계
+- 다형성 쿼리
+- 엔티티 직접 사용
+- Named 쿼리
+- 벌크 연산
+
+<br>
+
+## 스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술
+- 프로젝트 생성
+- 라이브러리 살펴보기
+- View 환경설정
+- 빌드하고 실행하기
+- 정적 컨텐츠
+- MVC와 템플릿 엔진
+- API
+- 회원 도메인과 리포지토리 만들기
+- 회원 리포지토리 테스트 케이스 작성
+- 회원 서비스 개발
+- 회원 서비스 테스트
+- 컴포넌트 스캔과 자동 의존관계 설정
+- 자바 코드로 직접 스프링 빈 등록하기
+- 회원 웹 기능 - 홈 화면 추가
+- 회원 웹 기능 - 등록
+- 회원 웹 기능 - 조회
+- H2 데이터베이스 설치
+- 순수 JDBC
+- 스프링 통합 테스트
+- 스프링 JdbcTemplate
+- JPA
+- 스프링 데이터 JPA
+- AOP가 필요한 상황
+- AOP 적용
+
+<br>
+
+## 스프링 핵심 원리 - 기본편
+- 스프링이란?
+- 좋은 객체 지향 프로그래밍이란?
+- 좋은 객체 지향 설계의 5가지 원칙(SOLID)
+- 객체 지향 설계와 스프링
+- 회원 도메인 설계
+- 회원 도메인 개발
+- 회원 도메인 실행과 테스트
+- 주문과 할인 도메인 설계
+- 주문과 할인 도메인 개발
+- 주문과 할인 도메인 실행과 테스트
+- 새로운 할인 정책 개발
+- 새로운 할인 정책 적용과 문제점
+- 관심사의 분리
+- AppConfig 리팩터링
+- 새로운 구조와 할인 정책 적용
+- 좋은 객체 지향 설계의 5가지 원칙의 적용
+- IoC, DI, 그리고 컨테이너
+- 스프링으로 전환하기
+- 스프링 컨테이너 생성
+- 컨테이너에 등록된 모든 빈 조회
+- 스프링 빈 조회 - 기본
+- 스프링 빈 조회 - 동일한 타입이 둘 이상
+- 스프링 빈 조회 - 상속 관계
+- BeanFactory와 ApplicationContext
+- 다양한 설정 형식 지원 - 자바 코드, XML
+- 스프링 빈 설정 메타 정보 - BeanDefinition
+- 웹 애플리케이션과 싱글톤
+- 싱글톤 패턴
+- 싱글톤 컨테이너
+- 싱글톤 방식의 주의점
+- @Configuration과 싱글톤
+- @Configuration과 바이트코드 조작의 마법
+- 컴포넌트 스캔과 의존관계 자동 주입 시작하기
+- 탐색 위치와 기본 스캔 대상
+- 필터
+- 중복 등록과 충돌
+- 다양한 의존관계 주입 방법
+- 옵션 처리
+- 생성자 주입을 선택해라!
+- 롬복과 최신 트랜드
+- 조회 빈이 2개 이상 - 문제
+- @Autowired 필드 명, @Qualifier, @Primary
+- 애노테이션 직접 만들기
+- 조회한 빈이 모두 필요할 때, List, Map
+- 자동, 수동의 올바른 실무 운영 기준
+- 빈 생명주기 콜백 시작
+- 인터페이스 InitializingBean, DisposableBean
+- 빈 등록 초기화, 소멸 메서드
+- 애노테이션 @PostConstruct, @PreDestroy
+- 빈 스코프란?
+- 프로토타입 스코프
+- 프로토타입 스코프 - 싱글톤 빈과 함께 사용시 문제점
+- 프로토타입 스코프 - 싱글톤 빈과 함께 사용시 Provider로 문제 해결
+- 웹 스코프
+- request 스코프 예제 만들기
+- 스코프와 Provider
+- 스코프와 프록시
+
+## Java TPC 실전프로젝트 (Java API 활용)
+- 객체를 표현하자1(JSON)
+- JSON API 활용하기(Gson)
+- 객체를 표현하자2(JSON)
+- JSON API 활용하기(JSON-Java)
+- 네이버 클라우드 플랫폼의 지도 API 서비스 등록
+- Java Geocoding(위도, 경도 추출)
+- Java Geocoding(지도 이미지 생성하기)
+- 위도와 경도를 추출하여 지도 보여주기(GUI 버전)
+- Jsoup API 활용하기
+- 웹 페이지 Crawling 하기(HTML Parsing)
+- 웹 페이지 Crawling 하기(리소스 다운로드)
+- 웹 페이지 Crawling 하기(GUI 버전)
+- Excel 파일 Reading 하기
+- Excel에 image 저장하기
+- Excel에서 cell의 DataType 알아보기
+- 도서정보를 입력하여 ISBN, Image 검출하기
+- 도서정보를 활용 ISBN, Image 검출하여 Excel에 저장하기
+- iText API를 이용한 PDT table만들기
+- iText API를 이용한 PDT에 Paragraph(단락, 문단, 절) 만들기
+- iText API를 이용한 PDF에 image 삽입하기
+- iText API를 이용한 PDF에 image 크기조절
+- Excel에서 데이터를 읽어서 PDF로 만들기
+- Mosquitto™ MQTT broker 설치 및 서버구동
+- Java를 활용하여 DHT11 센서 데이터 모니터링 및 LED 제어하기
+- Java와 MQTT를 연동하여 데이터를 전송, 수신하는 시연 동영상
+- Arduino(WeMos DS1)와 연동하여 제어하는 시연 동영상
+- Socket(소켓)이 만들어 지는 과정(TCP 3-way Handshake)
+- Java에서 Socket(소켓) 만들기(ECHO)
+- Socket(소켓)을 이용한 Multi-Chatting 만들기
