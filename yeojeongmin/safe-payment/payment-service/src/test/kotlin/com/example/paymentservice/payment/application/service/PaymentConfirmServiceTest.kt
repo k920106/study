@@ -1,5 +1,6 @@
 package com.example.paymentservice.payment.application.service
 
+import com.example.paymentservice.payment.adapter.out.persistent.exception.PaymentValidationException
 import com.example.paymentservice.payment.application.port.`in`.CheckoutCommand
 import com.example.paymentservice.payment.application.port.`in`.CheckoutUseCase
 import com.example.paymentservice.payment.application.port.`in`.PaymentConfirmCommand
@@ -9,9 +10,12 @@ import com.example.paymentservice.payment.application.port.out.PaymentValidation
 import com.example.paymentservice.payment.domain.*
 import com.example.paymentservice.payment.test.PaymentDatabaseHelper
 import com.example.paymentservice.payment.test.PaymentTestConfiguration
+import com.example.paymentservice2.payment.adapter.out.web.toss.exception.PSPConfirmationException
+import com.example.paymentservice2.payment.adapter.out.web.toss.exception.TossPaymentError
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,8 +34,8 @@ class PaymentConfirmServiceTest(
     @Autowired private val paymentStatusUpdatePort: PaymentStatusUpdatePort,
     @Autowired private val paymentValidationPort: PaymentValidationPort,
     @Autowired private val paymentDatabaseHelper: PaymentDatabaseHelper,
+    @Autowired private val paymentErrorHandler: PaymentErrorHandler
 ) {
-
     private val mockPaymentExecutorPort = mockk<PaymentExecutorPort>()
 
     @BeforeEach
@@ -59,6 +63,7 @@ class PaymentConfirmServiceTest(
             paymentStatusUpdatePort = paymentStatusUpdatePort,
             paymentValidationPort = paymentValidationPort,
             paymentExecutorPort = mockPaymentExecutorPort,
+            paymentErrorHandler = paymentErrorHandler,
         )
 
         val paymentExecutionResult = PaymentExecutionResult(
@@ -116,6 +121,7 @@ class PaymentConfirmServiceTest(
             paymentStatusUpdatePort = paymentStatusUpdatePort,
             paymentValidationPort = paymentValidationPort,
             paymentExecutorPort = mockPaymentExecutorPort,
+            paymentErrorHandler = paymentErrorHandler,
         )
 
         val paymentExecutionResult = PaymentExecutionResult(
@@ -165,6 +171,7 @@ class PaymentConfirmServiceTest(
             paymentStatusUpdatePort = paymentStatusUpdatePort,
             paymentValidationPort = paymentValidationPort,
             paymentExecutorPort = mockPaymentExecutorPort,
+            paymentErrorHandler = paymentErrorHandler,
         )
 
         val paymentExecutionResult = PaymentExecutionResult(
@@ -194,5 +201,88 @@ class PaymentConfirmServiceTest(
 
         assertThat(paymentConfirmationResult.status).isEqualTo(PaymentStatus.UNKNOWN)
         assertThat(paymentEvent.paymentOrders.all { it.paymentStatus == PaymentStatus.UNKNOWN })
+    }
+
+    @Test
+    fun `should handle PSPConfirmationException`() {
+        val orderId = UUID.randomUUID().toString()
+
+        val checkoutCommand = CheckoutCommand(
+            cartId = 1,
+            buyerId = 1,
+            productIds = listOf(1, 2, 3),
+            idempotencyKey = orderId
+        )
+
+        val checkoutResult = checkoutUseCase.checkout(checkoutCommand).block()!!
+
+        val paymentConfirmCommand = PaymentConfirmCommand(
+            paymentKey = UUID.randomUUID().toString(),
+            orderId = orderId,
+            amount = checkoutResult.amount
+        )
+
+        val paymentConfirmService = PaymentConfirmService(
+            paymentStatusUpdatePort = paymentStatusUpdatePort,
+            paymentValidationPort = paymentValidationPort,
+            paymentExecutorPort = mockPaymentExecutorPort,
+            paymentErrorHandler = paymentErrorHandler
+        )
+
+        val pspConfirmationException = PSPConfirmationException(
+            errorCode = TossPaymentError.REJECT_ACCOUNT_PAYMENT.name,
+            errorMessage = TossPaymentError.REJECT_ACCOUNT_PAYMENT.description,
+            isSuccess = false,
+            isFailure = true,
+            isUnknown = false,
+            isRetryableError = false
+        )
+
+        every { mockPaymentExecutorPort.execute(paymentConfirmCommand) } returns Mono.error(pspConfirmationException)
+
+        val paymentConfirmationResult = paymentConfirmService.confirm(paymentConfirmCommand).block()!!
+        val paymentEvent = paymentDatabaseHelper.getPayments(orderId)!!
+
+        assertThat(paymentConfirmationResult.status).isEqualTo(PaymentStatus.FAILURE)
+        assertTrue(paymentEvent.isFailure())
+    }
+
+    @Test
+    fun `should handle PaymentValidationException`() {
+        val orderId = UUID.randomUUID().toString()
+
+        val checkoutCommand = CheckoutCommand(
+            cartId = 1,
+            buyerId = 1,
+            productIds = listOf(1, 2, 3),
+            idempotencyKey = orderId
+        )
+
+        val checkoutResult = checkoutUseCase.checkout(checkoutCommand).block()!!
+
+        val paymentConfirmCommand = PaymentConfirmCommand(
+            paymentKey = UUID.randomUUID().toString(),
+            orderId = orderId,
+            amount = checkoutResult.amount
+        )
+
+        val mockPaymentValidationPort = mockk<PaymentValidationPort>()
+
+        val paymentConfirmService = PaymentConfirmService(
+            paymentStatusUpdatePort = paymentStatusUpdatePort,
+            paymentExecutorPort = mockPaymentExecutorPort,
+            paymentValidationPort = mockPaymentValidationPort,
+            paymentErrorHandler = paymentErrorHandler
+        )
+
+        val paymentValidationException = PaymentValidationException("결제 유효성 검증에서 실패하였습니다.")
+
+        every { mockPaymentValidationPort.isValid(orderId, paymentConfirmCommand.amount) } returns Mono.error(paymentValidationException)
+
+        val paymentConfirmationResult = paymentConfirmService.confirm(paymentConfirmCommand).block()!!
+        val paymentEvent = paymentDatabaseHelper.getPayments(orderId)!!
+
+        assertThat(paymentConfirmationResult.status).isEqualTo(PaymentStatus.FAILURE)
+        assertTrue(paymentEvent.isFailure())
     }
 }
