@@ -11,17 +11,18 @@ import java.util.function.Function
 
 @EnableScheduling
 @SpringBootApplication
-class PaymentServiceApplication {
-    @Bean
-    fun consume(): Function<Flux<Message<String>>, Mono<Void>> {
-        return Function { messages ->
-            messages.map {
-                println(it)
-                it
-            }.then()
-        }
-    }
-}
+class PaymentServiceApplication
+//class PaymentServiceApplication {
+//    @Bean
+//    fun consume(): Function<Flux<Message<String>>, Mono<Void>> {
+//        return Function { messages ->
+//            messages.map {
+//                println(it)
+//                it
+//            }.then()
+//        }
+//    }
+//}
 
 fun main(args: Array<String>) {
     runApplication<PaymentServiceApplication>(*args)
