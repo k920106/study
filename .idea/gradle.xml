@@ -4,6 +4,38 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/choisangyong/coupon-system/api" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/choisangyong/coupon-system/api" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/choisangyong/coupon-system/consumer" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/choisangyong/coupon-system/consumer" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/choisangyong/stock" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/choisangyong/stock" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/yeojeongmin/safe-payment/ledger-service" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/yeojeongmin/safe-payment/ledger-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/yeojeongmin/safe-payment/payment-service" />
         <option name="modules">
           <set>
