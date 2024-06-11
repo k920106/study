@@ -2,9 +2,15 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="coupon-system" target="17" />
-      <module name="coupon-system.main" target="17" />
-      <module name="coupon-system.test" target="17" />
+      <module name="ledger-service" target="17" />
+      <module name="ledger-service.main" target="17" />
+      <module name="ledger-service.test" target="17" />
+      <module name="payment-service" target="17" />
+      <module name="payment-service.main" target="17" />
+      <module name="payment-service.test" target="17" />
+      <module name="wallet-service" target="17" />
+      <module name="wallet-service.main" target="17" />
+      <module name="wallet-service.test" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
