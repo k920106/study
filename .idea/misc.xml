@@ -8,7 +8,14 @@
     <file type="web" url="file://$PROJECT_DIR$/yeojeongmin/safe-payment/payment-service" />
     <file type="web" url="file://$PROJECT_DIR$/yeojeongmin/safe-payment/wallet-service" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="corretto-17" project-jdk-type="JavaSDK">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/jeongsoowon/spring-batch/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="corretto-11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="ProjectType">
