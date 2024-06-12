@@ -4,34 +4,10 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/choisangyong/coupon-system" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/kimyounghan/spring-jdbc" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/choisangyong/coupon-system" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/choisangyong/coupon-system/api" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/choisangyong/coupon-system/api" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/choisangyong/coupon-system/consumer" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/choisangyong/coupon-system/consumer" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/choisangyong/stock" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/choisangyong/stock" />
+            <option value="$PROJECT_DIR$/kimyounghan/spring-jdbc" />
           </set>
         </option>
       </GradleProjectSettings>
