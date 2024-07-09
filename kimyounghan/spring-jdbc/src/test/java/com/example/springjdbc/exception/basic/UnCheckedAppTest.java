@@ -15,6 +15,17 @@ public class UnCheckedAppTest {
         assertThatThrownBy(() -> controller.request()).isInstanceOf(Exception.class);
     }
 
+    @Test
+    void printEx() {
+        Controller controller = new Controller();
+        try {
+            controller.request();
+        } catch (Exception e) {
+            // e.printStackTrace(); // 사용을 권장하지 않음
+            log.info("ex", e);
+        }
+    }
+
     static class Controller {
         Service service = new Service();
 
@@ -45,13 +56,14 @@ public class UnCheckedAppTest {
     }
 
     static class Repository {
-        //public void call() throws SQLException {
+        // public void call() throws SQLException {
         public void call() {
             // throw new SQLException("ex");
             try {
                 runSQL();
             } catch (SQLException e) {
-                throw new RuntimeSQLException(e);
+                // throw new RuntimeSQLException(e);
+                throw new RuntimeSQLException();
             }
         }
 
