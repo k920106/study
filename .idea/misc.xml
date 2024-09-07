@@ -4,6 +4,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/choisangyong/coupon-system" />
     <file type="web" url="file://$PROJECT_DIR$/choisangyong/stock" />
+    <file type="web" url="file://$PROJECT_DIR$/kimyounghan/itemservice-db-start" />
     <file type="web" url="file://$PROJECT_DIR$/kimyounghan/spring-jdbc" />
     <file type="web" url="file://$PROJECT_DIR$/yeojeongmin/safe-payment/ledger-service" />
     <file type="web" url="file://$PROJECT_DIR$/yeojeongmin/safe-payment/payment-service" />

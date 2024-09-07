@@ -13,8 +13,8 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.22/9c08ea24c6eb714e2d6170e8122c069a0ba9aacf/lombok-1.18.22.jar" />
         </processorPath>
-        <module name="spring-jdbc.main" />
-        <module name="spring-jdbc.test" />
+        <module name="itemservice-db.main" />
+        <module name="itemservice-db.test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -34,6 +34,9 @@
       <module name="payment-service.main" target="17" />
       <module name="payment-service.test" target="17" />
       <module name="spring-batch-lecture" target="11" />
+      <module name="spring-jdbc" target="11" />
+      <module name="spring-jdbc.main" target="11" />
+      <module name="spring-jdbc.test" target="11" />
       <module name="stock" target="11" />
       <module name="stock.main" target="11" />
       <module name="stock.test" target="11" />
