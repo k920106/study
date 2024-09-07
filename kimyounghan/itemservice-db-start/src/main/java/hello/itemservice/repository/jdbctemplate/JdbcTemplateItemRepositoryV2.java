@@ -43,7 +43,8 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
 
     @Override
     public Item save(Item item) {
-        String sql = "INSERT INTO item(item_name, price, quantity) VALUES (?,?,?)";
+        // String sql = "INSERT INTO item(item_name, price, quantity) VALUES (?,?,?)";
+        String sql = "INSERT INTO item(item_name, price, quantity) VALUES (:itemName, :price, :quantity)";
 
         // KeyHolder keyHolder = new GeneratedKeyHolder();
         // template.update(connection -> {
@@ -66,7 +67,8 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
 
     @Override
     public void update(Long itemId, ItemUpdateDto updateParam) {
-        String sql = "UPDATE item SET item_name=?, price=?, quantity=? WHERE id=?";
+        // String sql = "UPDATE item SET item_name=?, price=?, quantity=? WHERE id=?";
+        String sql = "UPDATE item SET item_name=:itemName, price=:price, quantity=:quantity WHERE id=:id";
 
         SqlParameterSource param =
                 new MapSqlParameterSource().addValue("itemName", updateParam.getItemName())
@@ -84,7 +86,8 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
 
     @Override
     public Optional<Item> findById(Long id) {
-        String sql = "SELECT id, item_name, price, quantity FROM item WHERE id = ?";
+        // String sql = "SELECT id, item_name, price, quantity FROM item WHERE id = ?";
+        String sql = "SELECT id, item_name, price, quantity FROM item WHERE id=:id";
 
         try {
             // Item item = template.queryForObject(sql, itemRowMapper(), id);
@@ -113,7 +116,8 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
         boolean andFlag = false;
         // List<Object> param = new ArrayList<>();
         if (StringUtils.hasText(itemName)) {
-            sql += " item_name LIKE concat('%',?,'%')";
+            // sql += " item_name LIKE concat('%',?,'%')";
+            sql += " item_name LIKE CONCAT('%',:itemName,'%')";
             // param.add(itemName);
             andFlag = true;
         }
@@ -122,7 +126,8 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
             if (andFlag) {
                 sql += " AND";
             }
-            sql += " price <= ?";
+            // sql += " price <= ?";
+            sql += " price <= :maxPrice";
             // param.add(maxPrice);
         }
 
