@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface ItemMapper {
     void save(Item item);
     void update(@Param("id") Long id, @Param("updateParam") ItemUpdateDto updateParam);
+//    @Select("SELECT id, item_name, price, quantity FROM item WHERE id=#{id}")
     Optional<Item> findById(Long id);
     List<Item> findAll(ItemSearchCond itemSearch);
 }
