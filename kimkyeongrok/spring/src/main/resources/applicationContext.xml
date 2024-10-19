@@ -4,12 +4,22 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="localConnectionMaker" class="com.LocalConnectionMaker"/>
-    <bean id="prdConnectionMaker" class="com.PrdConnectionMaker"/>
+    <bean id="localDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/spring"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
+    </bean>
+    <bean id="prdDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/spring_prd"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
+    </bean>
     <bean id="localUserDao" class="com.UserDao">
-        <property name="connectionMaker" ref="localConnectionMaker"/>
+        <property name="dataSource" ref="localDataSource"/>
     </bean>
     <bean id="prdUserDao" class="com.UserDao">
-        <property name="connectionMaker" ref="prdConnectionMaker"/>
+        <property name="dataSource" ref="prdDataSource"/>
     </bean>
 </beans>

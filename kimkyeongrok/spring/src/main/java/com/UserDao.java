@@ -1,20 +1,21 @@
 package com;
 
+import javax.sql.DataSource;
 import java.sql.*;
 
 public class UserDao {
-    ConnectionMaker connectionMaker;
+    private DataSource dataSource;
 
     public UserDao() {
 
     }
 
-    public void setConnectionMaker(ConnectionMaker connectionMaker) {
-        this.connectionMaker = connectionMaker;
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     public void add(User user) throws SQLException {
-        Connection con = connectionMaker.getConnection();
+        Connection con = dataSource.getConnection();
 
         PreparedStatement ps = con.prepareStatement(
                 "INSERT INTO users(id, password, name) VALUES(?,?,?)"
@@ -30,7 +31,7 @@ public class UserDao {
     }
 
     public User get(String id) throws SQLException {
-        Connection con = connectionMaker.getConnection();
+        Connection con = dataSource.getConnection();
 
         PreparedStatement ps = con.prepareStatement(
                 "SELECT * FROM users WHERE id = ?"

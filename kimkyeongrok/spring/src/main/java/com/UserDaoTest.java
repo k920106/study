@@ -8,6 +8,7 @@ import java.sql.SQLException;
 public class UserDaoTest {
     public static void main(String[] args) throws SQLException {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+
         UserDao dao = context.getBean("localUserDao", UserDao.class);
 
 //        String environment = "prd";
@@ -16,12 +17,12 @@ public class UserDaoTest {
 //        }
 
         User user = new User();
-        user.setId("2");
+        user.setId("4");
         user.setPassword("kms1234");
         user.setName("kms");
         dao.add(user);
 
-        User selectedUser = dao.get("2");
+        User selectedUser = dao.get("4");
         System.out.println("id: " + selectedUser.getId());
         System.out.println("password: " + selectedUser.getPassword());
         System.out.println("name: " + selectedUser.getName());
