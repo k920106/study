@@ -8,12 +8,16 @@ public class UserDaoFactory {
     @Bean
     public UserDao localUserDao() {
         ConnectionMaker connectionMaker = new LocalConnectionMaker();
-        return new UserDao(connectionMaker);
+        UserDao dao = new UserDao();
+        dao.setConnectionMaker(connectionMaker);
+        return dao;
     }
 
     @Bean
     public UserDao prdUserDao() {
         ConnectionMaker connectionMaker = new PrdConnectionMaker();
-        return new UserDao(connectionMaker);
+        UserDao dao = new UserDao();
+        dao.setConnectionMaker(connectionMaker);
+        return dao;
     }
 }
