@@ -2,11 +2,15 @@ package com;
 
 import java.sql.*;
 
-public abstract class UserDao {
-    abstract Connection getConnection() throws SQLException;
+public class UserDao {
+    ConnectionMaker connectionMaker;
+
+    public UserDao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
+    }
 
     public void add(User user) throws SQLException {
-        Connection con = getConnection();
+        Connection con = connectionMaker.getConnection();
 
         PreparedStatement ps = con.prepareStatement(
                 "INSERT INTO users(id, password, name) VALUES(?,?,?)"
@@ -22,7 +26,7 @@ public abstract class UserDao {
     }
 
     public User get(String id) throws SQLException {
-        Connection con = getConnection();
+        Connection con = connectionMaker.getConnection();
 
         PreparedStatement ps = con.prepareStatement(
                 "SELECT * FROM users WHERE id = ?"
@@ -42,20 +46,5 @@ public abstract class UserDao {
         con.close();
 
         return user;
-    }
-
-    public static void main(String[] args) throws SQLException {
-        //UserDao dao = new LocalUserDao();
-        UserDao dao = new PrdUserDao();
-        User user = new User();
-        user.setId("1234");
-        user.setPassword("kms1234");
-        user.setName("kms");
-        dao.add(user);
-
-        User selectedUser = dao.get("1234");
-        System.out.println("id: " + selectedUser.getId());
-        System.out.println("password: " + selectedUser.getPassword());
-        System.out.println("name: " + selectedUser.getName());
     }
 }
