@@ -1,10 +1,12 @@
 package com.spring.www;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
@@ -17,6 +19,9 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().authenticated();
@@ -29,14 +34,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
                     HttpSession session = httpServletRequest.getSession();
                     session.invalidate();
-                }
-            })
+                }})
             .logoutSuccessHandler(new LogoutSuccessHandler() {
                 @Override
                 public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
                     httpServletResponse.sendRedirect("/login");
-                }
-            })
-            .deleteCookies("remember-me");
+                }})
+            .and()
+            .rememberMe()
+            .rememberMeParameter("remember")
+            .tokenValiditySeconds(3600)
+            .userDetailsService(userDetailsService)
+        ;
     }
 }
