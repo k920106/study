@@ -4,87 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11c9fa96-58ec-4439-bd70-58bf3ea48576" name="Changes" comment="[Spring framework 개발 환경 구축하기와 Dao 리팩토링하기]&#10;토비의 스프링3 1장 94~137">
-      <change afterPath="$PROJECT_DIR$/../spring/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/6.8.3/executionHistory/executionHistory.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/6.8.3/executionHistory/executionHistory.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/6.8.3/fileChanges/last-build.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/6.8.3/fileHashes/fileHashes.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/6.8.3/fileHashes/fileHashes.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/6.8.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/6.8.3/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/6.8.3/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/6.8.3/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/6.8.3/javaCompile/javaCompile.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/6.8.3/javaCompile/taskHistory.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/8.10.2/checksums/checksums.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/8.10.2/checksums/md5-checksums.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/8.10.2/checksums/sha1-checksums.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/8.10.2/dependencies-accessors/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/8.10.2/executionHistory/executionHistory.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/8.10.2/fileChanges/last-build.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/8.10.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/8.10.2/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/configuration-cache/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.gradle/vcs-1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring2/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring2/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring2/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring2/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring2/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring2/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring2/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring2/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring2/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring2/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring2/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring2/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/src/main/java/com/spring/www/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring3/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../spring4/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spring4/src/test/java/com/spring/www/dao/UserDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spring4/src/test/java/com/spring/www/dao/UserDaoTest.java" afterDir="false" />
+    <list default="true" id="11c9fa96-58ec-4439-bd70-58bf3ea48576" name="Changes" comment="[Spring framework 개발 환경 구축하기와 Dao 리팩토링하기]&#10;인텔리제이 오류">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring3/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spring4/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../spring4/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,36 +72,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.PostgreConnectionMakerTest.connectionTest.executor": "Run",
-    "Gradle.UserDaoTest.addAndGet.executor": "Run",
-    "Gradle.UserDaoTest.executor": "Run",
-    "Notification.DisplayName-DoNotAsk-Vcs Important Messages": "VCS important messages",
-    "Notification.DoNotAsk-Vcs Important Messages": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/god/Downloads/project/github/study/kimkyeongrok/spring5",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.PostgreConnectionMakerTest.connectionTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserDaoTest.addAndGet.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserDaoTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.spring5 [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Vcs Important Messages&quot;: &quot;VCS important messages&quot;,
+    &quot;Notification.DoNotAsk-Vcs Important Messages&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/god/Downloads/project/github/study/kimkyeongrok/spring5&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.19042969&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.spring.www.dao" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.spring.www.dao" />
@@ -255,6 +188,28 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="spring5 [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="Spring5Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="spring5.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.spring.www.Spring5Application" />
@@ -265,6 +220,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.UserDaoTest.addAndGet" />
+        <item itemvalue="Gradle.spring5 [dependencies]" />
         <item itemvalue="Gradle.UserDaoTest" />
         <item itemvalue="Gradle.PostgreConnectionMakerTest.connectionTest" />
       </list>
@@ -288,6 +244,11 @@
       <updated>1729390647738</updated>
       <workItem from="1729390648877" duration="5301000" />
       <workItem from="1729895343266" duration="107000" />
+      <workItem from="1729895455968" duration="1016000" />
+      <workItem from="1729896672702" duration="172000" />
+      <workItem from="1729896851917" duration="65000" />
+      <workItem from="1729896920323" duration="20000" />
+      <workItem from="1729896947971" duration="334000" />
     </task>
     <task id="LOCAL-00001" summary="[Spring framework 개발 환경 구축하기와 Dao 리팩토링하기]&#10;토비의 스프링3 1장 94~137">
       <option name="closed" value="true" />
@@ -297,7 +258,23 @@
       <option name="project" value="LOCAL" />
       <updated>1729399698860</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="[Spring framework 개발 환경 구축하기와 Dao 리팩토링하기]&#10;인텔리제이 오류">
+      <option name="closed" value="true" />
+      <created>1729896456081</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729896456081</updated>
+    </task>
+    <task id="LOCAL-00003" summary="[Spring framework 개발 환경 구축하기와 Dao 리팩토링하기]&#10;인텔리제이 오류">
+      <option name="closed" value="true" />
+      <created>1729897239666</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1729897239666</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -316,6 +293,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="[Spring framework 개발 환경 구축하기와 Dao 리팩토링하기]&#10;토비의 스프링3 1장 94~137" />
-    <option name="LAST_COMMIT_MESSAGE" value="[Spring framework 개발 환경 구축하기와 Dao 리팩토링하기]&#10;토비의 스프링3 1장 94~137" />
+    <MESSAGE value="[Spring framework 개발 환경 구축하기와 Dao 리팩토링하기]&#10;인텔리제이 오류" />
+    <option name="LAST_COMMIT_MESSAGE" value="[Spring framework 개발 환경 구축하기와 Dao 리팩토링하기]&#10;인텔리제이 오류" />
   </component>
 </project>
