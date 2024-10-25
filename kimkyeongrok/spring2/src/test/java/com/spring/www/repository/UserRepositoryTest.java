@@ -13,8 +13,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserRepositoryTest {
-    @Autowired
-    UserRepository userRepository;
+    @Autowired private UserRepository userRepository;
 
     @Test
     public void save() {
