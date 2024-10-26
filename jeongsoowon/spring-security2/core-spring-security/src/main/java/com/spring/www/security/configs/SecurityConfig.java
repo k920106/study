@@ -1,11 +1,12 @@
 package com.spring.www.security.configs;
 
+import com.spring.www.security.common.FormAuthenticationDetailsSource;
+import com.spring.www.security.handler.CustomAccessDeniedHandler;
 import com.spring.www.security.provider.FormAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,13 +15,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired private AuthenticationDetailsSource authenticationDetailsSource;
+    //@Autowired private AuthenticationDetailsSource authenticationDetailsSource;
+    @Autowired private FormAuthenticationDetailsSource authenticationDetailsSource;
     @Autowired private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
     @Autowired private AuthenticationFailureHandler customAuthenticationFailureHandler;
 
@@ -32,6 +35,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         return new FormAuthenticationProvider(passwordEncoder());
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
+        accessDeniedHandler.setErrorPage("/denied");
+        return accessDeniedHandler;
     }
 
     @Bean
@@ -50,7 +60,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
             .antMatchers("/").permitAll()
-            //.antMatchers("/", "user/login/**", "/users").permitAll()
             .antMatchers("/", "/users", "user/login/**", "/login*").permitAll()
             .antMatchers("/mypage").hasRole("USER")
             .antMatchers("/messages").hasRole("MANAGER")
@@ -65,6 +74,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .successHandler(customAuthenticationSuccessHandler)
             .failureHandler(customAuthenticationFailureHandler)
             .permitAll()
+            .and()
+            .exceptionHandling()
+            .accessDeniedHandler(accessDeniedHandler())
         ;
     }
 }
