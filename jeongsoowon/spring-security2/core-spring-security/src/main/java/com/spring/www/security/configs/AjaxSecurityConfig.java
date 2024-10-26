@@ -1,6 +1,8 @@
 package com.spring.www.security.configs;
 
+import com.spring.www.security.common.AjaxLoginAuthenticationEntryPoint;
 import com.spring.www.security.filter.AjaxLoginProcessingFilter;
+import com.spring.www.security.handler.AjaxAccessDeniedHandler;
 import com.spring.www.security.handler.AjaxAuthenticationFailureHandler;
 import com.spring.www.security.handler.AjaxAuthenticationSuccessHandler;
 import com.spring.www.security.provider.AjaxAuthenticationProvider;
@@ -11,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -18,6 +21,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @Order(0)
 public class AjaxSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Bean
+    public AccessDeniedHandler ajaxAccessDeniedHandler() {
+        return new AjaxAccessDeniedHandler();
+    }
+
     @Bean
     public AuthenticationSuccessHandler ajaxAuthenticationSuccessHandler() {
         return new AjaxAuthenticationSuccessHandler();
@@ -51,9 +59,14 @@ public class AjaxSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/api/**")
             .authorizeRequests()
+            .antMatchers("/api/messages").hasRole("MANAGER")
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
+        ;
+        http.exceptionHandling()
+            .authenticationEntryPoint(new AjaxLoginAuthenticationEntryPoint())
+            .accessDeniedHandler(ajaxAccessDeniedHandler())
         ;
         http.csrf()
             .disable()
