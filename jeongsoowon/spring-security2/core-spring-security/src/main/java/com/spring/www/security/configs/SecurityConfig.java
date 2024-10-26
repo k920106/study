@@ -16,13 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    //@Autowired private UserDetailsService userDetailsService;
-
-    //@Override
-    //protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    //    auth.userDetailsService(userDetailsService);
-    //}
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
@@ -55,6 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/config").hasRole("ADMIN")
             .anyRequest().authenticated()
             .and()
-            .formLogin();
+            .formLogin()
+            .loginPage("/login")
+            .loginProcessingUrl("/login_proc")
+            .defaultSuccessUrl("/")
+            .permitAll()
+        ;
     }
 }
