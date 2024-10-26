@@ -1,4 +1,4 @@
-package com.spring.www.security.configs;
+package com.spring.www.security.config;
 
 import com.spring.www.security.common.FormAuthenticationDetailsSource;
 import com.spring.www.security.handler.CustomAccessDeniedHandler;
