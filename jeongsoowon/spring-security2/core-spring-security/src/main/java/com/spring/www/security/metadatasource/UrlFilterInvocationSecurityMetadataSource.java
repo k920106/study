@@ -1,5 +1,6 @@
 package com.spring.www.security.metadatasource;
 
+import com.spring.www.security.service.SecurityResourceService;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
@@ -10,9 +11,12 @@ import java.util.*;
 
 public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
     private LinkedHashMap<RequestMatcher, List<ConfigAttribute>> requestMap;
+    private SecurityResourceService securityResourceService;
 
-    public UrlFilterInvocationSecurityMetadataSource(LinkedHashMap<RequestMatcher, List<ConfigAttribute>> requestMap) {
+    //public UrlFilterInvocationSecurityMetadataSource(LinkedHashMap<RequestMatcher, List<ConfigAttribute>> requestMap) {
+    public UrlFilterInvocationSecurityMetadataSource(LinkedHashMap<RequestMatcher, List<ConfigAttribute>> requestMap, SecurityResourceService securityResourceService) {
         this.requestMap = requestMap;
+        this.securityResourceService = securityResourceService;
     }
 
     @Override
@@ -45,5 +49,17 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
     @Override
     public boolean supports(Class<?> clazz) {
         return FilterInvocation.class.isAssignableFrom(clazz);
+    }
+
+    public void reload() throws Exception {
+        LinkedHashMap<RequestMatcher, List<ConfigAttribute>> reloadedMap = securityResourceService.getResourceList();
+        Iterator<Map.Entry<RequestMatcher, List<ConfigAttribute>>> iterator = reloadedMap.entrySet().iterator();
+
+        requestMap.clear(); // 이전 데이터 삭제
+
+        while (iterator.hasNext()) {
+            Map.Entry<RequestMatcher, List<ConfigAttribute>> entry = iterator.next();
+            requestMap.put(entry.getKey(), entry.getValue());
+        }
     }
 }

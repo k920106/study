@@ -4,6 +4,7 @@ import com.spring.www.domain.entity.Resources;
 import com.spring.www.domain.entity.Role;
 import com.spring.www.dto.ResourcesDto;
 import com.spring.www.repository.RoleRepository;
+import com.spring.www.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import com.spring.www.service.ResourcesService;
 import com.spring.www.service.RoleService;
 import org.modelmapper.ModelMapper;
@@ -23,6 +24,7 @@ public class ResourcesController {
     @Autowired private ResourcesService resourcesService;
     @Autowired private RoleRepository roleRepository;
     @Autowired private RoleService roleService;
+    @Autowired private UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource;
 
     @GetMapping(value = "/admin/resources")
     public String getResources(Model model) throws Exception {
@@ -42,6 +44,7 @@ public class ResourcesController {
         resources.setRoleSet(roles);
 
         resourcesService.createResources(resources);
+        urlFilterInvocationSecurityMetadataSource.reload();
 
         return "redirect:/admin/resources";
     }
@@ -76,7 +79,9 @@ public class ResourcesController {
     @GetMapping(value = "/admin/resources/delete/{id}")
     public String removeResources(@PathVariable String id, Model model) throws Exception {
         Resources resources = resourcesService.getResources(Long.valueOf(id));
+
         resourcesService.deleteResources(Long.valueOf(id));
+        urlFilterInvocationSecurityMetadataSource.reload();
 
         return "redirect:/admin/resources";
     }
