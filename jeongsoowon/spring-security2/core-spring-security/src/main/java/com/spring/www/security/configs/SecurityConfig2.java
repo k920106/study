@@ -1,11 +1,13 @@
 package com.spring.www.security.configs;
 
 import com.spring.www.security.common.FormAuthenticationDetailsSource;
+import com.spring.www.security.factory.UrlResourcesMapFactoryBean;
 import com.spring.www.security.handler.AjaxAuthenticationFailureHandler;
 import com.spring.www.security.handler.AjaxAuthenticationSuccessHandler;
 import com.spring.www.security.handler.CustomAccessDeniedHandler;
 import com.spring.www.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import com.spring.www.security.provider.FormAuthenticationProvider;
+import com.spring.www.security.service.SecurityResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -38,26 +40,35 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
+    @Autowired private SecurityResourceService securityResourceService;
     @Autowired private FormAuthenticationDetailsSource authenticationDetailsSource;
     @Autowired private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
     @Autowired private AuthenticationFailureHandler customAuthenticationFailureHandler;
 
     @Bean
-    public FilterSecurityInterceptor customFilterSecurityInterceptor() {
+    public FilterSecurityInterceptor customFilterSecurityInterceptor() throws Exception {
         FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
         filterSecurityInterceptor.setSecurityMetadataSource(urlFilterInvocationSecurityMetadataSource());
         filterSecurityInterceptor.setAccessDecisionManager(affirmativeBased());
+        filterSecurityInterceptor.setAuthenticationManager(authenticationManagerBean());
         return filterSecurityInterceptor;
-    }
-
-    @Bean
-    public FilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource() {
-        return new UrlFilterInvocationSecurityMetadataSource();
     }
 
     private AccessDecisionManager affirmativeBased() {
         AffirmativeBased affirmativeBased = new AffirmativeBased(getAccessDecisionVoters());
         return affirmativeBased;
+    }
+
+    @Bean
+    public FilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource() throws Exception {
+        //return new UrlFilterInvocationSecurityMetadataSource();
+        return new UrlFilterInvocationSecurityMetadataSource(urlResourcesMapFactoryBean().getObject());
+    }
+
+    private UrlResourcesMapFactoryBean urlResourcesMapFactoryBean() {
+        UrlResourcesMapFactoryBean urlResourcesMapFactoryBean = new UrlResourcesMapFactoryBean();
+        urlResourcesMapFactoryBean.setSecurityResourceService(securityResourceService);
+        return urlResourcesMapFactoryBean;
     }
 
     private List<AccessDecisionVoter<?>> getAccessDecisionVoters() {
