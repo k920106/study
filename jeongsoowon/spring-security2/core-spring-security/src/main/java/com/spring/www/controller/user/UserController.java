@@ -1,7 +1,7 @@
 package com.spring.www.controller.user;
 
-import com.spring.www.domain.Account;
-import com.spring.www.domain.AccountDto;
+import com.spring.www.domain.entity.Account;
+import com.spring.www.dto.AccountDto;
 import com.spring.www.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

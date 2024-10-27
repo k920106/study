@@ -1,6 +1,6 @@
 package com.spring.www.security.service;
 
-import com.spring.www.domain.Account;
+import com.spring.www.domain.entity.Account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 

@@ -1,6 +1,6 @@
 package com.spring.www.controller.login;
 
-import com.spring.www.domain.Account;
+import com.spring.www.domain.entity.Account;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LoginController {
-    //@GetMapping("/login")
     @GetMapping({"/login", "/api/login"})
     public String login(@RequestParam(value = "error", required = false) String error
                       , @RequestParam(value= "exception", required = false) String exception
@@ -23,7 +22,7 @@ public class LoginController {
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
 
-        return "login";
+        return "user/login/login";
     }
 
     @GetMapping("/logout")
@@ -36,7 +35,6 @@ public class LoginController {
         return "redirect:/login";
     }
 
-    //@GetMapping("/denied")
     @GetMapping(value={"/denied", "/api/denied"})
     public String accessDenied(@RequestParam(value = "exception", required = false) String exception, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
