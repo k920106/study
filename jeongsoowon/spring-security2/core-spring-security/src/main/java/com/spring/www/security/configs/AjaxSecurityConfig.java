@@ -1,4 +1,4 @@
-package com.spring.www.security.config;
+package com.spring.www.security.configs;
 
 import com.spring.www.security.common.AjaxLoginAuthenticationEntryPoint;
 import com.spring.www.security.handler.AjaxAccessDeniedHandler;
@@ -16,8 +16,8 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+@Order(2)
 @Configuration
-@Order(0)
 public class AjaxSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AccessDeniedHandler ajaxAccessDeniedHandler() {
@@ -56,9 +56,6 @@ public class AjaxSecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticationEntryPoint(new AjaxLoginAuthenticationEntryPoint())
             .accessDeniedHandler(ajaxAccessDeniedHandler())
         ;
-        //http.csrf()
-        //    .disable()
-        //;
         customConfigurerAjax(http);
     }
 

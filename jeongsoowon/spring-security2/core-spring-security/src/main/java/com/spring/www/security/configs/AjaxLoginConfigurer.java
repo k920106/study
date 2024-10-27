@@ -1,4 +1,4 @@
-package com.spring.www.security.config;
+package com.spring.www.security.configs;
 
 import com.spring.www.security.filter.AjaxLoginProcessingFilter;
 import org.springframework.security.authentication.AuthenticationManager;
