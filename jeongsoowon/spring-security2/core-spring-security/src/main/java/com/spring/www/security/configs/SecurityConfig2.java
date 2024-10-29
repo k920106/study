@@ -16,8 +16,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.access.vote.AffirmativeBased;
-import org.springframework.security.access.vote.RoleVoter;
+import org.springframework.security.access.vote.RoleHierarchyVoter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -34,7 +35,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 @Order(0)
@@ -48,12 +49,7 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
     private String[] permitAllPattern = {"/", "/login", "/user/login/**"};
 
     @Bean
-    //public FilterSecurityInterceptor customFilterSecurityInterceptor() throws Exception {
     public PermitAllFilter customFilterSecurityInterceptor() throws Exception {
-        //FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
-        //filterSecurityInterceptor.setSecurityMetadataSource(urlFilterInvocationSecurityMetadataSource());
-        //filterSecurityInterceptor.setAccessDecisionManager(affirmativeBased());
-        //filterSecurityInterceptor.setAuthenticationManager(authenticationManagerBean());
         PermitAllFilter permitAllFilter = new PermitAllFilter(permitAllPattern);
         permitAllFilter.setSecurityMetadataSource(urlFilterInvocationSecurityMetadataSource());
         permitAllFilter.setAccessDecisionManager(affirmativeBased());
@@ -66,6 +62,24 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
         return affirmativeBased;
     }
 
+    private List<AccessDecisionVoter<?>> getAccessDecisionVoters() {
+        List<AccessDecisionVoter<? extends Object>> accessDecisionVoters = new ArrayList<>();
+        accessDecisionVoters.add(roleVoter());
+        return accessDecisionVoters;
+    }
+
+    @Bean
+    public RoleHierarchyVoter roleVoter() {
+        RoleHierarchyVoter roleHierarchyVoter = new RoleHierarchyVoter(roleHierarchy());
+        return roleHierarchyVoter;
+    }
+
+    @Bean
+    public RoleHierarchyImpl roleHierarchy() {
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        return roleHierarchy;
+    }
+
     @Bean
     public FilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource() throws Exception {
         return new UrlFilterInvocationSecurityMetadataSource(urlResourcesMapFactoryBean().getObject(), securityResourceService);
@@ -75,10 +89,6 @@ public class SecurityConfig2 extends WebSecurityConfigurerAdapter {
         UrlResourcesMapFactoryBean urlResourcesMapFactoryBean = new UrlResourcesMapFactoryBean();
         urlResourcesMapFactoryBean.setSecurityResourceService(securityResourceService);
         return urlResourcesMapFactoryBean;
-    }
-
-    private List<AccessDecisionVoter<?>> getAccessDecisionVoters() {
-        return Arrays.asList(new RoleVoter());
     }
 
     @Bean
