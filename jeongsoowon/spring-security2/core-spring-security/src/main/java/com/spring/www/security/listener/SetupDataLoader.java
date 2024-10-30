@@ -1,13 +1,7 @@
 package com.spring.www.security.listener;
 
-import com.spring.www.domain.entity.Account;
-import com.spring.www.domain.entity.Resources;
-import com.spring.www.domain.entity.Role;
-import com.spring.www.domain.entity.RoleHierarchy;
-import com.spring.www.repository.ResourcesRepository;
-import com.spring.www.repository.RoleHierarchyRepository;
-import com.spring.www.repository.RoleRepository;
-import com.spring.www.repository.UserRepository;
+import com.spring.www.domain.entity.*;
+import com.spring.www.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -26,6 +20,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     @Autowired private ResourcesRepository resourcesRepository;
     @Autowired private PasswordEncoder passwordEncoder;
     @Autowired private RoleHierarchyRepository roleHierarchyRepository;
+    @Autowired private AccessIpRepository accessIpRepository;
 
     private boolean alreadySetup = false;
     private static AtomicInteger count = new AtomicInteger(0);
@@ -38,6 +33,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         }
 
         setupSecurityResources();
+        setupAccessIpData();
 
         alreadySetup = true;
     }
@@ -106,6 +102,16 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
         RoleHierarchy childRoleHierarchy = roleHierarchyRepository.save(roleHierarchy);
         childRoleHierarchy.setParentName(parentRoleHierarchy);
+    }
+
+    private void setupAccessIpData() {
+        AccessIp byIpAddress = accessIpRepository.findByIpAddress("127.0.0.1");
+        if (byIpAddress == null) {
+            AccessIp accessIp = AccessIp.builder()
+                                        .ipAddress("127.0.0.1")
+                                        .build();
+            accessIpRepository.save(accessIp);
+        }
     }
 
     private void setupSecurityResources() {
