@@ -16,7 +16,8 @@ public class UserController {
     @Autowired private PasswordEncoder passwordEncoder;
 
     @GetMapping("/mypage")
-    public String myPage() throws Exception {
+    public String myPage() {
+        userService.order();
         return "user/mypage";
     }
 
