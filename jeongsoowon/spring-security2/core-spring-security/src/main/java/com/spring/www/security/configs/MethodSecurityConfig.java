@@ -1,6 +1,7 @@
 package com.spring.www.security.configs;
 
 import com.spring.www.security.factory.MethodResourcesMapFactoryBean;
+import com.spring.www.security.processor.ProtectPointcutPostProcessor;
 import com.spring.www.security.service.SecurityResourceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
     @Override
     protected MethodSecurityMetadataSource customMethodSecurityMetadataSource() {
-        //return new MapBasedMethodSecurityMetadataSource();
         return mapBasedMethodSecurityMetadataSource();
     }
 
@@ -32,6 +32,22 @@ public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
     public MethodResourcesMapFactoryBean methodResourcesMapFactoryBean() {
         MethodResourcesMapFactoryBean methodResourcesMapFactoryBean = new MethodResourcesMapFactoryBean();
         methodResourcesMapFactoryBean.setSecurityResourceService(securityResourceService);
+        methodResourcesMapFactoryBean.setResourceType("method");
         return methodResourcesMapFactoryBean;
+    }
+
+    @Bean
+    public MethodResourcesMapFactoryBean pointcutResourcesMapFactoryBean() {
+        MethodResourcesMapFactoryBean pointcutResourcesMapFactoryBean = new MethodResourcesMapFactoryBean();
+        pointcutResourcesMapFactoryBean.setSecurityResourceService(securityResourceService);
+        pointcutResourcesMapFactoryBean.setResourceType("pointcut");
+        return pointcutResourcesMapFactoryBean;
+    }
+
+    @Bean
+    public ProtectPointcutPostProcessor protectPointcutPostProcessor() {
+        ProtectPointcutPostProcessor protectPointcutPostProcessor = new ProtectPointcutPostProcessor(mapBasedMethodSecurityMetadataSource());
+        protectPointcutPostProcessor.setPointcutMap(pointcutResourcesMapFactoryBean().getObject());
+        return protectPointcutPostProcessor;
     }
 }

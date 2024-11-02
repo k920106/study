@@ -13,5 +13,8 @@ public interface ResourcesRepository extends JpaRepository<Resources, Long> {
     @Query("SELECT r FROM Resources r JOIN FETCH r.roleSet WHERE r.resourceType = 'method' ORDER BY r.orderNum DESC")
     List<Resources> findAllMethodResources();
 
+    @Query("SELECT r FROM Resources r JOIN FETCH r.roleSet WHERE r.resourceType = 'pointcut' ORDER BY r.orderNum DESC")
+    List<Resources> findAllPointcutResources();
+
     Resources findByResourceNameAndHttpMethod(String resourceName, String httpMethod);
 }
