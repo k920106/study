@@ -13,7 +13,6 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
     private LinkedHashMap<RequestMatcher, List<ConfigAttribute>> requestMap;
     private SecurityResourceService securityResourceService;
 
-    //public UrlFilterInvocationSecurityMetadataSource(LinkedHashMap<RequestMatcher, List<ConfigAttribute>> requestMap) {
     public UrlFilterInvocationSecurityMetadataSource(LinkedHashMap<RequestMatcher, List<ConfigAttribute>> requestMap, SecurityResourceService securityResourceService) {
         this.requestMap = requestMap;
         this.securityResourceService = securityResourceService;
