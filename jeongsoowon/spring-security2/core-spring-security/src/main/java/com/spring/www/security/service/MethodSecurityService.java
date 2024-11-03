@@ -1,4 +1,4 @@
-package com.spring.www.service;
+package com.spring.www.security.service;
 
 import com.spring.www.security.intercepter.CustomMethodSecurityInterceptor;
 import org.springframework.aop.framework.ProxyFactory;
@@ -25,11 +25,11 @@ public class MethodSecurityService {
     private Map<String, ProxyFactory> advisedMap = new HashMap<>();
     private Map<String, Object> targetMap = new HashMap<>();
 
-//  public MethodSecurityService(MapBasedMethodSecurityMetadataSource mapBasedMethodSecurityMetadataSource, AnnotationConfigServletWebServerApplicationContext applicationContext, CustomMethodSecurityInterceptor methodSecurityInterceptor) {
-//    this.mapBasedMethodSecurityMetadataSource = mapBasedMethodSecurityMetadataSource;
-//    this.applicationContext = applicationContext;
-//    this.methodSecurityInterceptor = methodSecurityInterceptor;
-//  }
+    public MethodSecurityService(MapBasedMethodSecurityMetadataSource mapBasedMethodSecurityMetadataSource, AnnotationConfigServletWebServerApplicationContext applicationContext, CustomMethodSecurityInterceptor methodSecurityInterceptor) {
+        this.mapBasedMethodSecurityMetadataSource = mapBasedMethodSecurityMetadataSource;
+        this.applicationContext = applicationContext;
+        this.methodSecurityInterceptor = methodSecurityInterceptor;
+    }
 
     public void addMethodSecured(String className, String roleName) throws Exception {
         int lastDotIndex = className.lastIndexOf(".");
@@ -82,9 +82,7 @@ public class MethodSecurityService {
         Object newInstance = type.getDeclaredConstructor().newInstance();
 
         DefaultSingletonBeanRegistry registry = (DefaultSingletonBeanRegistry) applicationContext.getBeanFactory();
-
         ProxyFactory proxyFactory = advisedMap.get(beanName);
-
         if (proxyFactory != null) {
             proxyFactory.removeAdvice(methodSecurityInterceptor);
 

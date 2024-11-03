@@ -5,6 +5,7 @@ import com.spring.www.domain.entity.Role;
 import com.spring.www.dto.ResourcesDto;
 import com.spring.www.repository.RoleRepository;
 import com.spring.www.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
+import com.spring.www.security.service.MethodSecurityService;
 import com.spring.www.service.ResourcesService;
 import com.spring.www.service.RoleService;
 import org.modelmapper.ModelMapper;
@@ -25,6 +26,7 @@ public class ResourcesController {
     @Autowired private RoleRepository roleRepository;
     @Autowired private RoleService roleService;
     @Autowired private UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource;
+    @Autowired private MethodSecurityService methodSecurityService;
 
     @GetMapping(value = "/admin/resources")
     public String getResources(Model model) throws Exception {
@@ -44,7 +46,13 @@ public class ResourcesController {
         resources.setRoleSet(roles);
 
         resourcesService.createResources(resources);
-        urlFilterInvocationSecurityMetadataSource.reload();
+
+        if ("url".equals(resourcesDto.getResourceType())) {
+            urlFilterInvocationSecurityMetadataSource.reload();
+        }
+        else {
+            methodSecurityService.addMethodSecured(resourcesDto.getResourceName(), resourcesDto.getRoleName());
+        }
 
         return "redirect:/admin/resources";
     }
@@ -64,7 +72,7 @@ public class ResourcesController {
     }
 
     @GetMapping(value = "/admin/resources/{id}")
-    public String getResources(@PathVariable String id, Model model) throws Exception {
+    public String getResources(@PathVariable String id, Model model) {
         List<Role> roleList = roleService.getRoles();
         model.addAttribute("roleList", roleList);
         Resources resources = resourcesService.getResources(Long.valueOf(id));
@@ -81,7 +89,13 @@ public class ResourcesController {
         Resources resources = resourcesService.getResources(Long.valueOf(id));
 
         resourcesService.deleteResources(Long.valueOf(id));
-        urlFilterInvocationSecurityMetadataSource.reload();
+
+        if ("url".equals(resources.getResourceType())) {
+            urlFilterInvocationSecurityMetadataSource.reload();
+        }
+        else {
+            methodSecurityService.removeMethodSecured(resources.getResourceName());
+        }
 
         return "redirect:/admin/resources";
     }
