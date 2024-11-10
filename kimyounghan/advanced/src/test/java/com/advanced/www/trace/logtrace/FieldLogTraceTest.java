@@ -1,4 +1,4 @@
-package com.advanced.www.app.trace.logtrace;
+package com.advanced.www.trace.logtrace;
 
 import com.advanced.www.trace.TraceStatus;
 import com.advanced.www.trace.logtrace.FieldLogTrace;

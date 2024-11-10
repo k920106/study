@@ -1,4 +1,4 @@
-package com.advanced.www.app.trace.hellotrace;
+package com.advanced.www.trace.hellotrace;
 
 import com.advanced.www.trace.TraceStatus;
 import com.advanced.www.trace.hellotrace.HelloTraceV2;
