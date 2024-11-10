@@ -1,18 +1,17 @@
-package com.advanced.www.app.v1;
+package com.advanced.www.app.v3;
 
 import com.advanced.www.trace.TraceStatus;
-import com.advanced.www.trace.hellotrace.HelloTraceV1;
+import com.advanced.www.trace.logtrace.LogTrace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceV1 {
-    private final OrderRepositoryV1 orderRepository;
-    private final HelloTraceV1 trace;
+public class OrderServiceV3 {
+    private final OrderRepositoryV3 orderRepository;
+    private final LogTrace trace;
 
     public void orderItem(String itemId) {
-        // orderRepository.save(itemId);
         TraceStatus status = null;
         try {
             status = trace.begin("OrderService.orderItem()");

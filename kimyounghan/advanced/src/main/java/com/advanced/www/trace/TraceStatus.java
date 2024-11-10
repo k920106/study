@@ -1,4 +1,4 @@
-package com.advanced.www.app.trace;
+package com.advanced.www.trace;
 
 public class TraceStatus {
     private TraceId traceId;

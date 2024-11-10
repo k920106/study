@@ -1,6 +1,7 @@
 package com.advanced.www.app.trace.logtrace;
 
-import com.advanced.www.app.trace.TraceStatus;
+import com.advanced.www.trace.TraceStatus;
+import com.advanced.www.trace.logtrace.FieldLogTrace;
 import org.junit.jupiter.api.Test;
 
 class FieldLogTraceTest {

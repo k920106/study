@@ -1,7 +1,7 @@
 package com.advanced.www.app.v1;
 
-import com.advanced.www.app.trace.TraceStatus;
-import com.advanced.www.app.trace.hellotrace.HelloTraceV1;
+import com.advanced.www.trace.TraceStatus;
+import com.advanced.www.trace.hellotrace.HelloTraceV1;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

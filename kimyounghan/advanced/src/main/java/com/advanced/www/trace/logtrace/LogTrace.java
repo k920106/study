@@ -1,6 +1,6 @@
-package com.advanced.www.app.trace.logtrace;
+package com.advanced.www.trace.logtrace;
 
-import com.advanced.www.app.trace.TraceStatus;
+import com.advanced.www.trace.TraceStatus;
 
 public interface LogTrace {
     TraceStatus begin(String message);

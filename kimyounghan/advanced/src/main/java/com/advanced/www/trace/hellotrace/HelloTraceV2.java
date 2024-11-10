@@ -1,41 +1,36 @@
-package com.advanced.www.app.trace.logtrace;
+package com.advanced.www.trace.hellotrace;
 
-import com.advanced.www.app.trace.TraceId;
-import com.advanced.www.app.trace.TraceStatus;
+import com.advanced.www.trace.TraceId;
+import com.advanced.www.trace.TraceStatus;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
-public class FieldLogTrace implements LogTrace {
+@Component
+public class HelloTraceV2 {
     private static final String START_PREFIX = "-->";
     private static final String COMPLETE_PREFIX = "<--";
     private static final String EX_PREFIX = "<X-";
 
-    private TraceId traceIdHolder; //traceId 동기화, 동시성 이슈 발생
-
-    @Override
     public TraceStatus begin(String message) {
-        syncTraceId();
-        TraceId traceId = traceIdHolder;
+        TraceId traceId = new TraceId();
         Long startTimeMs = System.currentTimeMillis();
         log.info("[{}] {}{}", traceId.getId(), addSpace(START_PREFIX, traceId.getLevel()), message);
         return new TraceStatus(traceId, startTimeMs, message);
     }
 
-    private void syncTraceId() {
-        if (traceIdHolder == null) {
-            traceIdHolder = new TraceId();
-        } else {
-            traceIdHolder = traceIdHolder.createNextId();
-        }
+    // V2에서 추가
+    public TraceStatus beginSync(TraceId beforeTraceId, String message) {
+        TraceId nextId = beforeTraceId.createNextId();
+        Long startTimeMs = System.currentTimeMillis();
+        log.info("[{}] {}{}", nextId.getId(), addSpace(START_PREFIX, nextId.getLevel()), message);
+        return new TraceStatus(nextId, startTimeMs, message);
     }
 
-    @Override
     public void end(TraceStatus status) {
         complete(status, null);
-
     }
 
-    @Override
     public void exception(TraceStatus status, Exception e) {
         complete(status, e);
     }
@@ -48,16 +43,6 @@ public class FieldLogTrace implements LogTrace {
             log.info("[{}] {}{} time={}ms", traceId.getId(), addSpace(COMPLETE_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs);
         } else {
             log.info("[{}] {}{} time={}ms ex={}", traceId.getId(), addSpace(EX_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs, e.toString());
-        }
-
-        releaseTraceId();
-    }
-
-    private void releaseTraceId() {
-        if (traceIdHolder.isFirstLevel()) {
-            traceIdHolder = null; //destroy
-        } else {
-            traceIdHolder = traceIdHolder.createPreviousId();
         }
     }
 
