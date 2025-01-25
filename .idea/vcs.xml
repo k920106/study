@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/kyo/matzip/tastehouse" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/kyo/matzip/tastehouse/server" vcs="Git" />
   </component>
 </project>
