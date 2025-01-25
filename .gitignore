@@ -3,3 +3,5 @@
 **/.gitignore/
 **/study.iml/
 **/application.yml
+study.iml
+.idea
