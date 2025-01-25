@@ -1,7 +1,7 @@
 **/node_modules/
 **/idea/
 **/.gitignore/
-**/study.iml/
 **/application.yml
+**/.iml
 study.iml
 .idea
