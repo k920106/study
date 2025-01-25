@@ -1,4 +1,4 @@
-## 견고한 결제 시스템 구축 
+## 견고한 결제 시스템 구축
 - Payment System 설계
 - Toss Payments 결제 연동
 - Payment Service 데이터 모델링
