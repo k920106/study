@@ -24,7 +24,7 @@ const Edit = () => {
     }
 
     setCurDiaryItem(currentDiaryItem);
-  }, [params.id, data]);
+  }, [params.id]);
 
   const onClickDelete = () => {
     if (
@@ -48,7 +48,6 @@ const Edit = () => {
     }
   };
 
-  // return <div>{params.id}번 일기 수정페이지입니다</div>;
   return (
       <div>
         <Header
