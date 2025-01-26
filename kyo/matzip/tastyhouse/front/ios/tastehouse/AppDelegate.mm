@@ -6,13 +6,13 @@
 #import <AppCenterReactNative.h>
 #import <AppCenterReactNativeAnalytics.h>
 #import <AppCenterReactNativeCrashes.h>
-#import "RNSplashScreen.h" 
+#import "RNSplashScreen.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [GMSServices provideAPIKey:@"AIzaSyBe8BEi5BaOXDYkG_bi56yFmpic7Pp0iB4"]; // add this line using the api key obtained from Google Console
+  [GMSServices provideAPIKey:@"GOOGLE_API_KEY"]; // add this line using the api key obtained from Google Console
   self.moduleName = @"tastehouse";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
