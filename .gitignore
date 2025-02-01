@@ -3,6 +3,7 @@
 **/idea/
 **/.gitignore/
 **/application.yml
+**/.env
 **/.iml
 study.iml
 .idea
