@@ -70,12 +70,12 @@ export default function Page({
 
 	return (
 			<>
-				{/*<Head>*/}
-				{/*	<title>{title}</title>*/}
-				{/*	<meta property="og:image" content={coverImgUrl} />*/}
-				{/*	<meta property="og:title" content={title} />*/}
-				{/*	<meta property="og:description" content={description} />*/}
-				{/*</Head>*/}
+				<Head>
+					<title>{title}</title>
+					<meta property="og:image" content={coverImgUrl} />
+					<meta property="og:title" content={title} />
+					<meta property="og:description" content={description} />
+				</Head>
 				<div className={style.container}>
 					<div
 							className={style.cover_img_container}
