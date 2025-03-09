@@ -3,9 +3,10 @@ import style from "./page.module.css";
 import {BookData} from "@/types";
 import {delay} from "@/util/delay";
 import {Suspense} from "react";
+import BookListSkeleton from "@/components/skeleton/book-list-skeleton";
 
 async function AllBooks() {
-  await delay(1500);
+  await delay(1000);
 
   const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
@@ -55,13 +56,13 @@ export default async function Home() {
     <div className={style.container}>
       <section>
         <h3>지금 추천하는 도서</h3>
-        <Suspense fallback={<div>추천하는 도서 Loading...</div>}>
-          <RecoBooks />
+        <Suspense fallback={<BookListSkeleton count={3} />}>
+        <RecoBooks />
         </Suspense>
       </section>
       <section>
         <h3>등록된 모든 도서</h3>
-        <Suspense fallback={<div>등록된 도서 Loading...</div>}>
+        <Suspense fallback={<BookListSkeleton count={10} />}>
           <AllBooks />
         </Suspense>
       </section>
