@@ -10,7 +10,11 @@ export function generateStaticParams() {
 }
 
 async function BookDetail({bookId}: { bookId: string }) {
-	const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${bookId}`);
+	const response = await fetch(
+			`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${bookId}`,
+			{cache: "force-cache"}
+	);
+
 	if (!response.ok) {
 		if (response.status === 404) {
 			notFound();
@@ -40,19 +44,6 @@ async function BookDetail({bookId}: { bookId: string }) {
 	);
 }
 
-// function ReviewEditor({bookId}: { bookId: string }) {
-// 	return (
-// 			<section>
-// 				<form action={createReviewAction}>
-// 					<input name="bookId" value={bookId} hidden readOnly/>
-// 					<input name="content" placeholder="리뷰 내용" required/>
-// 					<input name="author" placeholder="작성자" required/>
-// 					<button type="submit">작성하기</button>
-// 				</form>
-// 			</section>
-// 	);
-// }
-
 async function ReviewList({bookId}: { bookId: string }) {
 	const response = await fetch(
 			`${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/book/${bookId}`
@@ -72,8 +63,8 @@ async function ReviewList({bookId}: { bookId: string }) {
 }
 
 export default async function Page({
-																		 params,
-																	 }: {
+	params,
+}: {
 	params: Promise<{ id: string }>
 }) {
 	const {id} = await params;
