@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
 			{
 				protocol: "https",
 				hostname: "shopping-phinf.pstatic.net",
+				pathname: "**",
 			}
 		]
 	},

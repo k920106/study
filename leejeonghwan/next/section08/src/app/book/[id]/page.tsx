@@ -32,7 +32,7 @@ async function BookDetail({bookId}: { bookId: string }) {
 						className={style.cover_img_container}
 						style={{backgroundImage: `url('${coverImgUrl}')`}}
 				>
-					<Image src={coverImgUrl} alt={`${title} 표지`} width={300} height={500} priority/>
+					<Image src={coverImgUrl} width={240} height={300} alt={`${title} 표지`} priority/>
 				</div>
 				<div className={style.title}>{title}</div>
 				<div className={style.subTitle}>{subTitle}</div>
