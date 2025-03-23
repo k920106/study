@@ -17,6 +17,7 @@
     "dayjs": "^1.11.13",
     "next": "13.5.8",
     "react": "^18",
+    "react-calendar": "^5.1.0",
     "react-dom": "^18",
     "react-icons": "^5.5.0"
   },

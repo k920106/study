@@ -10,6 +10,8 @@ import {AiOutlineMinusCircle, AiOutlinePlusCircle, AiOutlineSearch} from 'react-
 import {AiOutlineMenu} from 'react-icons/ai'
 import {AiOutlineUser} from 'react-icons/ai'
 
+import Calendar from 'react-calendar'
+
 import cn from 'classnames'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ko'
@@ -46,7 +48,6 @@ export default function Navbar() {
 
 	return (
 			<nav
-					// className="h-20 border border-b-gray-20 w-full shadow-sm p-4 sm:px-10 flex justify-between align-center fixed top-0 bg-white">
 					className={cn(
 							'border border-b-gray-20 w-full shadow-sm p-4 sm:px-10 flex justify-between items-center align-middle fixed top-0 bg-white',
 							{
@@ -62,7 +63,7 @@ export default function Navbar() {
 				</div>
 				{!showFilter ? (
 						<div
-								className="w-full sm:w-[280px] border border-gray-200 rounded-full shadow hover:shadow-lg cursor-pointer flex justify-between pl-6 pr-2">
+								className="w-full sm:w-[280px] border py-1.5 border-gray-200 rounded-full shadow hover:shadow-lg cursor-pointer flex justify-between pl-6 pr-2">
 							<div className="flex justify-center gap-1">
 								<div className="my-auto font-semibold text-sm">어디든지</div>
 								<RxDividerVertical className="text-gray-200 my-auto text-2xl"/>
@@ -203,7 +204,7 @@ export default function Navbar() {
 								</div>
 								<button
 										type="button"
-										className="bg-rose-600 text-white rounded-full h-10 mx-4 sm:w-24 my-auto flex justify-center gap-1 px-3 py-2 hover:shadow hover:bg-rose-500"
+										className="bg-rose-600 text-white rounded-full h-10 mx-4 sm:w-24 mt-4 sm:mt-2 my-auto flex justify-center gap-1 px-3 py-2 hover:shadow hover:bg-rose-500"
 										onClick={() => {
 											setShowFilter(false)
 											setDetailFilter(null)
@@ -215,8 +216,7 @@ export default function Navbar() {
 							</div>
 						</div>
 				)}
-				{/*<div className="grow basis-0 hidden sm:flex gap-4 align-middle my-auto justify-end relative">*/}
-				<div className="grow basis-0 hidden sm:flex gap-4 align-middle justify-end relative">
+				<div className="grow basis-0 hidden md:flex gap-4 align-middle justify-end relative">
 					<button
 							type="button"
 							className="font-semibold text-sm my-auto px-4 py-3 rounded-full hover:bg-gray-50"
@@ -264,7 +264,7 @@ const LocationFilter = ({
 												}: FilterComponentProps) => {
 	return (
 			<div
-					className="absolute top-80 sm:top-[70px] border border-gray-200 px-8 py-10 flex flex-col bg-white w-full mx-auto inset-x-0 sm:max-w-3xl sm:w-[780px] rounded-xl">
+					className="absolute top-[19rem] sm:top-[70px] border border-gray-200 px-8 py-10 flex flex-col bg-white w-full mx-auto inset-x-0 sm:max-w-3xl sm:w-[780px] rounded-xl">
 				<div className="text-sm font-semibold">지역으로 검색하기</div>
 				<div className="flex flex-wrap gap-4 mt-4">
 					{['서울', '부산', '대구', '인천', '광주', '대전', '울산']?.map(
@@ -300,19 +300,36 @@ const CheckInFilter = ({
 												 setFilterValue,
 												 setDetailFilter,
 											 }: FilterComponentProps) => {
+	const onChange = (e: any) => {
+		setFilterValue({
+			...filterValue,
+			checkIn: dayjs(e).format('YYYY-MM-DD'),
+		})
+		setDetailFilter('checkOut')
+	}
+
 	return (
 			<div
-					className="absolute top-80 sm:top-[70px] border border-gray-200 px-8 py-10 flex flex-col bg-white w-full mx-auto inset-x-0 sm:max-w-3xl sm:w-[780px] rounded-xl">
+					className="absolute top-[19rem] sm:top-[70px] border border-gray-200 px-8 py-10 flex flex-col bg-white w-full mx-auto inset-x-0 sm:max-w-3xl sm:w-[780px] rounded-xl">
 				<div className="text-sm font-semibold">체크인 날짜 설정하기</div>
-				<input
-						type="date"
-						className="mt-4 border border-gray-200 py-3 px-2.5 rounded-lg"
-						defaultValue={filterValue.checkIn}
-						min={dayjs().format('YYYY-MM-DD')}
-						onChange={(e) => {
-							setFilterValue({...filterValue, checkIn: e.target.value})
-							setDetailFilter('checkOut')
-						}}
+				{/*<input*/}
+				{/*		type="date"*/}
+				{/*		className="mt-4 border border-gray-200 py-3 px-2.5 rounded-lg"*/}
+				{/*		defaultValue={filterValue.checkIn}*/}
+				{/*		min={dayjs().format('YYYY-MM-DD')}*/}
+				{/*		onChange={(e) => {*/}
+				{/*			setFilterValue({...filterValue, checkIn: e.target.value})*/}
+				{/*			setDetailFilter('checkOut')*/}
+				{/*		}}*/}
+				{/*/>*/}
+				<Calendar
+						className="mt-8 mx-auto"
+						onChange={onChange}
+						minDate={new Date()}
+						defaultValue={
+							filterValue.checkIn ? new Date(filterValue.checkIn) : null
+						}
+						formatDay={(locale, date) => dayjs(date).format('DD')}
 				/>
 			</div>
 	)
@@ -323,19 +340,38 @@ const CheckOutFilter = ({
 													setFilterValue,
 													setDetailFilter,
 												}: FilterComponentProps) => {
+	const onChange = (e: any) => {
+		setFilterValue({
+			...filterValue,
+			checkOut: dayjs(e).format('YYYY-MM-DD'),
+		})
+		setDetailFilter('guest')
+	}
+
 	return (
 			<div
-					className="absolute top-80 sm:top-[70px] border border-gray-200 px-8 py-10 flex flex-col bg-white w-full mx-auto inset-x-0 sm:max-w-3xl sm:w-[780px] rounded-xl">
+					className="absolute top-[19rem] sm:top-[70px] border border-gray-200 px-8 py-10 flex flex-col bg-white w-full mx-auto inset-x-0 sm:max-w-3xl sm:w-[780px] rounded-xl">
 				<div className="text-sm font-semibold">체크아웃 날짜 설정하기</div>
-				<input
-						type="date"
-						className="mt-4 border border-gray-200 py-3 px-2.5 rounded-lg"
-						defaultValue={filterValue.checkOut}
-						min={dayjs(filterValue.checkIn).add(1, 'day').format('YYYY-MM-DD')}
-						onChange={(e) => {
-							setFilterValue({...filterValue, checkOut: e.target.value})
-							setDetailFilter('guest')
-						}}
+				{/*<input*/}
+				{/*		type="date"*/}
+				{/*		className="mt-4 border border-gray-200 py-3 px-2.5 rounded-lg"*/}
+				{/*		defaultValue={filterValue.checkOut}*/}
+				{/*		min={dayjs(filterValue.checkIn).add(1, 'day').format('YYYY-MM-DD')}*/}
+				{/*		onChange={(e) => {*/}
+				{/*			setFilterValue({...filterValue, checkOut: e.target.value})*/}
+				{/*			setDetailFilter('guest')*/}
+				{/*		}}*/}
+				{/*/>*/}
+				<Calendar
+						className="mt-8 mx-auto"
+						onChange={onChange}
+						minDate={
+							filterValue.checkIn ? new Date(filterValue.checkIn) : new Date()
+						}
+						defaultValue={
+							filterValue.checkOut ? new Date(filterValue.checkOut) : null
+						}
+						formatDay={(locale, date) => dayjs(date).format('DD')}
 				/>
 			</div>
 	)
@@ -350,7 +386,7 @@ const GuestFilter = ({
 
 	return (
 			<div
-					className="absolute top-80 sm:top-[70px] border border-gray-200 px-8 py-10 flex flex-col bg-white w-full mx-auto inset-x-0 sm:max-w-3xl sm:w-[780px] rounded-xl">
+					className="absolute top-[19rem] sm:top-[70px] border border-gray-200 px-8 py-10 flex flex-col bg-white w-full mx-auto inset-x-0 sm:max-w-3xl sm:w-[780px] rounded-xl">
 				<div className="text-sm font-semibold">게스트 수 추가하기</div>
 				<div className="mt-4 border border-gray-200 rounded-lg py-2 px-4 flex justify-between items-center">
 					<div>
