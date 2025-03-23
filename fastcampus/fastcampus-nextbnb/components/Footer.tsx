@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
 	return (
 			<footer className="bg-gray-50 py-2">
@@ -11,25 +13,40 @@ export default function Footer() {
 						All Rights Reserved.
 					</div>
 					<ul className="flex flex-wrap gap-4 md:gap-6 items-center text-sm text-gray-800 mt-2 sm:mt-0">
+						{/*<li>*/}
+						{/*	<a href="#" className="hover:underline">*/}
+						{/*		개인정보 처리방침*/}
+						{/*	</a>*/}
+						{/*</li>*/}
+						{/*<li>*/}
+						{/*	<a href="#" className="hover:underline">*/}
+						{/*		이용약관*/}
+						{/*	</a>*/}
+						{/*</li>*/}
+						{/*<li>*/}
+						{/*	<a href="#" className="hover:underline">*/}
+						{/*		공지사항*/}
+						{/*	</a>*/}
+						{/*</li>*/}
+						{/*<li>*/}
+						{/*	<a href="#" className="hover:underline">*/}
+						{/*		회사 세부정보*/}
+						{/*	</a>*/}
+						{/*</li>*/}
 						<li>
-							<a href="#" className="hover:underline">
-								개인정보 처리방침
-							</a>
+							<Link href="/users/login" className="hover:underline">
+								로그인
+							</Link>
 						</li>
 						<li>
-							<a href="#" className="hover:underline">
-								이용약관
-							</a>
+							<Link href="/users/signIn" className="hover:underline">
+								회원가입
+							</Link>
 						</li>
 						<li>
-							<a href="#" className="hover:underline">
-								공지사항
-							</a>
-						</li>
-						<li>
-							<a href="#" className="hover:underline">
-								회사 세부정보
-							</a>
+							<Link href="/faqs" className="hover:underline">
+								FAQ
+							</Link>
 						</li>
 					</ul>
 				</div>
@@ -42,5 +59,5 @@ export default function Footer() {
 					해당 서비스를 제공하는 호스트에게 있습니다.
 				</div>
 			</footer>
-	)
+	);
 }
