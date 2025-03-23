@@ -15,6 +15,7 @@ import Calendar from 'react-calendar'
 import cn from 'classnames'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ko'
+import {DetailFilterType, FilterProps} from "@/interface";
 
 const menus = [
 	{id: 1, title: '로그인', url: '/users/login'},
@@ -22,14 +23,14 @@ const menus = [
 	{id: 3, title: 'FAQ', url: '/faqs'},
 ]
 
-type DetailFilterType = 'location' | 'checkIn' | 'checkOut' | 'guest'
+// type DetailFilterType = 'location' | 'checkIn' | 'checkOut' | 'guest'
 
-interface FilterProps {
-	location: string
-	checkIn: string
-	checkOut: string
-	guest: number
-}
+// interface FilterProps {
+// 	location: string
+// 	checkIn: string
+// 	checkOut: string
+// 	guest: number
+// }
 
 export default function Navbar() {
 	const router = useRouter()
@@ -312,16 +313,6 @@ const CheckInFilter = ({
 			<div
 					className="absolute top-[19rem] sm:top-[70px] border border-gray-200 px-8 py-10 flex flex-col bg-white w-full mx-auto inset-x-0 sm:max-w-3xl sm:w-[780px] rounded-xl">
 				<div className="text-sm font-semibold">체크인 날짜 설정하기</div>
-				{/*<input*/}
-				{/*		type="date"*/}
-				{/*		className="mt-4 border border-gray-200 py-3 px-2.5 rounded-lg"*/}
-				{/*		defaultValue={filterValue.checkIn}*/}
-				{/*		min={dayjs().format('YYYY-MM-DD')}*/}
-				{/*		onChange={(e) => {*/}
-				{/*			setFilterValue({...filterValue, checkIn: e.target.value})*/}
-				{/*			setDetailFilter('checkOut')*/}
-				{/*		}}*/}
-				{/*/>*/}
 				<Calendar
 						className="mt-8 mx-auto"
 						onChange={onChange}
@@ -352,16 +343,6 @@ const CheckOutFilter = ({
 			<div
 					className="absolute top-[19rem] sm:top-[70px] border border-gray-200 px-8 py-10 flex flex-col bg-white w-full mx-auto inset-x-0 sm:max-w-3xl sm:w-[780px] rounded-xl">
 				<div className="text-sm font-semibold">체크아웃 날짜 설정하기</div>
-				{/*<input*/}
-				{/*		type="date"*/}
-				{/*		className="mt-4 border border-gray-200 py-3 px-2.5 rounded-lg"*/}
-				{/*		defaultValue={filterValue.checkOut}*/}
-				{/*		min={dayjs(filterValue.checkIn).add(1, 'day').format('YYYY-MM-DD')}*/}
-				{/*		onChange={(e) => {*/}
-				{/*			setFilterValue({...filterValue, checkOut: e.target.value})*/}
-				{/*			setDetailFilter('guest')*/}
-				{/*		}}*/}
-				{/*/>*/}
 				<Calendar
 						className="mt-8 mx-auto"
 						onChange={onChange}
