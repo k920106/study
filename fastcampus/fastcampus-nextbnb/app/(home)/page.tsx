@@ -10,16 +10,6 @@ import {useInfiniteQuery} from "react-query";
 import axios from "axios";
 
 export default function Home() {
-	// const fetchRoom = async () => {
-	// 	const data = await fetch('/api/rooms')
-	// 	return data.json()
-	// }
-	//
-	// const { data, isError, isLoading } = useQuery('rooms', fetchRoom)
-	//
-	// if (isLoading) {
-	// 	return <Loader className="mt-60 mb-40" />
-	// }
 	const ref = useRef<HTMLDivElement | null>(null)
 	const pageRef = useIntersectionObserver(ref, {})
 	const isPageEnd = !!pageRef?.isIntersecting
@@ -48,6 +38,10 @@ export default function Home() {
 				lastPage?.data?.length > 0 ? lastPage.page + 1 : undefined,
 	})
 
+	if (isError) {
+		throw new Error('Room API Fetching Error')
+	}
+
 	useEffect(() => {
 		let timerId: NodeJS.Timeout | undefined
 
@@ -62,7 +56,6 @@ export default function Home() {
 			<>
 				<CategoryList/>
 				<GridLayout>
-					{/*{data?.map((room: RoomType) => <RoomItem room={room} key={room.id}/>)}*/}
 					{isLoading || isFetching ? (
 							<LoaderGrid/>
 					) : (

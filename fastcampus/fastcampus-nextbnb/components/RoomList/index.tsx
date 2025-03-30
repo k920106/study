@@ -2,14 +2,23 @@
 
 import {RoomType} from '@/interface'
 import {ReactNode} from 'react'
+import Image from "next/image";
 
 export function RoomItem({room}: { room: RoomType }) {
 	return (
 			<div key={room.id}>
-				<img
+				{/*<img*/}
+				{/*		src={room?.images?.[0]}*/}
+				{/*		alt={room.title}*/}
+				{/*		className="rounded-md w-full h-auto object-fit"*/}
+				{/*/>*/}
+				<Image
 						src={room?.images?.[0]}
 						alt={room.title}
+						width={300} // 적절한 width 지정
+						height={300} // 적절한 height 지정
 						className="rounded-md w-full h-auto object-fit"
+						priority // 초기 로딩 최적화
 				/>
 				<div className="mt-2 font-semibold text-sm">{room.title}</div>
 				<span className="text-xs px-2 py-1 rounded-full bg-black text-white mt-1">
