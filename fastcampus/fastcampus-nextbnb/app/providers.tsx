@@ -13,7 +13,6 @@ interface Props {
 const queryClient = new QueryClient()
 
 export const NextProvider = ({children}: Props) => {
-	// return <RecoilRoot>{children}</RecoilRoot>
 	return (
 			<RecoilRoot>
 				<QueryClientProvider client={queryClient}>
@@ -28,7 +27,8 @@ export const NextLayout = ({children}: Props) => {
 	return (
 			<>
 				<Navbar/>
-				<div className="mt-20 p-10 min-h-[80vh]">{children}</div>
+				{/*<div className="mt-20 p-10 min-h-[80vh]">{children}</div>*/}
+				{children}
 				<Footer/>
 			</>
 	)
