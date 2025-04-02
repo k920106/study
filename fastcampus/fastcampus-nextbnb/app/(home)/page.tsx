@@ -7,9 +7,10 @@ import Loader, {LoaderGrid} from '@/components/Loader'
 import React, {useEffect, useRef} from "react";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import {useInfiniteQuery} from "react-query";
-import { useRouter } from 'next/navigation'
+import {useRouter} from 'next/navigation'
 import axios from "axios";
-import {BsMap} from "react-icons/bs";
+import {MapButton} from "@/components/Map";
+import {log} from "node:util";
 
 export default function Home() {
 	const router = useRouter()
@@ -65,18 +66,19 @@ export default function Home() {
 							rooms?.pages?.map((page, index) => (
 									<React.Fragment key={index}>
 										{page?.data?.map((room: RoomType) => (
-												<RoomItem room={room} key={room.id}/>
+												<RoomItem room={room} />
 										))}
 									</React.Fragment>
 							))
 					)}
 				</GridLayout>
-				<button
-						onClick={() => router.push('/map')}
-						className="flex gap-2 items-center text-sm bg-black rounded-full text-white px-5 py-3.5 shadow-sm hover:shadow-lg mx-auto sticky bottom-12"
-				>
-					지도 표시하기 <BsMap className="text-xs" />
-				</button>
+				{/*<button*/}
+				{/*		onClick={() => router.push('/map')}*/}
+				{/*		className="flex gap-2 items-center text-sm bg-black rounded-full text-white px-5 py-3.5 shadow-sm hover:shadow-lg mx-auto sticky bottom-12"*/}
+				{/*>*/}
+				{/*	지도 표시하기 <BsMap className="text-xs" />*/}
+				{/*</button>*/}
+				<MapButton onClick={() => router.push('/map')} />
 				{(isFetching || hasNextPage || isFetchingNextPage) && <Loader/>}
 				<div className="w-full touch-none h-10 mb-10" ref={ref}/>
 			</>
