@@ -1,42 +1,21 @@
-// 'use client'
-// /*global kakao*/
-//
-// import Script from 'next/script'
-//
-// declare global {
-// 	interface Window {
-// 		kakao: any
-// 	}
-// }
-//
-// export default function MapPage() {
-// 	// @see - https://apis.map.kakao.com/web/documentation/#load
-// 	const loadKakoMap = () => {
-// 		window.kakao.maps.load(() => {
-// 			const mapContainer = document.getElementById('map')
-// 			const mapOption = {
-// 				center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-// 				level: 3,
-// 			}
-//
-// 			new window.kakao.maps.Map(mapContainer, mapOption)
-// 		})
-// 	}
-// 	return (
-// 			<>
-// 				<Script
-// 						strategy="afterInteractive"
-// 						type="text/javascript"
-// 						src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_CLIENT}&autoload=false`}
-// 						onReady={loadKakoMap}
-// 				/>
-// 				<div id="map" className="w-full h-screen"/>
-// 			</>
-// 	)
-// }
+'use client'
 
 import Map from '@/components/Map'
+import {useState} from "react";
+import {RoomType} from "@/interface";
+import SelectedRoom from "@/components/Map/SelectedRoom";
 
 export default function MapPage() {
-	return <Map />
+	const [selectedRoom, setSelectedRoom] = useState<RoomType | null>(null)
+
+	// return <Map />
+	return (
+			<>
+				<Map setSelectedRoom={setSelectedRoom} />
+				<SelectedRoom
+						selectedRoom={selectedRoom}
+						setSelectedRoom={setSelectedRoom}
+				/>
+			</>
+	)
 }

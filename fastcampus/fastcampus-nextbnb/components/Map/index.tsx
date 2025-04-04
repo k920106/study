@@ -6,6 +6,7 @@ import {useQuery} from "react-query";
 import {RoomType} from "@/interface";
 import axios from "axios";
 import { BsMap } from 'react-icons/bs'
+import {SetStateAction} from "react";
 
 declare global {
 	interface Window {
@@ -17,9 +18,14 @@ const DEFAULT_LAT = 37.565337
 const DEFAULT_LNG = 126.9772095
 const ZOOM_LEVEL = 7
 
-export default function Map() {
+// export default function Map() {
+export default function Map({
+	setSelectedRoom,
+}: {
+	setSelectedRoom: React.Dispatch<SetStateAction<RoomType | null>>
+}) {
 	const fetchRooms = async () => {
-		const { data } = await axios('/api/rooms')
+		const { data } = await axios('/api/rooms_error')
 		return data as RoomType[]
 	}
 
@@ -30,9 +36,7 @@ export default function Map() {
 		window.kakao.maps.load(() => {
 			const mapContainer = document.getElementById('map')
 			const mapOption = {
-				// center: new window.kakao.maps.LatLng(33.450701, 126.570667),
 				center: new window.kakao.maps.LatLng(DEFAULT_LAT, DEFAULT_LNG),
-				// level: 3,
 				level: ZOOM_LEVEL,
 			}
 
@@ -42,12 +46,28 @@ export default function Map() {
 			rooms?.map((room) => {
 				// 마커가 표시될 위치입니다
 				const markerPosition = new window.kakao.maps.LatLng(room.lat, room.lng)
+
+				// 마커 이미지 설정
+				const imageSrc = '/images/marker-icon.png'
+				const imageSize = new window.kakao.maps.Size(30, 30)
+				const imageOption = { offset: new window.kakao.maps.Point(16, 46) }
+
+				// 마커 이미지를 생성합니다
+				const markerImage = new window.kakao.maps.MarkerImage(
+						imageSrc,
+						imageSize,
+						imageOption,
+				)
+
 				// 마커를 생성합니다
-				// const marker = new window.kakao.maps.Marker({
-				// 	position: markerPosition,
-				// })
-				// 마커가 지도 위에 표시되도록 설정합니다
-				// marker.setMap(map)
+				const marker = new window.kakao.maps.Marker({
+					position: markerPosition,
+					image: markerImage,
+				})
+
+				// 마커가 지도 위에 표시되도록 설정
+				marker.setMap(map)
+
 				// custom overlay를 설정해줍니다
 				const content = `<div class="custom_overlay">${room.price?.toLocaleString()}원</div>`
 
@@ -56,8 +76,19 @@ export default function Map() {
 					position: markerPosition,
 					content: content,
 				})
+
 				// 커스텀 오버레이가 지도 위에 표시되도록 설정합니다
 				customOverlay.setMap(map)
+
+				// 마커에 클릭 이벤트를 등록합니다
+				window.kakao.maps.event.addListener(marker, 'click', function () {
+					setSelectedRoom(room)
+				})
+
+				// 지도에 클릭 이벤트를 등록합니다
+				window.kakao.maps.event.addListener(map, 'click', function () {
+					setSelectedRoom(null)
+				})
 			})
 		})
 	}
