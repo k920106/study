@@ -5,8 +5,11 @@ import Script from 'next/script'
 import {useQuery} from "react-query";
 import {RoomType} from "@/interface";
 import axios from "axios";
-import { BsMap } from 'react-icons/bs'
-import {SetStateAction} from "react";
+import {BsMap} from 'react-icons/bs'
+import {DEFAULT_LAT, DEFAULT_LNG, ZOOM_LEVEL} from "@/constants";
+import {useSetRecoilState} from "recoil";
+import {selectedRoomState} from "@/atom";
+import {FullPageLoader} from "@/components/Loader";
 
 declare global {
 	interface Window {
@@ -14,18 +17,21 @@ declare global {
 	}
 }
 
-const DEFAULT_LAT = 37.565337
-const DEFAULT_LNG = 126.9772095
-const ZOOM_LEVEL = 7
+// const DEFAULT_LAT = 37.565337
+// const DEFAULT_LNG = 126.9772095
+// const ZOOM_LEVEL = 7
 
 // export default function Map() {
-export default function Map({
-	setSelectedRoom,
-}: {
-	setSelectedRoom: React.Dispatch<SetStateAction<RoomType | null>>
-}) {
+// export default function Map({
+// 	setSelectedRoom,
+// }: {
+// 	setSelectedRoom: React.Dispatch<SetStateAction<RoomType | null>>
+// }) {
+export default function Map() {
+	const setSelectedRoom = useSetRecoilState(selectedRoomState)
+
 	const fetchRooms = async () => {
-		const { data } = await axios('/api/rooms_error')
+		const { data } = await axios('/api/rooms')
 		return data as RoomType[]
 	}
 
@@ -94,13 +100,16 @@ export default function Map({
 	}
 	return (
 			<>
-				{isSuccess && (
+				{/*{isSuccess && (*/}
+				{isSuccess ? (
 						<Script
 								strategy="afterInteractive"
 								type="text/javascript"
 								src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_CLIENT}&autoload=false`}
 								onReady={loadKakoMap}
 						/>
+				) : (
+					<FullPageLoader />
 				)}
 				<div id="map" className="w-full h-screen"/>
 			</>

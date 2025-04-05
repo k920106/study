@@ -1,17 +1,10 @@
-import { IoPartlySunnyOutline } from 'react-icons/io5'
-import { MdOutlineBedroomChild, MdOutlineSurfing } from 'react-icons/md'
-import {
-	GiHolyOak,
-	GiCaveEntrance,
-	GiCampingTent,
-	GiBarn,
-	GiSkier,
-	GiStarKey,
-} from 'react-icons/gi'
-import { FaHouseUser, FaUmbrellaBeach } from 'react-icons/fa6'
-import { BiSolidTree, BiWater } from 'react-icons/bi'
-import { AiOutlineStar } from 'react-icons/ai'
-import { TbSwimming, TbMoodKid } from 'react-icons/tb'
+import {IoPartlySunnyOutline} from 'react-icons/io5'
+import {MdOutlineBedroomChild, MdOutlineSurfing} from 'react-icons/md'
+import {GiBarn, GiCampingTent, GiCaveEntrance, GiHolyOak, GiSkier, GiStarKey,} from 'react-icons/gi'
+import {FaHouseUser, FaUmbrellaBeach} from 'react-icons/fa6'
+import {BiSolidTree, BiWater} from 'react-icons/bi'
+import {AiOutlineStar} from 'react-icons/ai'
+import {TbMoodKid, TbSwimming} from 'react-icons/tb'
 
 export const CATEGORY = [
 	'전망좋은',
@@ -60,3 +53,7 @@ export const CATEGORY_DATA = [
 /**  @example - https://png-pixel.com/ */
 export const BLUR_DATA_URL =
 		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcNX9WPQAGAgJUl8IWQgAAAABJRU5ErkJggg=='
+
+export const DEFAULT_LAT = '37.565337'
+export const DEFAULT_LNG = '126.9772095'
+export const ZOOM_LEVEL = 7

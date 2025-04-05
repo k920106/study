@@ -1,16 +1,19 @@
 import {BLUR_DATA_URL} from '@/constants'
-import {RoomType} from '@/interface'
 import Image from 'next/image'
-import {SetStateAction} from 'react'
 import {AiOutlineCloseCircle} from 'react-icons/ai'
+import {useRecoilState} from "recoil";
+import {selectedRoomState} from "@/atom";
 
-export default function SelectedRoom({
-	selectedRoom,
-	setSelectedRoom,
-}: {
-	selectedRoom: RoomType | null
-	setSelectedRoom: React.Dispatch<SetStateAction<RoomType | null>>
-}) {
+// export default function SelectedRoom({
+// 	selectedRoom,
+// 	setSelectedRoom,
+// }: {
+// 	selectedRoom: RoomType | null
+// 	setSelectedRoom: React.Dispatch<SetStateAction<RoomType | null>>
+// }) {
+export default function SelectedRoom() {
+	const [selectedRoom, setSelectedRoom] = useRecoilState(selectedRoomState)
+
 	return (
 			<div className="fixed inset-x-0 mx-auto bottom-20 rounded-lg shadow-lg max-w-xs md:max-w-sm z-10 w-full bg-white">
 				{selectedRoom && (
