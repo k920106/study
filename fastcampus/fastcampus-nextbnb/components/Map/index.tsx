@@ -17,16 +17,6 @@ declare global {
 	}
 }
 
-// const DEFAULT_LAT = 37.565337
-// const DEFAULT_LNG = 126.9772095
-// const ZOOM_LEVEL = 7
-
-// export default function Map() {
-// export default function Map({
-// 	setSelectedRoom,
-// }: {
-// 	setSelectedRoom: React.Dispatch<SetStateAction<RoomType | null>>
-// }) {
 export default function Map() {
 	const setSelectedRoom = useSetRecoilState(selectedRoomState)
 
@@ -38,7 +28,7 @@ export default function Map() {
 	const { data: rooms, isSuccess } = useQuery('map-rooms', fetchRooms)
 
 	// @see - https://apis.map.kakao.com/web/documentation/#load
-	const loadKakoMap = () => {
+	const loadKaKaoMap = () => {
 		window.kakao.maps.load(() => {
 			const mapContainer = document.getElementById('map')
 			const mapOption = {
@@ -100,13 +90,12 @@ export default function Map() {
 	}
 	return (
 			<>
-				{/*{isSuccess && (*/}
 				{isSuccess ? (
 						<Script
 								strategy="afterInteractive"
 								type="text/javascript"
 								src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_CLIENT}&autoload=false`}
-								onReady={loadKakoMap}
+								onReady={loadKaKaoMap}
 						/>
 				) : (
 					<FullPageLoader />
