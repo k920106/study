@@ -48,7 +48,8 @@ export default function BookingSection({ data }: { data: RoomType }) {
 							<label className="text-xs font-semibold">체크인</label>
 							<input
 									type="date"
-									defaultValue={filterValue.checkIn || dayjs().format('YYYY-MM-DD')}
+									// defaultValue={filterValue.checkIn || dayjs().format('YYYY-MM-DD')}
+									value={filterValue.checkIn || dayjs().format('YYYY-MM-DD')}
 									min={dayjs().format('YYYY-MM-DD')}
 									className="w-full px-4 py-3 border border-gray-400 rounded-md text-xs mt-1"
 									onChange={onChangeCheckIn}
@@ -58,9 +59,8 @@ export default function BookingSection({ data }: { data: RoomType }) {
 							<label className="text-xs font-semibold">체크아웃</label>
 							<input
 									type="date"
-									defaultValue={
-											filterValue.checkOut || dayjs().format('YYYY-MM-DD')
-									}
+									// defaultValue={filterValue.checkOut || dayjs().format('YYYY-MM-DD')}
+									value={filterValue.checkOut || dayjs().format('YYYY-MM-DD')}
 									min={filterValue.checkIn || dayjs().format('YYYY-MM-DD')}
 									className="w-full px-4 py-3 border border-gray-400 rounded-md text-xs mt-1"
 									onChange={onChangeCheckOut}
