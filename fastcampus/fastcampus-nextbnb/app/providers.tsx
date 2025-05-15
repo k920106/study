@@ -6,6 +6,7 @@ import {RecoilRoot} from "recoil";
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import {Toaster} from "react-hot-toast";
+import {SessionProvider} from "next-auth/react";
 
 interface Props {
 	children?: React.ReactNode
@@ -17,7 +18,9 @@ export const NextProvider = ({children}: Props) => {
 	return (
 			<RecoilRoot>
 				<QueryClientProvider client={queryClient}>
-					{children}
+					<SessionProvider>
+						{children}
+					</SessionProvider>
 					<Toaster/>
 					<ReactQueryDevtools/>
 				</QueryClientProvider>
