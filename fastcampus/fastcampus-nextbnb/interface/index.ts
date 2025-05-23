@@ -47,13 +47,22 @@ export interface RoomType {
 	hasFreeParking: boolean
 }
 
-interface UserType {
+interface Account {
+	id: string
+	provider: string
+}
+
+// interface UserType {
+export interface UserType {
 	id: number
 	email: string
 	name?: string
 	image?: string
 	desc?: string
 	rooms?: RoomType[]
+	accounts: Account[]
+	address?: string
+	phone?: string
 }
 
 export interface FaqType {
