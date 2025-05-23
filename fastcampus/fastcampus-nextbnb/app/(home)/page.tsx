@@ -10,7 +10,6 @@ import {useInfiniteQuery} from "react-query";
 import {useRouter} from 'next/navigation'
 import axios from "axios";
 import {MapButton} from "@/components/Map";
-import {log} from "node:util";
 
 export default function Home() {
 	const router = useRouter()
@@ -66,7 +65,7 @@ export default function Home() {
 							rooms?.pages?.map((page, index) => (
 									<React.Fragment key={index}>
 										{page?.data?.map((room: RoomType) => (
-												<RoomItem room={room} />
+												<RoomItem key={room.id} room={room} />
 										))}
 									</React.Fragment>
 							))
