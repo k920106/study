@@ -5,8 +5,7 @@ import {authOptions} from '@/app/api/auth/[...nextauth]/route'
 
 import prisma from '@/db'
 
-export async function GET(req: Request) {
-	console.log(req)
+export async function GET(_req: Request) {
 	const session = await getServerSession(authOptions)
 
 	if (!session?.user) {
