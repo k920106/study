@@ -5,8 +5,10 @@ import {UserType} from '@/interface'
 import axios from 'axios'
 import {signOut, useSession} from 'next-auth/react'
 import {useQuery} from 'react-query'
+import {useRouter} from "next/navigation";
 
 export default function UserInfoPage() {
+	const router = useRouter()
 	const {status} = useSession()
 
 	const fetchUser = async () => {
@@ -14,7 +16,7 @@ export default function UserInfoPage() {
 		return data as UserType
 	}
 
-	const {data: user, isSuccess} = useQuery('user', fetchUser, {
+	const {data: user} = useQuery('user', fetchUser, {
 		enabled: status === 'authenticated',
 	})
 
@@ -25,6 +27,7 @@ export default function UserInfoPage() {
 					<button
 							type="button"
 							className="text-sm font-semibold underline px-4 py-1.5 rounded-md hover:bg-black/5"
+							onClick={() => router.push('/users/edit')}
 					>
 						수정하기
 					</button>
