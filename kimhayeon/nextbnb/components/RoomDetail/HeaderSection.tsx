@@ -19,14 +19,8 @@ export default function HeaderSection({ data }: { data: RoomType }) {
 					<div className="underline text-xs md:text-sm mt-2">{data.address}</div>
 					<div className="flex gap-2 text-xs md:text-sm mt-2">
 						<ShareButton data={data} />
-						{/*<button*/}
-						{/*		type="button"*/}
-						{/*		className="flex gap-2 items-center px-2 py-1.5 rounded-lg hover:bg-black/10"*/}
-						{/*>*/}
-						{/*	<CiHeart />*/}
-						{/*	<span className="underline">저장</span>*/}
-						{/*</button>*/}
-						<LikeButton data={data} />
+						{/*<LikeButton data={data} />*/}
+						<LikeButton room={data} />
 					</div>
 				</div>
 				<div className="mt-6 relative">

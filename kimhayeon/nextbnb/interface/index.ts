@@ -22,6 +22,13 @@ export interface FilterLayoutProps {
 	isShow: boolean
 }
 
+export interface LikeType {
+	id: number
+	roomId: number
+	userId: number
+	createdAt: string
+}
+
 export interface RoomType {
 	id: number
 	images: string[]
@@ -45,6 +52,7 @@ export interface RoomType {
 	hasWifi: boolean
 	hasBarbeque: boolean
 	hasFreeParking: boolean
+	likes?: LikeType[]
 }
 
 interface Account {
@@ -52,7 +60,6 @@ interface Account {
 	provider: string
 }
 
-// interface UserType {
 export interface UserType {
 	id: number
 	email: string
