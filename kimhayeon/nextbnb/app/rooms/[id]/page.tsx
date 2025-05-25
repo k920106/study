@@ -7,7 +7,7 @@ export default async function RoomPage({params}: ParamsProps) {
 	const {id} = params
 	const data: RoomType = await getData(id)
 	return (
-			<div className="mt-8 mb-20 max-w-6xl mx-auto">
+			<div className="mt-28 mb-20 max-w-6xl mx-auto">
 				<HeaderSection data={data}/>
 				<FeatureSection data={data}/>
 				<MapSection data={data}/>

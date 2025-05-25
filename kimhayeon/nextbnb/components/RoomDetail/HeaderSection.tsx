@@ -2,14 +2,13 @@
 
 import {useState} from 'react'
 import {RoomType} from '@/interface'
-
-import {CiHeart} from 'react-icons/ci'
 import {AiOutlineUnorderedList} from 'react-icons/ai'
 
 import Image from 'next/image'
 import {BLUR_DATA_URL} from '@/constants'
 import ImageListModal from './ImageListModal'
 import ShareButton from "@/components/RoomDetail/ShareButton";
+import LikeButton from "@/components/RoomDetail/LikeButton";
 
 export default function HeaderSection({ data }: { data: RoomType }) {
 	const [showImageModal, setShowImageModal] = useState<boolean>(false)
@@ -19,26 +18,20 @@ export default function HeaderSection({ data }: { data: RoomType }) {
 				<div className="flex w-full justify-between items-center px-4">
 					<div className="underline text-xs md:text-sm mt-2">{data.address}</div>
 					<div className="flex gap-2 text-xs md:text-sm mt-2">
+						<ShareButton data={data} />
 						{/*<button*/}
 						{/*		type="button"*/}
 						{/*		className="flex gap-2 items-center px-2 py-1.5 rounded-lg hover:bg-black/10"*/}
 						{/*>*/}
-						{/*	<CiShare1 />*/}
-						{/*	<span className="underline">공유하기</span>*/}
+						{/*	<CiHeart />*/}
+						{/*	<span className="underline">저장</span>*/}
 						{/*</button>*/}
-						<ShareButton data={data} />
-						<button
-								type="button"
-								className="flex gap-2 items-center px-2 py-1.5 rounded-lg hover:bg-black/10"
-						>
-							<CiHeart />
-							<span className="underline">저장</span>
-						</button>
+						<LikeButton data={data} />
 					</div>
 				</div>
 				<div className="mt-6 relative">
 					<div className="grid md:grid-cols-2 md:gap-4 gap-2 align-middle h-[400px] overflow-hidden md:rounded-lg">
-						{data?.images?.slice(0, 2)?.map((img) => (
+					{data?.images?.slice(0, 2)?.map((img) => (
 								<div key={img} className="w-full relative">
 									<Image
 											src={img}

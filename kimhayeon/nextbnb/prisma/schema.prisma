@@ -55,6 +55,16 @@ model User {
   rooms       Room[]
   accounts    Account[]
   sessions    Session[]
+  likes       Like[]
+}
+
+model Like {
+  id               Int         @id  @default(autoincrement())
+  createdAt        DateTime    @default(now())
+  userId           String
+  roomId           Int
+  room             Room         @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Room {
@@ -79,6 +89,8 @@ model Room {
   hasBarbeque       Boolean     @default(false)
   hasFreeParking    Boolean     @default(false)
   userId            String
+  createdAt         DateTime    @default(now())
+  likes             Like[]
   user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@index([userId])
 }
