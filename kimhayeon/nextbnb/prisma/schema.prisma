@@ -56,6 +56,18 @@ model User {
   accounts    Account[]
   sessions    Session[]
   likes       Like[]
+  comments    Comment[]
+}
+
+model Comment {
+  id               Int        @id  @default(autoincrement())
+  createdAt        DateTime   @default(now())
+  body             String
+  roomId           Int
+  userId           String
+  room             Room       @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId, roomId])
 }
 
 model Like {
@@ -91,6 +103,7 @@ model Room {
   userId            String
   createdAt         DateTime    @default(now())
   likes             Like[]
+  comments          Comment[]
   user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@index([userId])
 }
