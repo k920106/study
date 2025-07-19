@@ -27,7 +27,7 @@ export const filterState = atom<FilterProps>({
 		location: '',
 		checkIn: '',
 		checkOut: '',
-		guest: 0,
+		guest: 1,
 		category: '',
 	},
 })
