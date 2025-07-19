@@ -5,7 +5,7 @@ import {useState} from 'react'
 import {BiChevronRight} from 'react-icons/bi'
 import CommentListModal from './CommentListModal'
 import {CommentApiType} from "@/interface";
-import Loader from "@/components/Loader";
+import {Loader} from "@/components/Loader";
 
 // export const COMMENTS = [
 // 	{

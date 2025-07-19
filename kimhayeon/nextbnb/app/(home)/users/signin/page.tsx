@@ -13,7 +13,6 @@ export default function SignInPage() {
 	const {status} = useSession()
 
 	const handleClickGoogle = () => {
-		console.log('login!')
 		try {
 			signIn('google', {callbackUrl: '/'})
 		} catch (e) {

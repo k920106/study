@@ -6,7 +6,7 @@ import {CommentApiType, CommentType} from "@/interface";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import axios from "axios";
 import {useInfiniteQuery} from "react-query";
-import Loader from "@/components/Loader";
+import {Loader} from "@/components/Loader";
 
 export default function CommentListModal({
 	isOpen,

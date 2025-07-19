@@ -3,7 +3,7 @@
 import {RoomType} from "@/interface";
 import CategoryList from "@/components/CategoryList";
 import {GridLayout, RoomItem} from "@/components/RoomList";
-import Loader, {LoaderGrid} from '@/components/Loader'
+import {Loader, LoaderGrid} from '@/components/Loader'
 import React, {useEffect, useRef} from "react";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import {useInfiniteQuery} from "react-query";
