@@ -12,11 +12,13 @@ interface BookingProps {
 	guestCount: string
 	totalAmount: string
 	totalDays: string
+	status: 'SUCCESS' | 'CANCEL' | 'PENDING' | 'FAILED'
 }
 
 interface RefundProps {
 	id: string
-	status: 'SUCCESS' | 'CANCEL'
+	// status: 'SUCCESS' | 'CANCEL'
+	status: 'SUCCESS' | 'CANCEL' | 'PENDING' | 'FAILED'
 }
 
 export async function GET(req: Request) {
@@ -29,7 +31,8 @@ export async function GET(req: Request) {
 	if (id) {
 		const booking = await prisma.booking.findFirst({
 			where: {
-				id: id ? parseInt(id) : {},
+				// id: id ? parseInt(id) : {},
+				id: id ? id : {},
 			},
 			include: {
 				user: true,
@@ -83,6 +86,7 @@ export async function POST(req: Request) {
 		guestCount,
 		totalAmount,
 		totalDays,
+		status,
 	}: BookingProps = formData
 
 	if (!session?.user) {
@@ -103,7 +107,8 @@ export async function POST(req: Request) {
 			guestCount: parseInt(guestCount),
 			totalAmount: parseInt(totalAmount),
 			totalDays: parseInt(totalDays),
-			status: 'SUCCESS',
+			// status: 'SUCCESS',
+			status: status,
 		},
 	})
 
@@ -130,7 +135,8 @@ export async function PATCH(req: Request) {
 
 	const result = await prisma.booking.update({
 		where: {
-			id: parseInt(id),
+			// id: parseInt(id),
+			id: id,
 		},
 		data: {
 			status: status,
