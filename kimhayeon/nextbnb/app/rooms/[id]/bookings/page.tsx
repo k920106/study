@@ -2,6 +2,7 @@ import { BLUR_DATA_URL } from '@/constants'
 import { BookingParamsProps, RoomType } from '@/interface'
 import Image from 'next/image'
 import Link from 'next/link'
+import SubmitButton from "@/components/Booking/SubmitButton";
 
 export default async function BookingPage({
 	params,
@@ -70,14 +71,15 @@ export default async function BookingPage({
 									{totalAmount?.toLocaleString()}원
 								</div>
 							</div>
-							<div>
-								<button
-										type="button"
-										className="bg-rose-600 hover:bg-rose-500 px-6 py-3 text-white rounded-md w-full"
-								>
-									확인 및 결제
-								</button>
-							</div>
+							{/*<div>*/}
+							{/*	<button*/}
+							{/*			type="button"*/}
+							{/*			className="bg-rose-600 hover:bg-rose-500 px-6 py-3 text-white rounded-md w-full"*/}
+							{/*	>*/}
+							{/*		확인 및 결제*/}
+							{/*	</button>*/}
+							{/*</div>*/}
+							<SubmitButton />
 						</div>
 					</div>
 				</div>

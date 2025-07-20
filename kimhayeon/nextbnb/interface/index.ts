@@ -118,3 +118,18 @@ export interface BookingParamsProps {
 		totalDays: string
 	}
 }
+
+export interface BookingType {
+	roomId: number
+	userId: string
+	checkIn: string
+	checkOut: string
+	guestCount: number
+	totalAmount: number
+	totalDays: number
+	status: 'SUCCESS' | 'CANCEL'
+	room: RoomType
+	user: UserType
+	createAt: string
+	updatedAt: string
+}
