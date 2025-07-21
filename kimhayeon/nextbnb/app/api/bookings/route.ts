@@ -31,12 +31,12 @@ export async function GET(req: Request) {
 	if (id) {
 		const booking = await prisma.booking.findFirst({
 			where: {
-				// id: id ? parseInt(id) : {},
 				id: id ? id : {},
 			},
 			include: {
 				user: true,
 				room: true,
+				payments: true,
 			},
 		})
 
@@ -107,7 +107,6 @@ export async function POST(req: Request) {
 			guestCount: parseInt(guestCount),
 			totalAmount: parseInt(totalAmount),
 			totalDays: parseInt(totalDays),
-			// status: 'SUCCESS',
 			status: status,
 		},
 	})
@@ -135,7 +134,6 @@ export async function PATCH(req: Request) {
 
 	const result = await prisma.booking.update({
 		where: {
-			// id: parseInt(id),
 			id: id,
 		},
 		data: {
