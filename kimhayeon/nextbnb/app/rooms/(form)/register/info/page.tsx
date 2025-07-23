@@ -34,7 +34,7 @@ export default function RoomRegisterInfo() {
 			bedroomDesc: data.bedroomDesc,
 			price: data.price,
 		})
-		router.push('/room/register/address')
+		router.push('/rooms/register/address')
 	}
 
 	useEffect(() => {
