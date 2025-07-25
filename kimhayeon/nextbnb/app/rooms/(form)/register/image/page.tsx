@@ -2,19 +2,30 @@
 
 import { roomFormState } from '@/atom'
 import { useRouter } from 'next/navigation'
-import { useRecoilState } from 'recoil'
+import {useRecoilState, useResetRecoilState} from 'recoil'
 
 import { useForm } from 'react-hook-form'
 import Stepper from '@/components/Form/Stepper'
 import NextButton from '@/components/Form/NextButton'
+import {AiFillCamera} from "react-icons/ai";
+import toast from 'react-hot-toast'
+import axios from 'axios'
 
 interface RoomImageProps {
 	images?: string[]
 }
 
+const IMAGE_URLS = [
+	'https://a0.muscache.com/im/pictures/hosting/Hosting-1158302022899108659/original/f4c1c253-e353-4d99-b510-f9af15f8fb77.jpeg?im_w=960',
+	'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE1ODMwMjAyMjg5OTEwODY1OQ%3D%3D/original/961de742-5e7f-475f-8186-b13fc8401fa6.jpeg?im_w=720',
+	'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE1ODMwMjAyMjg5OTEwODY1OQ%3D%3D/original/b6145571-5c6d-4009-b2dd-0dc9d3bb8fc4.jpeg?im_w=720',
+	'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE1ODMwMjAyMjg5OTEwODY1OQ%3D%3D/original/adb7afee-83bd-490a-a252-f7611c904d0f.jpeg?im_w=720',
+]
+
 export default function RoomRegisterImage() {
 	const router = useRouter()
 	const [roomForm, setRoomForm] = useRecoilState(roomFormState)
+	const resetRoomForm = useResetRecoilState(roomFormState)
 
 	const {
 		register,
@@ -23,10 +34,25 @@ export default function RoomRegisterImage() {
 		formState: { errors },
 	} = useForm<RoomImageProps>()
 
-	const onSubmit = (data: RoomImageProps) => {
-		// roomForm API 생성 요청
-		// 생성 후에는 resetRoomForm으로 리코일 초기화
-		// 내가 등록한 숙소 리스트로 돌아가도록 라우팅
+	// const onSubmit = (data: RoomImageProps) => {
+	const onSubmit = async (data: RoomImageProps) => {
+		try {
+			const result = await axios.post('/api/rooms', {
+				...roomForm,
+				images: IMAGE_URLS,
+			})
+
+			if (result.status === 200) {
+				toast.success('숙소를 등록했습니다.')
+				resetRoomForm()
+				router.push('/')
+			} else {
+				toast.error('데이터 생성중 문제가 발생했습니다.')
+			}
+		} catch (e) {
+			console.log(e)
+			toast.error('다시 시도해주세요')
+		}
 	}
 
 	return (
@@ -46,6 +72,7 @@ export default function RoomRegisterImage() {
 						<div className="col-span-full">
 							<div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
 								<div className="text-center">
+									<AiFillCamera className="mx-auto h-12 w-12 text-gray-300" />
 									<div className="mt-4 flex text-sm leading-6 text-gray-600">
 										<label
 												htmlFor="file-upload"
