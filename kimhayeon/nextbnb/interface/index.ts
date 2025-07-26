@@ -72,6 +72,8 @@ export interface RoomType {
 	hasFreeParking: boolean
 	likes?: LikeType[]
 	comments?: CommentType[]
+	createdAt?: string
+	updatedAt?: string
 }
 
 interface Account {

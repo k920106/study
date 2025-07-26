@@ -41,7 +41,8 @@ export default function UserMyPage() {
 						</div>
 					</Link>
 					<Link
-							href="#"
+							// href="#"
+							href="/users/rooms"
 							className="shadow-lg rounded-lg flex flex-col justify-between p-4 gap-12 hover:shadow-xl"
 					>
 						<BsHouseCheck className="text-xl md:text-3xl"/>
