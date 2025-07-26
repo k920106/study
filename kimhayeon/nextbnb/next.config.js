@@ -1,4 +1,3 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -7,6 +6,9 @@ const nextConfig = {
       },
       {
         hostname: 'a0.muscache.com',
+      },
+      {
+        hostname: 'firebasestorage.googleapis.com',
       },
     ],
   },

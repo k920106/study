@@ -70,24 +70,24 @@ export async function POST(req: Request) {
 		Authorization: `KakaoAK ${process.env.KAKAO_CLIENT_ID}`,
 	}
 
-	const { data } = await axios.get(
-			`https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURI(
-					formData.address,
-			)}`,
-			{
-				headers,
-			},
-	)
+	// const { data } = await axios.get(
+	// 		`https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURI(
+	// 				formData.address,
+	// 		)}`,
+	// 		{
+	// 			headers,
+	// 		},
+	// )
 
 	const result = await prisma.room.create({
 		data: {
 			...formData,
 			price: parseInt(formData.price),
 			userId: session?.user?.id,
-			lat: data.documents[0].y,
-			// lat: '37.6396305550645',
-			lng: data.documents[0].x,
-			// lng: '127.021689311139',
+			// lat: data.documents[0].y,
+			lat: '37.5563255',
+			// lng: data.documents[0].x,
+			lng: '126.8577302',
 		},
 	})
 
