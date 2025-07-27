@@ -20,6 +20,7 @@ export interface FilterLayoutProps {
 	title: string
 	children: ReactNode
 	isShow: boolean
+	dataTitle?: string
 }
 
 export interface LikeType {

@@ -66,6 +66,7 @@ export default function Navbar() {
 							<button
 									type="button"
 									onClick={() => setShowFilter(true)}
+									data-cy="filter-open-btn"
 									className="bg-rose-500 text-white rounded-full w-8 h-8 my-auto"
 							>
 								<AiOutlineSearch className="text-lg m-auto font-semibold"/>
@@ -107,6 +108,7 @@ export default function Navbar() {
 								<div className="grid grid-cols-1 sm:grid-cols-4 w-full relative sm:pl-2">
 									<button
 											type="button"
+											data-cy="filter-location-btn"
 											onClick={() => setDetailFilter('location')}
 											className={cn(
 													'font-semibold text-xs rounded-full hover:bg-gray-100 py-3 px-6 text-left',
@@ -169,6 +171,7 @@ export default function Navbar() {
 								</div>
 								<button
 										type="button"
+										data-cy="filter-submit-btn"
 										className="bg-rose-600 text-white rounded-full h-10 mx-4 sm:w-24 mt-4 sm:mt-2 my-auto flex justify-center gap-1 px-3 py-2 hover:shadow hover:bg-rose-500"
 										onClick={() => {
 											setShowFilter(false)
@@ -182,12 +185,6 @@ export default function Navbar() {
 						</div>
 				)}
 				<div className="grow basis-0 hidden md:flex gap-4 align-middle justify-end relative">
-					{/*<button*/}
-					{/*		type="button"*/}
-					{/*		className="font-semibold text-sm my-auto px-4 py-3 rounded-full hover:bg-gray-50"*/}
-					{/*>*/}
-					{/*	당신의 공간을 등록해주세요*/}
-					{/*</button>*/}
 					{status === 'authenticated' ? (
 							<Link
 									href={`/rooms/register/category`}

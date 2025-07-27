@@ -12,6 +12,7 @@ export default function CategoryList() {
 	return (
 			<div className="flex gap-6 fixed top-20 inset-x-0 mx-auto overflow-x-scroll w-full flex-nowrap sm:pl-24 sm:pr-16 px-2 bg-white z-10 mb-6">
 				<button
+						data-cy="category-filter-all"
 						className="flex-none justify-center gap-3 py-4 w-16 text-center"
 						onClick={() => {
 							setFilterValue({
@@ -37,6 +38,7 @@ export default function CategoryList() {
 				</button>
 				{CATEGORY_DATA?.map((category) => (
 						<button
+								data-cy={`category-filter-${category.title}`}
 								type="button"
 								key={category.title}
 								onClick={() =>

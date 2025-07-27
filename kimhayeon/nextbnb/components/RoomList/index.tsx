@@ -12,23 +12,27 @@ export function RoomItem({room}: { room: RoomType }) {
 						<Image
 								src={room?.images[0]}
 								alt={room.title}
-								// width={500}
-								// height={500}
-								style={{ objectFit: 'cover' }}
+								style={{objectFit: 'cover'}}
 								fill
 								placeholder="blur"
 								sizes="(min-width: 640px) 240px, 320px"
 								blurDataURL={BLUR_DATA_URL}
-								// className="rounded-md w-full h-auto object-fit"
 								className="rounded-md w-full h-auto object-fit hover:shadow-lg"
 						/>
 					</div>
-
 					<div className="mt-2 font-semibold text-sm">{room.title}</div>
-					<span className="text-xs px-2 py-1 rounded-full bg-black text-white mt-1">
+					<span
+							data-cy="room-category"
+							className="text-xs px-2 py-1 rounded-full bg-black text-white mt-1"
+					>
         {room.category}
       </span>
-					<div className="mt-1 text-gray-400 text-sm">{room.address}</div>
+					<div
+							data-cy="room-address"
+							className="mt-1 text-gray-400 text-sm"
+					>
+						{room.address}
+					</div>
 					<div className="mt-1 text-sm">
 						{room?.price?.toLocaleString()}원{' '}
 						<span className="text-gray-500"> /박</span>

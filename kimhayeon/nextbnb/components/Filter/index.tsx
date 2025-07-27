@@ -27,6 +27,7 @@ const LocationFilter = () => {
 
 	return (
 			<FilterLayout
+					dataTitle="filter-location-wrapper"
 					title="지역으로 검색하기"
 					isShow={detailFilter === 'location'}
 			>
@@ -37,6 +38,7 @@ const LocationFilter = () => {
 									<button
 											key={value}
 											type="button"
+											data-cy={`filter-location-${value}`}
 											className={cn(
 													'border rounded-lg px-5 py-2.5 hover:bg-gray-200 focus:bg-rose-500',
 													{
