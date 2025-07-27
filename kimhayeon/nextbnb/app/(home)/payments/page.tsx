@@ -122,8 +122,8 @@ export default function PaymentPage() {
 													)
 												}
 											})
-								} catch (error) {
-									console.log(error)
+								} catch (e) {
+									console.log(e)
 								}
 							}}
 							type="button"

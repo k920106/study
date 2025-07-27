@@ -155,21 +155,21 @@ async function getPayment({
 		return {
 			payment: payment,
 		}
-	} catch (err: any) {
-		console.log(err)
+	} catch (e: any) {
+		console.log(e)
 
 		await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/api/payments`, {
 			orderId: orderId,
 			paymentKey: paymentKey,
 			amount: amount,
 			bookingStatus: 'FAILED',
-			failureCode: err.code,
-			failureMessage: err.message,
+			failureCode: e.code,
+			failureMessage: e.message,
 		})
 
 		return {
 			redirect: {
-				destination: `/payments/fail?code=${err.code}&message=${err.message}&orderId=${orderId}`,
+				destination: `/payments/fail?code=${e.code}&message=${e.message}&orderId=${orderId}`,
 			},
 		}
 	}

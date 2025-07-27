@@ -116,8 +116,8 @@ export default function RoomEditForm({data}: { data: RoomType }) {
 			}
 
 			return uploadedImageUrls
-		} catch (error) {
-			console.log(error)
+		} catch (e) {
+			console.log(e)
 		}
 	}
 

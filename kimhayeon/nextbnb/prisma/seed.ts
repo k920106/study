@@ -41,8 +41,6 @@ async function seedUsers() {
 		const res = await prisma.user.create({
 			data: userData,
 		})
-
-		console.log(res)
 	})
 }
 
@@ -107,8 +105,6 @@ async function seedRooms() {
 			const res = await prisma.room.create({
 				data: roomData,
 			})
-
-			console.log(res)
 		})
 	}
 }
@@ -150,8 +146,6 @@ async function seedFaqs() {
 		const res = await prisma.faq.create({
 			data: faqData,
 		})
-
-		console.log(res)
 	})
 }
 
