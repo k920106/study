@@ -118,7 +118,8 @@ export default function UserRooms() {
 											</td>
 											<td className="px-6 py-4 min-w-[80px]">
 												<Link
-														href={`#`}
+														// href={`#`}
+														href={`/rooms/edit/${room.id}`}
 														className="font-medium text-gray-600 hover:underline"
 												>
 													수정

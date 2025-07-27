@@ -84,6 +84,7 @@ model Room {
   id                Int         @id @default(autoincrement())
   title             String
   images            String[]
+  imageKeys         String[]
   address           String
   lat               String
   lng               String
@@ -117,7 +118,6 @@ model Faq {
 }
 
 model Booking {
-  // id              Int         @id @default(autoincrement())
   id              String       @id @default(uuid())
   checkIn         DateTime
   checkOut        DateTime
@@ -143,7 +143,6 @@ enum BookingStatus {
 
 model Payment {
   id             String       @id @default(uuid())
-  // bookingId      Int
   bookingId      String
   booking        Booking      @relation(fields: [bookingId], references: [id])
   paymentKey     String?                // 결제의 키 값

@@ -18,19 +18,20 @@ import { PiBathtub, PiMountainsDuotone } from 'react-icons/pi'
 import { MdOutlineLocalLaundryService } from 'react-icons/md'
 import { LuParkingCircle, LuWind } from 'react-icons/lu'
 import { GiBarbecue } from 'react-icons/gi'
+import {RoomFeatureProps} from "@/constants";
 
-interface RoomFeatureProps {
-	freeCancel?: boolean
-	selfCheckIn?: boolean
-	officeSpace?: boolean
-	hasMountainView?: boolean
-	hasShampoo?: boolean
-	hasFreeLaundry?: boolean
-	hasAirConditioner?: boolean
-	hasWifi?: boolean
-	hasBarbeque?: boolean
-	hasFreeParking?: boolean
-}
+// interface RoomFeatureProps {
+// 	freeCancel?: boolean
+// 	selfCheckIn?: boolean
+// 	officeSpace?: boolean
+// 	hasMountainView?: boolean
+// 	hasShampoo?: boolean
+// 	hasFreeLaundry?: boolean
+// 	hasAirConditioner?: boolean
+// 	hasWifi?: boolean
+// 	hasBarbeque?: boolean
+// 	hasFreeParking?: boolean
+// }
 
 export default function RoomRegisterFeature() {
 	const router = useRouter()

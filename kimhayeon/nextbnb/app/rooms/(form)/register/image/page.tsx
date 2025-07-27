@@ -13,19 +13,12 @@ import toast from 'react-hot-toast'
 import axios from 'axios'
 import {useSession} from "next-auth/react";
 import {useState} from "react";
-import {getDownloadURL, ref, uploadString} from "@firebase/storage";
+import {deleteObject, getDownloadURL, ref, uploadString} from "@firebase/storage";
 import {storage} from "@/utils/firebaseApp";
 
 interface RoomImageProps {
 	images?: string[]
 }
-
-// const IMAGE_URLS = [
-// 	'https://a0.muscache.com/im/pictures/hosting/Hosting-1158302022899108659/original/f4c1c253-e353-4d99-b510-f9af15f8fb77.jpeg?im_w=960',
-// 	'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE1ODMwMjAyMjg5OTEwODY1OQ%3D%3D/original/961de742-5e7f-475f-8186-b13fc8401fa6.jpeg?im_w=720',
-// 	'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE1ODMwMjAyMjg5OTEwODY1OQ%3D%3D/original/b6145571-5c6d-4009-b2dd-0dc9d3bb8fc4.jpeg?im_w=720',
-// 	'https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE1ODMwMjAyMjg5OTEwODY1OQ%3D%3D/original/adb7afee-83bd-490a-a252-f7611c904d0f.jpeg?im_w=720',
-// ]
 
 export default function RoomRegisterImage() {
 	const router = useRouter()
@@ -34,12 +27,11 @@ export default function RoomRegisterImage() {
 	const [images, setImages] = useState<string[] | null>(null)
 	const [disableSubmit, setDisableSubmit] = useState<boolean>(false)
 	const resetRoomForm = useResetRecoilState(roomFormState)
+	let imageKeys: string[] = []
 
 	const {
 		register,
 		handleSubmit,
-		setValue,
-		// formState: { errors },
 		formState: { errors, isSubmitting },
 	} = useForm<RoomImageProps>()
 
@@ -73,7 +65,10 @@ export default function RoomRegisterImage() {
 
 		for (const imageFile of images) {
 			// 참조 만들기
-			const imageRef = ref(storage, `${session?.user?.id}/${uuidv4()}`)
+			const imageKey = uuidv4()
+			// const imageRef = ref(storage, `${session?.user?.id}/${uuidv4()}`)
+			const imageRef = ref(storage, `${session?.user?.id}/${imageKey}`)
+			imageKeys.push(imageKey)
 			try {
 				// uploadString으로 firebase에 이미지 업로드하기
 				const data = await uploadString(imageRef, imageFile, 'data_url')
@@ -88,26 +83,28 @@ export default function RoomRegisterImage() {
 		return uploadedImageUrls
 	}
 
+	const deleteImages = () => {
+		imageKeys?.forEach((key) => {
+			const imageRef = ref(storage, `${session?.user.id}/${key}`)
+			deleteObject(imageRef)
+					.then(() => {
+						console.log('File Deleted: ', key)
+					})
+					.catch((error) => {
+						console.error(error)
+					})
+		})
+	}
+
 	const onSubmit = async (data: RoomImageProps) => {
 		try {
-			// const result = await axios.post('/api/rooms', {
-			// 	...roomForm,
-			// 	images: IMAGE_URLS,
-			// })
-			//
-			// if (result.status === 200) {
-			// 	toast.success('숙소를 등록했습니다.')
-			// 	resetRoomForm()
-			// 	router.push('/')
-			// } else {
-			// 	toast.error('데이터 생성중 문제가 발생했습니다.')
-			// }
 			setDisableSubmit(true)
 			uploadImages(images)
 					.then(async (imageUrls) => {
 						const result = await axios.post('/api/rooms', {
 							...roomForm,
 							images: imageUrls,
+							imageKeys: imageKeys,
 						})
 
 						if (result.status === 200) {
@@ -123,6 +120,7 @@ export default function RoomRegisterImage() {
 						setDisableSubmit(false)
 						console.error(error)
 						toast.error('이미지 저장중에 문제가 발생했습니다. 다시 시도해주세요')
+						deleteImages()
 					})
 		} catch (e) {
 			setDisableSubmit(false)
@@ -155,12 +153,6 @@ export default function RoomRegisterImage() {
 												className="relative cursor-pointer rounded-md bg-white font-semibold text-rose-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-rose-600 focus-within:ring-offset-2 hover:text-rose-500"
 										>
 											<span>최대 5장의 사진을</span>
-											{/*<input*/}
-											{/*		id="file-upload"*/}
-											{/*		name="file-upload"*/}
-											{/*		type="file"*/}
-											{/*		className="sr-only"*/}
-											{/*/>*/}
 											<input
 													id="file-upload"
 													type="file"
