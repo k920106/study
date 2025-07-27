@@ -10,18 +10,27 @@ import {useInfiniteQuery} from "react-query";
 import {useRouter} from 'next/navigation'
 import axios from "axios";
 import {MapButton} from "@/components/Map";
+import {useRecoilValue} from "recoil";
+import {filterState} from "@/atom";
 
 export default function Home() {
 	const router = useRouter()
 	const ref = useRef<HTMLDivElement | null>(null)
+	const filterValue = useRecoilValue(filterState)
 	const pageRef = useIntersectionObserver(ref, {})
 	const isPageEnd = !!pageRef?.isIntersecting
+
+	const filterParams = {
+		location: filterValue.location,
+		category: filterValue.category,
+	}
 
 	const fetchRooms = async ({pageParam = 1}) => {
 		const {data} = await axios('/api/rooms?page=' + pageParam, {
 			params: {
 				limit: 12,
 				page: pageParam,
+				...filterParams,
 			},
 		})
 
@@ -36,7 +45,8 @@ export default function Home() {
 		hasNextPage,
 		isError,
 		isLoading,
-	} = useInfiniteQuery('rooms', fetchRooms, {
+	// } = useInfiniteQuery('rooms', fetchRooms, {
+	} = useInfiniteQuery(['rooms', filterParams], fetchRooms, {
 		getNextPageParam: (lastPage, pages) =>
 				lastPage?.data?.length > 0 ? lastPage.page + 1 : undefined,
 	})
@@ -71,12 +81,6 @@ export default function Home() {
 							))
 					)}
 				</GridLayout>
-				{/*<button*/}
-				{/*		onClick={() => router.push('/map')}*/}
-				{/*		className="flex gap-2 items-center text-sm bg-black rounded-full text-white px-5 py-3.5 shadow-sm hover:shadow-lg mx-auto sticky bottom-12"*/}
-				{/*>*/}
-				{/*	지도 표시하기 <BsMap className="text-xs" />*/}
-				{/*</button>*/}
 				<MapButton onClick={() => router.push('/map')} />
 				{(isFetching || hasNextPage || isFetchingNextPage) && <Loader/>}
 				<div className="w-full touch-none h-10 mb-10" ref={ref}/>

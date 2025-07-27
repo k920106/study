@@ -1,4 +1,4 @@
-import {DetailFilterType, FilterProps, LocationType, RoomFormType, RoomType} from '@/interface'
+import {DetailFilterType, FilterProps, LocationType, RoomFormType, RoomType, SearchProps} from '@/interface'
 import {atom} from 'recoil'
 import {DEFAULT_LAT, DEFAULT_LNG, ZOOM_LEVEL} from "@/constants";
 import {recoilPersist} from "recoil-persist";
@@ -60,4 +60,11 @@ export const roomFormState = atom<RoomFormType | null>({
 		hasFreeParking: false,
 	},
 	effects_UNSTABLE: [persistAtom],
+})
+
+export const searchState = atom<SearchProps>({
+	key: 'search',
+	default: {
+		q: null,
+	},
 })

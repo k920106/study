@@ -13,20 +13,27 @@ import {useInfiniteQuery} from 'react-query'
 import {deleteObject, ref} from "@firebase/storage";
 import toast from "react-hot-toast";
 import {storage} from "@/utils/firebaseApp";
+import {useRecoilValue} from "recoil";
+import {searchState} from "@/atom";
+import RoomSearchFilter from "@/components/Form/RoomSearchFilter";
 
 export default function UserRooms() {
-	// const ref = useRef<HTMLDivElement | null>(null)
-	// const pageRef = useIntersectionObserver(ref, {})
 	const observerRef = useRef<HTMLDivElement | null>(null)
 	const pageRef = useIntersectionObserver(observerRef, {})
 	const isPageEnd = !!pageRef?.isIntersecting
 	const {data: session} = useSession()
+	const searchStateValue = useRecoilValue(searchState)
+
+	const searchParams = {
+		q: searchStateValue.q,
+	}
 
 	const fetchMyRooms = async ({pageParam = 1}) => {
 		const {data} = await axios('/api/rooms?my=true&page=' + pageParam, {
 			params: {
 				limit: 12,
 				page: pageParam,
+				...searchParams,
 			},
 		})
 
@@ -41,7 +48,8 @@ export default function UserRooms() {
 		isFetchingNextPage,
 		fetchNextPage,
 		refetch
-	} = useInfiniteQuery(`rooms-user-${session?.user.id}`, fetchMyRooms, {
+	// } = useInfiniteQuery(`rooms-user-${session?.user.id}`, fetchMyRooms, {
+	} = useInfiniteQuery([`rooms-user-${session?.user.id}`, searchParams], fetchMyRooms, {
 		getNextPageParam: (lastPage) =>
 				lastPage?.data.length > 0 ? lastPage.page + 1 : undefined,
 	})
@@ -99,10 +107,12 @@ export default function UserRooms() {
 	}
 
 	return (
-			<div className="mt-10 mb-40 max-w-7xl mx-auto overflow-auto">
+			// <div className="mt-10 mb-40 max-w-7xl mx-auto overflow-auto">
+			<div className="mt-10 mb-40 max-w-7xl mx-auto overflow-auto px-8">
 				<h1 className="mb-10 text-lg md:text-2xl font-semibold">
 					나의 숙소 관리
 				</h1>
+				<RoomSearchFilter />
 				<table className="text-sm text-left text-gray-500 shadow-lg overflow-x-scroll table-auto">
 					<thead className="text-xs text-gray-700 bg-gray-50">
 					<tr>
@@ -162,7 +172,6 @@ export default function UserRooms() {
 											</td>
 											<td className="px-6 py-4 min-w-[80px]">
 												<Link
-														// href={`#`}
 														href={`/rooms/edit/${room.id}`}
 														className="font-medium text-gray-600 hover:underline"
 												>
@@ -189,7 +198,6 @@ export default function UserRooms() {
 				{(isFetching || hasNextPage || isFetchingNextPage) && (
 						<Loader className="my-20"/>
 				)}
-				{/*<div className="w-full touch-none h-10 mb-10" ref={ref}/>*/}
 				<div className="w-full touch-none h-10 mb-10" ref={observerRef} />
 			</div>
 	)
