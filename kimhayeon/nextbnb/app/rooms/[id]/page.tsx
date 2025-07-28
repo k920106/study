@@ -11,26 +11,26 @@ export default async function RoomPage({params}: ParamsProps) {
 			<div className="mt-28 mb-20 max-w-6xl mx-auto">
 				<HeaderSection data={data}/>
 				<FeatureSection data={data}/>
-				{/*<Comment data={data} />*/}
-				<Comment room={data} />
+				<Comment room={data}/>
 				<MapSection data={data}/>
 			</div>
 	)
 }
 
 async function getData(id: string) {
-	const res = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/api/rooms?id=${id}`,
-			{
-				next: {
-					revalidate: 60 * 60,
-				},
-			},
-	)
+	try {
+		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rooms?id=${id}`, {
+			next: {
+				revalidate: 60 * 60,
+			}
+		})
 
-	if (!res.ok) {
-		throw new Error('Failed to fetch data')
+		if (!res.ok) {
+			throw new Error('Failed to fetch data')
+		}
+
+		return res.json()
+	} catch (error) {
+		console.error(error)
 	}
-
-	return res.json()
 }

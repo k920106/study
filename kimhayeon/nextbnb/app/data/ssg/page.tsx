@@ -1,19 +1,17 @@
 async function getData() {
-	const res = await fetch(
-			'https://www.random.org/integers/?num=1&min=1&max=100&col=1&base=10&format=plain',
-			{
-				cache: 'force-cache',
-			},
-	)
-	// The return value is *not* serialized
-	// You can return Date, Map, Set, etc.
+	try {
+		const res = await fetch('https://www.random.org/integers/?num=1&min=1&max=100&col=1&base=10&format=plain', {
+			cache: 'force-cache',
+		})
 
-	if (!res.ok) {
-		// This will activate the closest `error.js` Error Boundary
-		throw new Error('Failed to fetch data')
+		if (!res.ok) {
+			throw new Error('Failed to fetch data')
+		}
+
+		return res.json()
+	} catch (error) {
+		console.error(error)
 	}
-
-	return res.json()
 }
 
 export default async function Page() {

@@ -12,16 +12,18 @@ export default async function RoomEdit({ params }: ParamsProps) {
 }
 
 async function getData(id: string) {
-	const res = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/api/rooms?id=${id}`,
-			{
-				cache: 'no-cache',
-			},
-	)
+	try {
+		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rooms?id=${id}`, {
+			cache: 'no-cache',
+		})
 
-	if (!res.ok) {
-		throw new Error('Failed to fetch data')
+		if (!res.ok) {
+			throw new Error('Failed to fetch data')
+		}
+
+		return res.json()
+	} catch (error) {
+		console.error(error)
+		throw new Error('Failed to fetch room data')
 	}
-
-	return res.json()
 }
