@@ -10,8 +10,11 @@ const nextConfig = {
       {
         hostname: 'firebasestorage.googleapis.com',
       },
+      {
+        hostname: 'k.kakaocdn.net',
+      },
     ],
   },
-};
+}
 
 module.exports = nextConfig

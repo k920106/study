@@ -2,38 +2,36 @@
 
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
-import {RecoilRoot} from "recoil";
+import { RecoilRoot } from 'recoil'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import {Toaster} from "react-hot-toast";
-import {SessionProvider} from "next-auth/react";
+import { Toaster } from 'react-hot-toast'
+import { SessionProvider } from 'next-auth/react'
 
 interface Props {
-	children?: React.ReactNode
+  children?: React.ReactNode
 }
 
 const queryClient = new QueryClient()
 
-export const NextProvider = ({children}: Props) => {
-	return (
-			<RecoilRoot>
-				<QueryClientProvider client={queryClient}>
-					<SessionProvider>
-						{children}
-					</SessionProvider>
-					<Toaster/>
-					<ReactQueryDevtools/>
-				</QueryClientProvider>
-			</RecoilRoot>
-	);
-};
+export const NextProvider = ({ children }: Props) => {
+  return (
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <SessionProvider>{children}</SessionProvider>
+        <Toaster />
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </RecoilRoot>
+  )
+}
 
-export const NextLayout = ({children}: Props) => {
-	return (
-			<>
-				<Navbar/>
-				{children}
-				<Footer/>
-			</>
-	)
+export const NextLayout = ({ children }: Props) => {
+  return (
+    <>
+      <Navbar />
+      {children}
+      <Footer />
+    </>
+  )
 }

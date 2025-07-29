@@ -1,30 +1,36 @@
-import {RefObject, useState, useEffect} from 'react'
+import { RefObject, useState, useEffect } from 'react'
 
 function useIntersectionObserver(
-		elementRef: RefObject<Element>,
-		{ threshold = 0.1, root = null, rootMargin = '0%', enableObserver = true },
+  elementRef: RefObject<Element>,
+  { threshold = 0.1, root = null, rootMargin = '0%', enableObserver = true },
 ) {
-	const [entry, setEntry] = useState<IntersectionObserverEntry>()
+  const [entry, setEntry] = useState<IntersectionObserverEntry>()
 
-	const updateEntry = ([entry]: IntersectionObserverEntry[]): void => {
-		setEntry(entry)
-	}
+  const updateEntry = ([entry]: IntersectionObserverEntry[]): void => {
+    setEntry(entry)
+  }
 
-	useEffect(() => {
-		const node = elementRef?.current
-		const hasIOSupport = !!window.IntersectionObserver
+  useEffect(() => {
+    const node = elementRef?.current
+    const hasIOSupport = !!window.IntersectionObserver
 
-		if (!node || !hasIOSupport || !enableObserver) return
+    if (!node || !hasIOSupport || !enableObserver) return
 
-		const observerParams = {threshold, root, rootMargin}
-		const observer = new IntersectionObserver(updateEntry, observerParams)
+    const observerParams = { threshold, root, rootMargin }
+    const observer = new IntersectionObserver(updateEntry, observerParams)
 
-		observer.observe(node)
+    observer.observe(node)
 
-		return () => observer.disconnect()
-	}, [elementRef?.current, root, rootMargin, JSON.stringify(threshold), enableObserver])
+    return () => observer.disconnect()
+  }, [
+    elementRef?.current,
+    root,
+    rootMargin,
+    JSON.stringify(threshold),
+    enableObserver,
+  ])
 
-	return entry
+  return entry
 }
 
 export default useIntersectionObserver

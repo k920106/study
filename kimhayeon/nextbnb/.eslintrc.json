@@ -5,6 +5,6 @@
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "warn",
     "react/display-name": "warn",
-    "useTabs": false
+    "useTabs": 0
   }
 }

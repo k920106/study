@@ -1,13 +1,13 @@
 import { ReactNode } from 'react'
 
 export default function RoomRegisterLayout({
-	children,
+  children,
 }: {
-	children: ReactNode
+  children: ReactNode
 }) {
-	return (
-			<section className="max-w-4xl mx-auto px-4 min-h-screen py-40">
-				{children}
-			</section>
-	)
+  return (
+    <section className="max-w-4xl mx-auto px-4 min-h-screen py-40">
+      {children}
+    </section>
+  )
 }

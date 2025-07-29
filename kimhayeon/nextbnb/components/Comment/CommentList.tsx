@@ -1,11 +1,11 @@
 'use client'
 
 /* eslint-disable @next/next/no-img-element */
-import {useState} from 'react'
-import {BiChevronRight} from 'react-icons/bi'
+import { useState } from 'react'
+import { BiChevronRight } from 'react-icons/bi'
 import CommentListModal from './CommentListModal'
-import {CommentApiType} from "@/interface";
-import {Loader} from "@/components/Loader";
+import { CommentApiType } from '@/interface'
+import { Loader } from '@/components/Loader'
 
 // export const COMMENTS = [
 // 	{
@@ -72,83 +72,87 @@ import {Loader} from "@/components/Loader";
 
 // export default function CommentList() {
 export default function CommentList({
-	isLoading,
-	comments,
-	roomId,
+  isLoading,
+  comments,
+  roomId,
 }: {
-	isLoading: boolean
-	comments: CommentApiType
-	roomId: number
+  isLoading: boolean
+  comments: CommentApiType
+  roomId: number
 }) {
-	const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
 
-	const closeModal = () => {
-		setIsOpenModal(false)
-	}
+  const closeModal = () => {
+    setIsOpenModal(false)
+  }
 
-	const openModal = () => {
-		setIsOpenModal(true)
-	}
+  const openModal = () => {
+    setIsOpenModal(true)
+  }
 
-	return (
-			<>
-				{/*<h1 className="font-semibold text-xl mb-2">후기 248개</h1>*/}
-					<h1 className="font-semibold text-xl mb-2">후기 {comments?.totalCount}개</h1>
-					<div className="mt-8 grid md:grid-cols-2 gap-12">
-						{isLoading ? (
-								<Loader className="md:col-span-2"/>
-						) : (
-								// {COMMENTS?.slice(0, 6)?.map((comment) => (
-								comments?.data?.map((comment) => (
-										<div key={comment?.id} className="flex flex-col gap-2">
-											<div className="flex gap-2 items-center">
-												<img
-														// src={comment?.imageUrl || '/images/user-icon.png'}
-														src={comment?.user?.image || '/images/user-icon.png'}
-														alt="profile img"
-														width={50}
-														height={50}
-														className="rounded-full"
-												/>
-												<div>
-													{/*<h1 className="font-semibold">{comment?.name || '-'}</h1>*/}
-													<h1 className="font-semibold">{comment?.user?.name || '-'}</h1>
-													<div className="text-gray-500 text-xs">
-														{comment?.createdAt}
-													</div>
-												</div>
-											</div>
-											{/*<div className="max-w-md text-gray-600">{comment?.comment}</div>*/}
-											<div className="max-w-md text-gray-600">{comment?.body}</div>
-											<button
-													type="button"
-													onClick={openModal}
-													className="underline font-semibold flex gap-1 items-center justify-start"
-											>
-												더보기 <BiChevronRight className="text-xl"/>
-											</button>
-										</div>
-								))
-						)}
-					</div>
-					<div className="mt-8 mb-20">
-						<button
-								type="button"
-								onClick={openModal}
-								className="border border-gray-700 font-semibold rounded-lg px-6 py-4 flex items-center gap-4 hover:bg-black/5"
-						>
-							{/*후기 248개 모두 보기*/}
-							후기 {comments?.totalCount}개 모두 보기
-						</button>
-					</div>
-					{/*<CommentListModal isOpen={isOpenModal} closeModal={closeModal}/>*/}
-					{isOpenModal && (
-							<CommentListModal
-									isOpen={isOpenModal}
-									closeModal={closeModal}
-									roomId={roomId}
-							/>
-					)}
-			</>
-	)
+  return (
+    <>
+      {/*<h1 className="font-semibold text-xl mb-2">후기 248개</h1>*/}
+      <h1 className="font-semibold text-xl mb-2">
+        후기 {comments?.totalCount}개
+      </h1>
+      <div className="mt-8 grid md:grid-cols-2 gap-12">
+        {isLoading ? (
+          <Loader className="md:col-span-2" />
+        ) : (
+          // {COMMENTS?.slice(0, 6)?.map((comment) => (
+          comments?.data?.map((comment) => (
+            <div key={comment?.id} className="flex flex-col gap-2">
+              <div className="flex gap-2 items-center">
+                <img
+                  // src={comment?.imageUrl || '/images/user-icon.png'}
+                  src={comment?.user?.image || '/images/user-icon.png'}
+                  alt="profile img"
+                  width={50}
+                  height={50}
+                  className="rounded-full"
+                />
+                <div>
+                  {/*<h1 className="font-semibold">{comment?.name || '-'}</h1>*/}
+                  <h1 className="font-semibold">
+                    {comment?.user?.name || '-'}
+                  </h1>
+                  <div className="text-gray-500 text-xs">
+                    {comment?.createdAt}
+                  </div>
+                </div>
+              </div>
+              {/*<div className="max-w-md text-gray-600">{comment?.comment}</div>*/}
+              <div className="max-w-md text-gray-600">{comment?.body}</div>
+              <button
+                type="button"
+                onClick={openModal}
+                className="underline font-semibold flex gap-1 items-center justify-start"
+              >
+                더보기 <BiChevronRight className="text-xl" />
+              </button>
+            </div>
+          ))
+        )}
+      </div>
+      <div className="mt-8 mb-20">
+        <button
+          type="button"
+          onClick={openModal}
+          className="border border-gray-700 font-semibold rounded-lg px-6 py-4 flex items-center gap-4 hover:bg-black/5"
+        >
+          {/*후기 248개 모두 보기*/}
+          후기 {comments?.totalCount}개 모두 보기
+        </button>
+      </div>
+      {/*<CommentListModal isOpen={isOpenModal} closeModal={closeModal}/>*/}
+      {isOpenModal && (
+        <CommentListModal
+          isOpen={isOpenModal}
+          closeModal={closeModal}
+          roomId={roomId}
+        />
+      )}
+    </>
+  )
 }
