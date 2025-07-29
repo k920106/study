@@ -101,7 +101,7 @@ export default async function PaymentSuccess({ searchParams }: ParamsProps) {
       </div>
       <div className="flex flex-col gap-6 border-b py-8">
         <a
-          href="/users/booking"
+          href="/users/bookings"
           className="bg-rose-600 hover:bg-rose-500 px-6 py-3 text-white rounded-md text-center"
         >
           예약 내역 확인
