@@ -1,13 +1,26 @@
 import FeatureSection from '@/components/RoomDetail/FeatureSection'
 import HeaderSection from '@/components/RoomDetail/HeaderSection'
 import { ParamsProps, RoomType } from '@/interface'
-import MapSection from '@/components/RoomDetail/MapSection'
-import Comment from '@/components/Comment'
 import { Metadata, ResolvingMetadata } from 'next'
+import dynamic from 'next/dynamic'
+import { Loader } from '@/components/Loader'
 
 export default async function RoomPage({ params }: ParamsProps) {
   const { id } = params
   const data: RoomType = await getData(id)
+
+  const Comment = dynamic(() => import('@/components/Comment'), {
+    loading: () => <Loader />,
+  })
+
+  const MapSection = dynamic(
+    () => import('@/components/RoomDetail/MapSection'),
+    {
+      loading: () => <Loader />,
+      ssr: false,
+    },
+  )
+
   return (
     <div className="mt-28 mb-20 max-w-6xl mx-auto">
       <HeaderSection data={data} />
