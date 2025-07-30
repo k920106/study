@@ -3,6 +3,7 @@ import HeaderSection from '@/components/RoomDetail/HeaderSection'
 import { ParamsProps, RoomType } from '@/interface'
 import MapSection from '@/components/RoomDetail/MapSection'
 import Comment from '@/components/Comment'
+import { Metadata, ResolvingMetadata } from 'next'
 
 export default async function RoomPage({ params }: ParamsProps) {
   const { id } = params
@@ -35,5 +36,32 @@ async function getData(id: string) {
     return res.json()
   } catch (error) {
     console.error(error)
+  }
+}
+
+export async function generateMetadata(
+  { params }: ParamsProps,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  // read route params
+  const id = params.id
+
+  // fetch data
+  const room = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/rooms?id=${id}`,
+    {
+      next: {
+        revalidate: 60 * 60,
+      },
+    },
+  ).then((res) => res.json())
+
+  // optionally access and extend (rather than replace) parent metadata
+  const prevKeywords = (await parent)?.keywords || []
+
+  return {
+    title: `Nextbnb 숙소 - ${room?.title}`,
+    description: room?.description,
+    keywords: [room?.category, ...prevKeywords],
   }
 }
