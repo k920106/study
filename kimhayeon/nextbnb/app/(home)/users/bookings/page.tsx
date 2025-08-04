@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { BiChevronRight } from 'react-icons/bi'
 import { useInfiniteQuery } from 'react-query'
+import { BLUR_DATA_URL } from '@/constants'
 
 export default function BookingsPage() {
   const { data: session } = useSession()
@@ -65,6 +66,9 @@ export default function BookingsPage() {
                         src={booking?.room?.images?.[0] || '/images/logo.png'}
                         width={80}
                         height={80}
+                        quality={30}
+                        placeholder="blur"
+                        blurDataURL={BLUR_DATA_URL}
                         alt="숙소 이미지"
                       />
                       <div>
