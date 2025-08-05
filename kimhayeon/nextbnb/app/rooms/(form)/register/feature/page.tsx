@@ -18,20 +18,7 @@ import { PiBathtub, PiMountainsDuotone } from 'react-icons/pi'
 import { MdOutlineLocalLaundryService } from 'react-icons/md'
 import { LuParkingCircle, LuWind } from 'react-icons/lu'
 import { GiBarbecue } from 'react-icons/gi'
-import { RoomFeatureProps } from '@/constants'
-
-// interface RoomFeatureProps {
-// 	freeCancel?: boolean
-// 	selfCheckIn?: boolean
-// 	officeSpace?: boolean
-// 	hasMountainView?: boolean
-// 	hasShampoo?: boolean
-// 	hasFreeLaundry?: boolean
-// 	hasAirConditioner?: boolean
-// 	hasWifi?: boolean
-// 	hasBarbeque?: boolean
-// 	hasFreeParking?: boolean
-// }
+import { FormUrl, RoomFeatureProps } from '@/constants'
 
 export default function RoomRegisterFeature() {
   const router = useRouter()
@@ -58,7 +45,8 @@ export default function RoomRegisterFeature() {
       hasBarbeque: data.hasBarbeque,
       hasFreeParking: data.hasFreeParking,
     })
-    router.push('/rooms/register/image')
+    // router.push('/rooms/register/image')
+    router.push(FormUrl.IMAGE)
   }
 
   const onClick = (
@@ -67,6 +55,10 @@ export default function RoomRegisterFeature() {
   ) => {
     setValue(title, event?.target?.checked)
   }
+
+  useEffect(() => {
+    router.prefetch(FormUrl.IMAGE)
+  }, [router])
 
   useEffect(() => {
     if (roomForm) {

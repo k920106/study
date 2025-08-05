@@ -15,6 +15,7 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import { detailFilterState, filterState } from '@/atom'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
+import { FormUrl } from '@/constants'
 
 const LOGOUT_USER_MENU = [
   { id: 1, title: '로그인', url: '/users/signin' },
@@ -189,7 +190,8 @@ export default function Navbar() {
       <div className="grow basis-0 hidden md:flex gap-4 align-middle justify-end relative">
         {status === 'authenticated' ? (
           <Link
-            href={`/rooms/register/category`}
+            // href={`/rooms/register/category`}
+            href={FormUrl.CATEGORY}
             className="font-semibold text-sm my-auto px-4 py-3 rounded-full hover:bg-gray-50"
           >
             당신의 공간을 등록해주세요

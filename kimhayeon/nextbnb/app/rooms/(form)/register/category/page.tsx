@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import NextButton from '@/components/Form/NextButton'
 import Stepper from '@/components/Form/Stepper'
-import { CATEGORY_DATA } from '@/constants'
+import { CATEGORY_DATA, FormUrl } from '@/constants'
 
 import cn from 'classnames'
 import { useRecoilState } from 'recoil'
@@ -22,12 +22,17 @@ export default function RoomRegisterCategory() {
       ...roomForm,
       category: selectedCategory,
     })
-    router.push('/rooms/register/info')
+    // router.push('/rooms/register/info')
+    router.push(FormUrl.INFO)
   }
 
   useEffect(() => {
     setSelectedCategory(roomForm?.category || '')
   }, [roomForm])
+
+  useEffect(() => {
+    router.prefetch(FormUrl.INFO)
+  }, [router])
 
   return (
     <>
