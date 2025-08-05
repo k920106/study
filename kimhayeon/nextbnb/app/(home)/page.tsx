@@ -1,7 +1,5 @@
 'use client'
 
-// import _ from 'lodash'
-// import each from 'lodash/each'
 import { RoomType } from '@/interface'
 import CategoryList from '@/components/CategoryList'
 import { GridLayout, RoomItem } from '@/components/RoomList'
@@ -16,12 +14,6 @@ import { useRecoilValue } from 'recoil'
 import { filterState } from '@/atom'
 
 export default function Home() {
-  // const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  // _.each(arr, (num) => {
-  // each(arr, (num) => {
-  //   console.log('hello world')
-  // })
-
   const router = useRouter()
   const ref = useRef<HTMLDivElement | null>(null)
   const filterValue = useRecoilValue(filterState)
