@@ -9,6 +9,7 @@ import 'dayjs/locale/ko'
 import { useRouter } from 'next/navigation'
 import { calculatedFilterState } from '@/atom/selector'
 import { useEffect } from 'react'
+import { event } from '@/utils/gtag'
 
 export default function BookingSection({ data }: { data: RoomType }) {
   const router = useRouter()
@@ -28,10 +29,21 @@ export default function BookingSection({ data }: { data: RoomType }) {
     }
   }, [filterValue.checkIn, setFilterValue])
 
-  const handleSubmit = () =>
+  // const handleSubmit = () =>
+  //   router.push(
+  //     `/rooms/${data.id}/bookings?checkIn=${filterValue?.checkIn}&checkOut=${filterValue?.checkOut}&guestCount=${guestCount}&totalAmount=${totalAmount}&totalDays=${dayCount}`,
+  //   )
+  const handleSubmit = () => {
+    event({
+      action: 'click_booking',
+      category: 'booking',
+      label: `submit_booking_${data.id}`,
+      value: totalAmount,
+    })
     router.push(
       `/rooms/${data.id}/bookings?checkIn=${filterValue?.checkIn}&checkOut=${filterValue?.checkOut}&guestCount=${guestCount}&totalAmount=${totalAmount}&totalDays=${dayCount}`,
     )
+  }
 
   const onChangeCheckIn = (e: any) => {
     setFilterValue({
@@ -106,7 +118,6 @@ export default function BookingSection({ data }: { data: RoomType }) {
               type="button"
               disabled={!checkFormValid}
               onClick={handleSubmit}
-              // className="bg-rose-500 hover:bg-rose-600 text-white rounded-md py-2.5 w-full"
               className="bg-rose-500 hover:bg-rose-600 text-white rounded-md py-2.5 w-full disabled:bg-gray-300"
             >
               예약하기
@@ -119,11 +130,10 @@ export default function BookingSection({ data }: { data: RoomType }) {
         <div className="mt-4 flex flex-col gap-2 border-b border-b-gray-300 pb-4 text-xs md:text-sm">
           <div className="flex justify-between">
             <div className="text-gray-600 underline underline-offset-4">
-              {/*{data?.price?.toLocaleString()} x 5박*/}
               {data?.price?.toLocaleString()} x {dayCount}박
             </div>
             <div className="text-gray-500">
-              {/*₩271,470*/}₩{totalAmount?.toLocaleString()}
+              ₩{totalAmount?.toLocaleString()}
             </div>
           </div>
           <div className="flex justify-between">
@@ -134,9 +144,7 @@ export default function BookingSection({ data }: { data: RoomType }) {
           </div>
           <div className="flex justify-between mt-6">
             <div>총 합계</div>
-            <div>
-              {/*₩271,470*/}₩{totalAmount?.toLocaleString()}
-            </div>
+            <div>₩{totalAmount?.toLocaleString()}</div>
           </div>
         </div>
       </div>

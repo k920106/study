@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Toaster } from 'react-hot-toast'
 import { SessionProvider } from 'next-auth/react'
+import GoogleAnalytics from "@/app/googleAnalytics";
 
 interface Props {
   children?: React.ReactNode
@@ -18,7 +19,13 @@ export const NextProvider = ({ children }: Props) => {
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        <SessionProvider>{children}</SessionProvider>
+        {/*<SessionProvider>*/}
+        {/*  {children}*/}
+        {/*</SessionProvider>*/}
+        <SessionProvider>
+          <GoogleAnalytics />
+          {children}
+        </SessionProvider>
         <Toaster />
         <ReactQueryDevtools />
       </QueryClientProvider>

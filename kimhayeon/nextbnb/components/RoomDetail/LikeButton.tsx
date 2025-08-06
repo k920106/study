@@ -5,8 +5,8 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { useSession } from 'next-auth/react'
 import axios from 'axios'
 import { useQuery } from 'react-query'
+import { event } from '@/utils/gtag'
 
-// export default function LikeButton({data}: { data: RoomType }) {
 export default function LikeButton({ room }: { room: RoomType }) {
   const { data: session } = useSession()
 
@@ -23,11 +23,6 @@ export default function LikeButton({ room }: { room: RoomType }) {
       refetchOnWindowFocus: false,
     },
   )
-
-  // const toggleLike = () => {
-  // 	// /api/like POST 로직 추가
-  // 	toast.success('찜 목록에 추가했습니다.')
-  // }
   const toggleLike = async () => {
     // 찜하기 / 찜 취소하기 로직
     if (session?.user && room) {
@@ -40,12 +35,24 @@ export default function LikeButton({ room }: { room: RoomType }) {
         } else {
           toast.error('찜을 취소했습니다')
         }
+        event({
+          action: 'click_like',
+          category: 'like',
+          label: like.status === 201 ? 'create_like' : 'delete_like',
+          value: room.id,
+        })
         refetch()
       } catch (e) {
         console.log(e)
       }
     } else {
       toast.error('로그인 후 시도해주세요')
+      event({
+        action: 'click_like',
+        category: 'like',
+        label: 'need_login',
+        value: room.id,
+      })
     }
   }
 
@@ -55,9 +62,6 @@ export default function LikeButton({ room }: { room: RoomType }) {
       type="button"
       className="flex gap-2 items-center px-2 py-1.5 rounded-lg hover:bg-black/10"
     >
-      {/*<CiHeart/>*/}
-      {/*<span className="underline">저장</span>*/}
-      {/* 로그인된 사용자가 좋아요를 누른 경우 */}
       {roomData?.likes?.length ? (
         <>
           <AiFillHeart className="text-red-500 hover:text-red-600 focus:text-red-600" />
