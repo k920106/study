@@ -5,6 +5,9 @@ const nextConfig = {
         hostname: 'loremflickr.com',
       },
       {
+        hostname: 'picsum.photos',
+      },
+      {
         hostname: 'a0.muscache.com',
       },
       {

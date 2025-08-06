@@ -1,31 +1,30 @@
 import { PrismaClient } from '@prisma/client'
 import { fakerKO as faker } from '@faker-js/faker'
-import { CATEGORY } from '@/constants'
 
-// export const CATEGORY = [
-// 	'전망좋은',
-// 	'자연',
-// 	'동굴',
-// 	'캠핑장',
-// 	'방',
-// 	'한옥',
-// 	'해변',
-// 	'국립공원',
-// 	'인기',
-// 	'수영장',
-// 	'농장',
-// 	'통나무집',
-// 	'디자인',
-// 	'스키',
-// 	'호수',
-// 	'키즈',
-// 	'저택',
-// 	'신규',
-// 	'섬',
-// 	'주택',
-// 	'서핑',
-// 	'골프장',
-// ]
+const CATEGORY = [
+  '전망좋은',
+  '자연',
+  '동굴',
+  '캠핑장',
+  '방',
+  '한옥',
+  '해변',
+  '국립공원',
+  '인기',
+  '수영장',
+  '농장',
+  '통나무집',
+  '디자인',
+  '스키',
+  '호수',
+  '키즈',
+  '저택',
+  '신규',
+  '섬',
+  '주택',
+  '서핑',
+  '골프장',
+]
 
 const prisma = new PrismaClient()
 
@@ -54,26 +53,30 @@ async function seedRooms() {
       const roomData = {
         title: faker.lorem.words(),
         images: [
-          faker.image.urlLoremFlickr({
-            category: 'hotel',
-            width: 500,
-            height: 500,
-          }),
-          faker.image.urlLoremFlickr({
-            category: 'travel',
-            width: 500,
-            height: 500,
-          }),
-          faker.image.urlLoremFlickr({
-            category: 'nature',
-            width: 500,
-            height: 500,
-          }),
-          faker.image.urlLoremFlickr({
-            category: 'building',
-            width: 500,
-            height: 500,
-          }),
+          // faker.image.urlLoremFlickr({
+          //   category: 'hotel',
+          //   width: 500,
+          //   height: 500,
+          // }),
+          // faker.image.urlLoremFlickr({
+          //   category: 'travel',
+          //   width: 500,
+          //   height: 500,
+          // }),
+          // faker.image.urlLoremFlickr({
+          //   category: 'nature',
+          //   width: 500,
+          //   height: 500,
+          // }),
+          // faker.image.urlLoremFlickr({
+          //   category: 'building',
+          //   width: 500,
+          //   height: 500,
+          // }),
+          `https://picsum.photos/500/500?random=${Math.floor(Math.random() * 1000)}`,
+          `https://picsum.photos/500/500?random=${Math.floor(Math.random() * 1000)}`,
+          `https://picsum.photos/500/500?random=${Math.floor(Math.random() * 1000)}`,
+          `https://picsum.photos/500/500?random=${Math.floor(Math.random() * 1000)}`,
         ],
         lat: getRandomLatitude(),
         lng: getRandonLongtitude(),
@@ -150,8 +153,8 @@ async function seedFaqs() {
 }
 
 async function main() {
-  // await seedUsers()
-  // await seedRooms()
+  await seedUsers()
+  await seedRooms()
   await seedFaqs()
 }
 
@@ -162,5 +165,4 @@ main()
   .catch(async (e) => {
     console.error(e)
     await prisma.$disconnect()
-    process.exit(1)
   })

@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Toaster } from 'react-hot-toast'
 import { SessionProvider } from 'next-auth/react'
-import GoogleAnalytics from "@/app/googleAnalytics";
+import GoogleAnalytics from '@/app/googleAnalytics'
 
 interface Props {
   children?: React.ReactNode
