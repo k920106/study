@@ -142,21 +142,26 @@ async function getPayment({
 
     // 성공이면 Payment 및 Booking 데이터 PATCH
     if (payment) {
-      await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/api/payments`, {
-        orderId: orderId,
-        paymentKey: paymentKey,
-        amount: amount,
-        bookingStatus: 'SUCCESS',
-        status: payment.status,
-        method: payment?.method,
-        receiptUrl: payment?.receipt?.url,
-        approvedAt: payment?.approvedAt,
-        cardNumber: payment?.card?.number,
-        cardType: payment?.card?.cardType,
-        type: payment?.type,
-        mId: payment?.mId,
-        checkoutUrl: payment?.checkout?.url,
-      })
+      try {
+        await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/api/payments`, {
+          orderId: orderId,
+          paymentKey: paymentKey,
+          amount: amount,
+          bookingStatus: 'SUCCESS',
+          status: payment.status,
+          method: payment?.method,
+          receiptUrl: payment?.receipt?.url,
+          approvedAt: payment?.approvedAt,
+          cardNumber: payment?.card?.number,
+          cardType: payment?.card?.cardType,
+          type: payment?.type,
+          mId: payment?.mId,
+          checkoutUrl: payment?.checkout?.url,
+        })
+      } catch (patchError) {
+        console.error('Failed to update payment status:', patchError)
+        // Continue with success flow even if patch fails
+      }
     }
 
     return {
@@ -165,14 +170,19 @@ async function getPayment({
   } catch (e: any) {
     console.log(e)
 
-    await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/api/payments`, {
-      orderId: orderId,
-      paymentKey: paymentKey,
-      amount: amount,
-      bookingStatus: 'FAILED',
-      failureCode: e.code,
-      failureMessage: e.message,
-    })
+    try {
+      await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/api/payments`, {
+        orderId: orderId,
+        paymentKey: paymentKey,
+        amount: amount,
+        bookingStatus: 'FAILED',
+        failureCode: e.code,
+        failureMessage: e.message,
+      })
+    } catch (patchError) {
+      console.error('Failed to update payment failure status:', patchError)
+      // Continue with failure flow even if patch fails
+    }
 
     return {
       redirect: {

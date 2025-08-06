@@ -18,6 +18,21 @@ const nextConfig = {
       },
     ],
   },
+  webpack: (config, { dev, isServer }) => {
+    if (!dev && !isServer) {
+      config.optimization.splitChunks = {
+        ...config.optimization.splitChunks,
+        cacheGroups: {
+          ...config.optimization.splitChunks.cacheGroups,
+          default: {
+            ...config.optimization.splitChunks.cacheGroups.default,
+            chunks: 'all',
+          },
+        },
+      }
+    }
+    return config
+  },
 }
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({

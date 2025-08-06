@@ -160,6 +160,24 @@ async function getData(id: string) {
 
     return res.json()
   } catch (error) {
-    console.error(error)
+    console.error('Failed to fetch booking data:', error)
+    // Return fallback data to prevent build failures
+    return {
+      id: '',
+      checkIn: new Date().toISOString(),
+      checkOut: new Date().toISOString(),
+      guestCount: 0,
+      totalAmount: 0,
+      totalDays: 0,
+      room: {
+        id: '',
+        title: 'Booking not available',
+        category: 'Unknown',
+        price: 0,
+        images: ['/images/logo.png'],
+        comments: [],
+      },
+      payments: [],
+    }
   }
 }

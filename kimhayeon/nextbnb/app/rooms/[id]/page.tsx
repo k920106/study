@@ -49,6 +49,7 @@ async function getData(id: string) {
     return res.json()
   } catch (error) {
     console.error(error)
+    return null
   }
 }
 
@@ -59,22 +60,36 @@ export async function generateMetadata(
   // read route params
   const id = params.id
 
-  // fetch data
-  const room = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/rooms?id=${id}`,
-    {
-      next: {
-        revalidate: 60 * 60,
+  try {
+    // fetch data
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/rooms?id=${id}`,
+      {
+        next: {
+          revalidate: 60 * 60,
+        },
       },
-    },
-  ).then((res) => res.json())
+    )
 
-  // optionally access and extend (rather than replace) parent metadata
-  const prevKeywords = (await parent)?.keywords || []
+    if (!res.ok) {
+      throw new Error('Failed to fetch data')
+    }
 
-  return {
-    title: `Nextbnb 숙소 - ${room?.title}`,
-    description: room?.description,
-    keywords: [room?.category, ...prevKeywords],
+    const room = await res.json()
+
+    // optionally access and extend (rather than replace) parent metadata
+    const prevKeywords = (await parent)?.keywords || []
+
+    return {
+      title: `Nextbnb 숙소 - ${room?.title}`,
+      description: room?.description,
+      keywords: [room?.category, ...prevKeywords],
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      title: 'Nextbnb 숙소',
+      description: 'Nextbnb 숙소 정보',
+    }
   }
 }
